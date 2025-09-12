@@ -17,7 +17,7 @@ function App() {
 
         for (const tournament of tournaments) {
           try {
-            const response = await fetch(`/data/${tournament}.json`)
+            const response = await fetch(`./data/${tournament}.json`)
             if (response.ok) {
               const jsonData = await response.json()
               data[tournament] = jsonData
@@ -59,7 +59,7 @@ function App() {
             className="logo-link"
           >
             <img 
-              src="/logo_animation_mini1.gif" 
+              src="./logo_animation_mini1.gif" 
               alt="TEKKEN RIVALS Logo" 
               className="logo-animation"
             />

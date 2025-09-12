@@ -23,6 +23,17 @@ interface TournamentSummary {
 }
 
 const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => {
+  // Функция для получения ссылки на турнир
+  const getTournamentUrl = (tournamentId: string): string => {
+    const tournamentUrls: { [key: string]: string } = {
+      'one': 'https://challonge.com/TEKKENRIVALSONE',
+      'two': 'https://challonge.com/TEKKENRIVALSTWO',
+      'three': 'https://challonge.com/TEKKENRIVALSTHREE',
+      'four': 'https://challonge.com/TEKKENRIVALSFOUR'
+    };
+    return tournamentUrls[tournamentId] || '#';
+  };
+
   // Создаем сводку по каждому турниру
   const tournamentSummaries: TournamentSummary[] = Object.entries(tournamentData).map(([tournamentName, participants]) => {
     const results = processTournamentResults(participants);
@@ -130,7 +141,11 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
       {/* Статистика по каждому турниру */}
       <div className="tournaments-grid">
         {tournamentSummaries.map((tournament) => (
-          <div key={tournament.id} className="tournament-card">
+          <div 
+            key={tournament.id} 
+            className="tournament-card"
+            onClick={() => window.open(getTournamentUrl(tournament.id), '_blank')}
+          >
             <div className="tournament-header">
               <h4>{tournament.name}</h4>
               <span className="participants-count">{tournament.participantsCount} участников</span>

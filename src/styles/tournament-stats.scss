@@ -88,6 +88,13 @@
   background: $background-light;
   border: 2px solid $primary-color;
   color: $white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    @include card-shadow-hover;
+  }
 }
 
 .tournament-header {
