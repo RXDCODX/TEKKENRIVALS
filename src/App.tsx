@@ -67,7 +67,6 @@ function App() {
         </div>
         <p>Система подсчета очков за турниры</p>
         <div className="points-info">
-          <h3>Система подсчета очков</h3>
           <div className="points-grid">
             <span>1 место → 11 баллов</span>
             <span>2 место → 10 баллов</span>

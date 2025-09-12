@@ -1,6 +1,6 @@
 import React from 'react';
 import { TournamentParticipantsData, TournamentResult } from '../types';
-import { processTournamentResults, getPointsStatistics } from '../utils/scoring';
+import { processTournamentResults, getPointsStatistics, createPlayerRanking } from '../utils/scoring';
 
 interface TournamentStatsProps {
   tournamentData: {
@@ -69,6 +69,10 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
 
   // Общая статистика по всем турнирам
   const allResults = Object.values(tournamentData).flatMap(processTournamentResults);
+  
+  // Создаем рейтинг для подсчета уникальных игроков
+  const playerRankings = createPlayerRanking(allResults, tournamentSummaries.length);
+  
   const overallStats = getPointsStatistics(
     allResults.map((result, index) => ({
       player: {
@@ -89,6 +93,10 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
       points: result.points_earned,
     }))
   );
+  
+  // Обновляем количество игроков на основе уникальных игроков
+  overallStats.total_players = playerRankings.length;
+  overallStats.players_with_points = playerRankings.filter(player => player.points > 0).length;
 
   if (!tournamentSummaries.length) {
     return (
