@@ -84,6 +84,28 @@ export interface PlayerSummary {
   average_rank: number | null;
   total_tournaments: number;
   participation_rate: number;
+  total_points: number;
+  average_points: number;
+}
+
+/**
+ * Результат участника в турнире с очками
+ */
+export interface TournamentResult {
+  tournament_id: number;
+  final_rank: number;
+  points_earned: number;
+  participant_name: string;
+  challonge_username: string;
+}
+
+/**
+ * Рейтинг участника
+ */
+export interface PlayerRanking {
+  player: PlayerSummary;
+  position: number;
+  points: number;
 }
 
 /**

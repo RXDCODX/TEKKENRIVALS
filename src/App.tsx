@@ -1,34 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
+import TournamentAnalyzer from './components/TournamentAnalyzer'
+import { TournamentParticipantsData } from './types'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tournamentData, setTournamentData] = useState<{[key: string]: TournamentParticipantsData}>({})
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Загружаем данные турниров
+    const loadTournamentData = async () => {
+      try {
+        const tournaments = ['one', 'two', 'three', 'four']
+        const data: {[key: string]: TournamentParticipantsData} = {}
+
+        for (const tournament of tournaments) {
+          try {
+            const response = await fetch(`/data/${tournament}.json`)
+            if (response.ok) {
+              const jsonData = await response.json()
+              data[tournament] = jsonData
+            }
+          } catch (error) {
+            console.warn(`Не удалось загрузить данные турнира ${tournament}:`, error)
+          }
+        }
+
+        setTournamentData(data)
+      } catch (error) {
+        console.error('Ошибка при загрузке данных турниров:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadTournamentData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="app-loading">
+        <h1>TEKKEN RIVALS</h1>
+        <div className="loading-spinner"></div>
+        <p>Загрузка данных турниров...</p>
+      </div>
+    )
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app">
+      <header className="app-header">
+        <h1>TEKKEN RIVALS</h1>
+        <p>Система подсчета очков за турниры</p>
+        <div className="points-info">
+          <h3>Система очков:</h3>
+          <div className="points-grid">
+            <span>1 место → 11 очков</span>
+            <span>2 место → 10 очков</span>
+            <span>3 место → 8 очков</span>
+            <span>4 место → 7 очков</span>
+            <span>5 место → 6 очков</span>
+            <span>7 место → 5 очков</span>
+          </div>
+        </div>
+      </header>
+      
+      <main className="app-main">
+        <TournamentAnalyzer tournamentData={tournamentData} />
+      </main>
+    </div>
   )
 }
 
