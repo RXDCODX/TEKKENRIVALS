@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import './styles/main.scss'
 import TournamentAnalyzer from './components/TournamentAnalyzer'
+import TournamentStats from './components/TournamentStats'
 import { TournamentParticipantsData } from './types'
 
 function App() {
@@ -50,7 +51,13 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>TEKKEN RIVALS</h1>
+        <div className="logo-container">
+          <img 
+            src="/logo_animation_mini1.gif" 
+            alt="TEKKEN RIVALS Logo" 
+            className="logo-animation"
+          />
+        </div>
         <p>Система подсчета очков за турниры</p>
         <div className="points-info">
           <h3>Система очков:</h3>
@@ -66,7 +73,16 @@ function App() {
       </header>
       
       <main className="app-main">
-        <TournamentAnalyzer tournamentData={tournamentData} />
+        <div className="content-section">
+          <TournamentStats tournamentData={tournamentData} />
+        </div>
+        
+        <div className="section-divider"></div>
+        
+        <div className="content-section">
+          <h2 className="section-title">Рейтинг игроков</h2>
+          <TournamentAnalyzer tournamentData={tournamentData} />
+        </div>
       </main>
     </div>
   )

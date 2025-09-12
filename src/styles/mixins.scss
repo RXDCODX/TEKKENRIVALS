@@ -1,0 +1,91 @@
+// Миксины для TEKKEN RIVALS
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 4px 20px $shadow-light;
+}
+
+@mixin card-shadow-hover {
+  box-shadow: 0 8px 30px $shadow-medium;
+}
+
+@mixin gradient-text {
+  background: $secondary-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+@mixin responsive-grid($min-width: 200px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $spacing-lg;
+}
+
+@mixin hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    @include card-shadow-hover;
+  }
+}
+
+@mixin section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: $primary-color;
+  margin: $spacing-xxl 0 $spacing-xl 0;
+  text-shadow: 2px 2px 4px $shadow-light;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: $secondary-gradient;
+    border-radius: 2px;
+  }
+}
+
+@mixin stat-card {
+  @include flex-center;
+  gap: $spacing-md;
+  background: rgba(255, 255, 255, 0.2);
+  padding: $spacing-lg;
+  border-radius: $border-radius;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+@mixin tournament-card {
+  background: $white;
+  border-radius: $border-radius;
+  padding: 25px;
+  @include card-shadow;
+  @include hover-lift;
+}

@@ -1,0 +1,273 @@
+// Базовые стили для TEKKEN RIVALS
+@import 'variables';
+@import 'mixins';
+
+// Импорт шрифта Roboto
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+@font-face {
+  font-family: 'DrukTextWideCyr-HeavyItalic';
+  src: url('@/fonts/druktextwidecyr-heavyitalic.eot');
+  /* IE 9 Compatibility Mode */
+  src: url('@/fonts/druktextwidecyr-heavyitalic.eot?#iefix') format('embedded-opentype'),
+    /* IE < 9 */
+    url('@/fonts/druktextwidecyr-heavyitalic.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('@/fonts/druktextwidecyr-heavyitalic.woff') format('woff'),
+    /* Firefox >= 3.6, any other modern browser */
+    url('@/fonts/druktextwidecyr-heavyitalic.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+    url('@/fonts/druktextwidecyr-heavyitalic.svg#druktextwidecyr-heavyitalic') format('svg');
+  /* Chrome < 4, Legacy iOS */
+}
+
+body {
+  background-color: black;
+  font-family: $main-font;
+}
+
+#root {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  min-height: 100vh;
+  background: $background-dark;
+  color: $white;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-loading {
+  @include flex-center;
+  flex-direction: column;
+  min-height: 100vh;
+  color: $white;
+  text-align: center;
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: $spacing-xl;
+    text-shadow: 2px 2px 4px $shadow-medium;
+  }
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid $white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: $spacing-lg;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.app-header {
+  background: rgba(45, 45, 45, 0.95);
+  padding: $spacing-xl $spacing-lg;
+  margin: $spacing-lg;
+  text-align: center;
+  @include card-shadow;
+  backdrop-filter: blur(10px);
+  border: 2px solid $primary-color;
+  border-radius: $border-radius-large;
+
+  p {
+    font-size: $font-size-xl;
+    color: $primary-color;
+    margin-bottom: $spacing-xl;
+    font-weight: bold;
+  }
+}
+
+.logo-container {
+  @include flex-center;
+  margin-bottom: $spacing-sm;
+}
+
+.logo-animation {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: $spacing-sm;
+  @include card-shadow;
+  animation: logoFloat 3s ease-in-out infinite;
+  border: 3px solid $primary-color;
+}
+
+@keyframes logoFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.app-header h1 {
+  font-size: $font-size-header;
+  margin: 0;
+  @include gradient-text;
+  font-weight: bold;
+}
+
+.points-info {
+  background: $background-light;
+  border-radius: $border-radius;
+  padding: $spacing-lg;
+  max-width: 800px;
+  margin: 0 auto;
+  @include card-shadow;
+  border: 2px solid $primary-color;
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: $spacing-md;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+}
+
+.points-grid {
+  @include responsive-grid(180px);
+
+  span {
+    background: $background-dark;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-small;
+    font-weight: 500;
+    color: $primary-color;
+    @include card-shadow;
+    transition: transform 0.2s ease;
+    border: 1px solid $primary-color;
+
+    &:hover {
+      transform: translateY(-2px);
+      @include card-shadow-hover;
+      background: $primary-color;
+      color: $white;
+    }
+  }
+}
+
+.app-main {
+  flex: 1;
+  padding: 0;
+  background: transparent;
+  margin: $spacing-lg;
+}
+
+.section-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #667eea, #764ba2, transparent);
+  margin: $spacing-xxl 0;
+  border-radius: 2px;
+}
+
+.section-title {
+  @include section-title;
+}
+
+.content-section {
+  background: rgba(45, 45, 45, 0.95);
+  border-radius: $border-radius-large;
+  padding: $spacing-xl;
+  @include card-shadow;
+  margin-bottom: $spacing-lg;
+  border: 2px solid $primary-color;
+  color: $white;
+}
+
+// Адаптивность
+@media (max-width: $tablet) {
+  .logo-container {
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  .logo-animation {
+    width: 150px;
+    height: 150px;
+  }
+
+  .app-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .app-header p {
+    font-size: $font-size-md;
+  }
+
+  .points-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-main {
+    margin: $spacing-sm;
+  }
+
+  .content-section {
+    padding: $spacing-lg;
+    margin-bottom: $spacing-md;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin: $spacing-xl 0 $spacing-lg 0;
+  }
+
+  .section-divider {
+    margin: $spacing-xl 0;
+  }
+
+  #root {
+    padding: 0;
+  }
+}
+
+@media (max-width: $mobile) {
+  .app-header {
+    padding: $spacing-lg $spacing-md;
+  }
+
+  .logo-container {
+    gap: $spacing-sm;
+  }
+
+  .logo-animation {
+    width: 120px;
+    height: 120px;
+  }
+
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  .points-info {
+    padding: $spacing-md;
+  }
+
+  .content-section {
+    padding: $spacing-md;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,49 @@
+// Переменные для TEKKEN RIVALS - Темная тема
+$primary-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+$secondary-gradient: linear-gradient(45deg, #ff0000, #cc0000);
+
+// Цвета - Темная тема
+$primary-color: #ff0000;
+$secondary-color: #ff3333;
+$accent-color: #ff6666;
+$success-color: #00ff00;
+$text-light: #cccccc;
+$text-muted: #999999;
+$background-light: #2d2d2d;
+$background-dark: #1a1a1a;
+$white: #ffffff;
+$black: #000000;
+$shadow-light: rgba(255, 0, 0, 0.1);
+$shadow-medium: rgba(255, 0, 0, 0.2);
+$shadow-dark: rgba(255, 0, 0, 0.3);
+
+// Размеры
+$border-radius: 15px;
+$border-radius-small: 8px;
+$border-radius-large: 20px;
+
+// Отступы
+$spacing-xs: 5px;
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-lg: 20px;
+$spacing-xl: 30px;
+$spacing-xxl: 40px;
+
+// Шрифты
+$main-font: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+// Размеры шрифтов
+$font-size-xs: 0.8rem;
+$font-size-sm: 0.9rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.1rem;
+$font-size-xl: 1.2rem;
+$font-size-xxl: 1.4rem;
+$font-size-title: 2.5rem;
+$font-size-header: 3.5rem;
+
+// Брейкпоинты
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;

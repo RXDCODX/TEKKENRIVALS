@@ -1,0 +1,205 @@
+// Стили для компонента TournamentStats
+@import 'variables';
+@import 'mixins';
+
+.tournament-stats {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  font-family: $main-font;
+  color: $white;
+
+  h2 {
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: $spacing-xxl;
+    font-size: $font-size-title;
+    text-shadow: 2px 2px 4px $shadow-light;
+    font-weight: bold;
+  }
+
+  h3 {
+    color: $secondary-color;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  h4 {
+    color: $primary-color;
+    margin: 0 0 $spacing-sm 0;
+    font-size: $font-size-xxl;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  h5 {
+    color: $secondary-color;
+    margin: 0 0 $spacing-md 0;
+    font-size: $font-size-lg;
+    font-weight: bold;
+  }
+}
+
+.overall-stats {
+  background: $primary-gradient;
+  border-radius: $border-radius-large;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-xxl;
+  color: $white;
+  @include card-shadow-hover;
+}
+
+.stats-grid {
+  @include responsive-grid(200px);
+}
+
+.stat-card {
+  @include stat-card;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  display: block;
+}
+
+.stat-label {
+  font-size: $font-size-sm;
+  opacity: 0.9;
+  display: block;
+}
+
+.tournaments-grid {
+  @include responsive-grid(350px);
+}
+
+.tournament-card {
+  @include tournament-card;
+  background: $background-light;
+  border: 2px solid $primary-color;
+  color: $white;
+}
+
+.tournament-header {
+  @include flex-between;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-md;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.participants-count {
+  background: $primary-color;
+  color: $black;
+  padding: $spacing-xs 12px;
+  border-radius: 20px;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  border: 1px solid $white;
+}
+
+.tournament-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.tournament-stat {
+  @include flex-between;
+  padding: $spacing-sm;
+  background: $background-dark;
+  border-radius: $border-radius-small;
+  border: 1px solid $primary-color;
+
+  .stat-label {
+    color: $text-light;
+    font-weight: 500;
+  }
+
+  .stat-value {
+    color: $primary-color;
+    font-weight: bold;
+    font-size: $font-size-lg;
+  }
+}
+
+.tournament-top3 {
+  background: $background-dark;
+  border-radius: $spacing-sm;
+  padding: $spacing-md;
+  border: 1px solid $primary-color;
+}
+
+.top3-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.top3-item {
+  @include flex-center;
+  gap: $spacing-md;
+  padding: $spacing-sm;
+  background: $background-light;
+  border-radius: $border-radius-small;
+  @include card-shadow;
+  border: 1px solid $primary-color;
+  color: $white;
+}
+
+.rank {
+  font-weight: bold;
+  color: $primary-color;
+  min-width: 30px;
+  text-align: center;
+}
+
+.player-name {
+  flex: 1;
+  font-weight: 500;
+  color: $primary-color;
+}
+
+.points {
+  color: $success-color;
+  font-weight: bold;
+  font-size: $font-size-sm;
+}
+
+// Адаптивность
+@media (max-width: $tablet) {
+  .tournament-stats {
+    padding: $spacing-sm;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tournaments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tournament-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}

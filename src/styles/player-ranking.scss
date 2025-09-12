@@ -1,0 +1,146 @@
+// Стили для компонента PlayerRanking
+@import 'variables';
+@import 'mixins';
+
+.ranking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  font-family: $main-font;
+  color: $white;
+
+  h2 {
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    font-size: $font-size-title;
+    font-weight: bold;
+  }
+
+  h3 {
+    color: $secondary-color;
+    margin-bottom: $spacing-lg;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.statistics {
+  background: $background-light;
+  border-radius: $spacing-sm;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  @include card-shadow;
+  border: 2px solid $primary-color;
+}
+
+.stats-grid {
+  @include responsive-grid(200px);
+}
+
+.stat-item {
+  @include flex-between;
+  padding: $spacing-sm;
+  background: $background-dark;
+  border-radius: $border-radius-small;
+  @include card-shadow;
+  border: 1px solid $primary-color;
+  color: $white;
+}
+
+.stat-label {
+  font-weight: 500;
+  color: $text-light;
+}
+
+.stat-value {
+  font-weight: bold;
+  color: $primary-color;
+  font-size: $font-size-lg;
+}
+
+.rankings-table {
+  background: $background-light;
+  border-radius: $spacing-sm;
+  overflow: hidden;
+  @include card-shadow;
+  border: 2px solid $primary-color;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: $primary-color;
+  color: $white;
+  padding: $spacing-md $spacing-sm;
+  text-align: left;
+  font-weight: 600;
+  font-size: $font-size-sm;
+}
+
+td {
+  padding: 12px $spacing-sm;
+  border-bottom: 1px solid $primary-color;
+  font-size: $font-size-sm;
+  color: $white;
+}
+
+tr:hover {
+  background: $background-dark;
+}
+
+.position {
+  font-weight: bold;
+  color: $primary-color;
+  text-align: center;
+  position: relative;
+}
+
+.medal {
+  margin-left: 8px;
+  font-size: $font-size-xl;
+}
+
+.player-name {
+  font-weight: 600;
+  color: $primary-color;
+}
+
+.username {
+  color: $text-muted;
+  font-style: italic;
+}
+
+.points {
+  font-weight: bold;
+  color: $success-color;
+  font-size: $font-size-lg;
+  text-align: center;
+}
+
+// Адаптивность
+@media (max-width: $tablet) {
+  .ranking-container {
+    padding: $spacing-sm;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: $font-size-xs;
+  }
+
+  th,
+  td {
+    padding: 8px $spacing-xs;
+  }
+}
