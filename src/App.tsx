@@ -52,11 +52,18 @@ function App() {
     <div className="app">
       <header className="app-header">
         <div className="logo-container">
-          <img 
-            src="/logo_animation_mini1.gif" 
-            alt="TEKKEN RIVALS Logo" 
-            className="logo-animation"
-          />
+          <a 
+            href="https://discord.gg/HhNVKBuM8A" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="logo-link"
+          >
+            <img 
+              src="/logo_animation_mini1.gif" 
+              alt="TEKKEN RIVALS Logo" 
+              className="logo-animation"
+            />
+          </a>
         </div>
         <p>Система подсчета очков за турниры</p>
         <div className="points-info">

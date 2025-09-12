@@ -62,7 +62,11 @@ const PlayerRanking: React.FC<PlayerRankingProps> = ({ rankings }) => {
           </thead>
           <tbody>
             {rankings.map((ranking) => (
-              <tr key={ranking.player.challonge_username}>
+              <tr 
+                key={ranking.player.challonge_username}
+                className="ranking-row"
+                onClick={() => window.open(`https://challonge.com/users/${ranking.player.challonge_username}`, '_blank')}
+              >
                 <td className="position">
                   {ranking.position}
                   {ranking.position <= 3 && (
@@ -72,7 +76,9 @@ const PlayerRanking: React.FC<PlayerRankingProps> = ({ rankings }) => {
                     </span>
                   )}
                 </td>
-                <td className="player-name">{ranking.player.name}</td>
+                <td className="player-name">
+                  {ranking.player.name}
+                </td>
                 <td className="username">{ranking.player.challonge_username}</td>
                 <td className="points">{ranking.points}</td>
                 <td>{ranking.player.tournaments_participated}</td>

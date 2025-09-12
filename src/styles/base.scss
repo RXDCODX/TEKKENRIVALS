@@ -83,6 +83,16 @@ body {
   margin-bottom: $spacing-sm;
 }
 
+.logo-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
 .logo-animation {
   animation: logoFloat 3s ease-in-out infinite;
 }
@@ -124,7 +134,9 @@ body {
 }
 
 .points-grid {
-  @include responsive-grid(180px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-lg;
 
   span {
     background: $background-dark;
@@ -141,6 +153,10 @@ body {
       @include card-shadow-hover;
       background: $primary-color;
       color: $white;
+    }
+
+    &:nth-last-child(-n+2) {
+      grid-column: span 2;
     }
   }
 }
@@ -194,7 +210,11 @@ body {
   }
 
   .points-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+
+    span:nth-last-child(-n+2) {
+      grid-column: span 1;
+    }
   }
 
   .app-main {

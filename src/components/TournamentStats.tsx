@@ -48,9 +48,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
     );
 
     return {
-      name: tournamentName.toUpperCase() === 'ONE' 
-        ? <>Турнир <br />ONE</>
-        : `Турнир ${tournamentName.toUpperCase()}`,
+      name: `Турнир ${tournamentName.toUpperCase()}`,
       id: tournamentName,
       participantsCount: participants.length,
       results,
@@ -165,14 +163,20 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
                   .sort((a, b) => a.final_rank - b.final_rank)
                   .slice(0, 3)
                   .map((result, index) => (
-                    <div key={index} className="top3-item">
+                    <div 
+                      key={index} 
+                      className="top3-item"
+                      onClick={() => window.open(`https://challonge.com/users/${result.challonge_username}`, '_blank')}
+                    >
                       <span className="rank">
                         {result.final_rank}
                         {result.final_rank === 1 && '🥇'}
                         {result.final_rank === 2 && '🥈'}
                         {result.final_rank === 3 && '🥉'}
                       </span>
-                      <span className="player-name">{result.participant_name}</span>
+                      <span className="player-name">
+                        {result.participant_name}
+                      </span>
                       <span className="points">{result.points_earned} очков</span>
                     </div>
                   ))}

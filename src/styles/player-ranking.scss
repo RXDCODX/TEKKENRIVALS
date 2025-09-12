@@ -22,6 +22,7 @@
     margin-bottom: $spacing-lg;
     font-size: 1.5rem;
     font-weight: bold;
+    text-align: center;
   }
 }
 
@@ -73,7 +74,7 @@ table {
 }
 
 th {
-  background: $primary-color;
+  background: #ff00008a;
   color: $white;
   padding: $spacing-md $spacing-sm;
   text-align: left;
@@ -92,6 +93,15 @@ tr:hover {
   background: $background-dark;
 }
 
+.ranking-row {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background: $background-dark;
+  }
+}
+
 .position {
   font-weight: bold;
   color: $primary-color;
@@ -107,6 +117,17 @@ tr:hover {
 .player-name {
   font-weight: 600;
   color: $primary-color;
+}
+
+.player-link {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $secondary-color;
+    text-decoration: underline;
+  }
 }
 
 .username {
