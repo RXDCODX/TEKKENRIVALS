@@ -5,21 +5,6 @@
 // Импорт шрифта Roboto
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
-@font-face {
-  font-family: 'DrukTextWideCyr-HeavyItalic';
-  src: url('@/fonts/druktextwidecyr-heavyitalic.eot');
-  /* IE 9 Compatibility Mode */
-  src: url('@/fonts/druktextwidecyr-heavyitalic.eot?#iefix') format('embedded-opentype'),
-    /* IE < 9 */
-    url('@/fonts/druktextwidecyr-heavyitalic.woff2') format('woff2'),
-    /* Super Modern Browsers */
-    url('@/fonts/druktextwidecyr-heavyitalic.woff') format('woff'),
-    /* Firefox >= 3.6, any other modern browser */
-    url('@/fonts/druktextwidecyr-heavyitalic.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-    url('@/fonts/druktextwidecyr-heavyitalic.svg#druktextwidecyr-heavyitalic') format('svg');
-  /* Chrome < 4, Legacy iOS */
-}
 
 body {
   background-color: black;
@@ -99,13 +84,7 @@ body {
 }
 
 .logo-animation {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-  border-radius: $spacing-sm;
-  @include card-shadow;
   animation: logoFloat 3s ease-in-out infinite;
-  border: 3px solid $primary-color;
 }
 
 @keyframes logoFloat {
@@ -202,8 +181,8 @@ body {
   }
 
   .logo-animation {
-    width: 150px;
-    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
   }
 
   .app-header h1 {
@@ -251,8 +230,8 @@ body {
   }
 
   .logo-animation {
-    width: 120px;
-    height: 120px;
+    max-width: 120px;
+    max-height: 120px;
   }
 
   .app-header h1 {
