@@ -67,14 +67,18 @@ function App() {
         </div>
         <p>Система подсчета очков за турниры</p>
         <div className="points-info">
-          <h3>Система очков:</h3>
+          <h3>Система подсчета очков</h3>
           <div className="points-grid">
-            <span>1 место → 11 очков</span>
-            <span>2 место → 10 очков</span>
-            <span>3 место → 8 очков</span>
-            <span>4 место → 7 очков</span>
-            <span>5 место → 6 очков</span>
-            <span>7 место → 5 очков</span>
+            <span>1 место → 11 баллов</span>
+            <span>2 место → 10 баллов</span>
+            <span>3 место → 8 баллов</span>
+            <span>4 место → 7 баллов</span>
+            <span>5-6 место → 6 баллов</span>
+            <span>7-8 место → 5 баллов</span>
+            <span>9-12 место → 4 балла</span>
+            <span>13-16 место → 3 балла</span>
+            <span>17-32 место → 2 балла</span>
+            <span>33+ место → 1 балл</span>
           </div>
         </div>
       </header>

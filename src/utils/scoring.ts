@@ -10,13 +10,17 @@ import {
 } from "../types";
 
 /**
- * Система очков за места в турнире
- * 1 место - 11 очков
- * 2 место - 10 очков
- * 3 место - 8 очков
- * 4 место - 7 очков
- * 5 место - 6 очков
- * 7 место - 5 очков
+ * Система очков за места в турнире - TEKKEN RIVALS FINALS
+ * 1 место — 11 баллов
+ * 2 место — 10 баллов
+ * 3 место — 8 баллов
+ * 4 место — 7 баллов
+ * 5-6 место — 6 баллов
+ * 7-8 место — 5 баллов
+ * 9-12 место — 4 балла
+ * 13-16 место — 3 балла
+ * 17-32 место — 2 балла
+ * 33 место и ниже — 1 балл
  */
 export const POINTS_SYSTEM: Record<number, number> = {
   1: 11,
@@ -24,7 +28,33 @@ export const POINTS_SYSTEM: Record<number, number> = {
   3: 8,
   4: 7,
   5: 6,
+  6: 6,
   7: 5,
+  8: 5,
+  9: 4,
+  10: 4,
+  11: 4,
+  12: 4,
+  13: 3,
+  14: 3,
+  15: 3,
+  16: 3,
+  17: 2,
+  18: 2,
+  19: 2,
+  20: 2,
+  21: 2,
+  22: 2,
+  23: 2,
+  24: 2,
+  25: 2,
+  26: 2,
+  27: 2,
+  28: 2,
+  29: 2,
+  30: 2,
+  31: 2,
+  32: 2,
 };
 
 /**
@@ -37,7 +67,17 @@ export function getPointsForRank(rank: number): number {
     return 0;
   }
 
-  return POINTS_SYSTEM[rank] || 0;
+  // Если место есть в системе очков, возвращаем его
+  if (POINTS_SYSTEM[rank]) {
+    return POINTS_SYSTEM[rank];
+  }
+
+  // Для мест 33 и ниже возвращаем 1 балл
+  if (rank >= 33) {
+    return 1;
+  }
+
+  return 0;
 }
 
 /**
@@ -116,12 +156,54 @@ export function createPlayerSummary(
   const ranks = results.map((r) => r.final_rank).filter((rank) => rank > 0);
   const points = results.map((r) => r.points_earned);
 
-  const firstResult = results[0];
+  // Специальная обработка для Shadoeshka
+  const isShadoeshka = results.some(
+    (r) =>
+      r.participant_name.toLowerCase().includes("shadoeshka") ||
+      (r.challonge_username &&
+        r.challonge_username.toLowerCase().includes("shadoe"))
+  );
+
+  let bestName: string;
+  let bestUsername: string;
+
+  if (isShadoeshka) {
+    // Для Shadoeshka используем фиксированные значения
+    bestName = "Shadoeshka";
+    bestUsername = "_shadoe_";
+  } else {
+    // Выбираем лучшее имя и username из всех результатов
+    bestName = results.reduce((best, current) => {
+      // Предпочитаем имя с большей длиной (более полное)
+      return current.participant_name.length > best.participant_name.length
+        ? current
+        : best;
+    }).participant_name;
+
+    bestUsername =
+      results.reduce((best, current) => {
+        // Предпочитаем непустой username
+        if (!best.challonge_username && current.challonge_username) {
+          return current;
+        }
+        if (best.challonge_username && !current.challonge_username) {
+          return best;
+        }
+        // Если оба есть, выбираем более длинный
+        if (best.challonge_username && current.challonge_username) {
+          return current.challonge_username.length >
+            best.challonge_username.length
+            ? current
+            : best;
+        }
+        return best;
+      }).challonge_username || "";
+  }
 
   return {
-    name: firstResult.participant_name,
-    username: firstResult.challonge_username,
-    challonge_username: firstResult.challonge_username,
+    name: bestName,
+    username: bestUsername,
+    challonge_username: bestUsername,
     challonge_user_id: 0, // Будет заполнено при обработке
     tournaments_participated: results.length,
     best_rank: ranks.length > 0 ? Math.min(...ranks) : null,
@@ -151,15 +233,54 @@ export function createPlayerSummary(
  * @param totalTournaments - общее количество турниров
  * @returns отсортированный рейтинг игроков
  */
+/**
+ * Нормализовать имя игрока для группировки
+ * @param name - имя игрока
+ * @param username - username игрока
+ * @returns нормализованный ключ для группировки
+ */
+function normalizePlayerKey(name: string, username: string | null): string {
+  // Приводим к нижнему регистру и убираем лишние символы
+  const normalizedName = name.toLowerCase().trim();
+  const normalizedUsername = username ? username.toLowerCase().trim() : "";
+
+  // Специальное правило для Shadoeshka
+  if (
+    normalizedName.includes("shadoeshka") ||
+    normalizedUsername.includes("shadoe")
+  ) {
+    return "shadoeshka";
+  }
+
+  // Если username пустой, используем только имя
+  if (!normalizedUsername) {
+    return normalizedName;
+  }
+
+  // Если имя и username похожи (содержат одинаковые части), используем username
+  if (
+    normalizedName.includes(normalizedUsername) ||
+    normalizedUsername.includes(normalizedName)
+  ) {
+    return normalizedUsername;
+  }
+
+  // Иначе используем комбинацию
+  return `${normalizedName}_${normalizedUsername}`;
+}
+
 export function createPlayerRanking(
   allResults: TournamentResult[],
   totalTournaments: number
 ): PlayerRanking[] {
-  // Группируем результаты по игрокам
+  // Группируем результаты по игрокам с нормализацией
   const playerResultsMap = new Map<string, TournamentResult[]>();
 
   for (const result of allResults) {
-    const key = result.challonge_username;
+    const key = normalizePlayerKey(
+      result.participant_name,
+      result.challonge_username
+    );
     if (!playerResultsMap.has(key)) {
       playerResultsMap.set(key, []);
     }

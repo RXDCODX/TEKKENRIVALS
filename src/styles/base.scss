@@ -135,7 +135,7 @@ body {
 
 .points-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: $spacing-lg;
 
   span {
@@ -153,10 +153,6 @@ body {
       @include card-shadow-hover;
       background: $primary-color;
       color: $white;
-    }
-
-    &:nth-last-child(-n+2) {
-      grid-column: span 2;
     }
   }
 }
@@ -210,11 +206,7 @@ body {
   }
 
   .points-grid {
-    grid-template-columns: 1fr 1fr;
-
-    span:nth-last-child(-n+2) {
-      grid-column: span 1;
-    }
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .app-main {
