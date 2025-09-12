@@ -3,7 +3,6 @@
  */
 
 import {
-  TournamentParticipant,
   TournamentParticipantsData,
   PlayerSummary,
   TournamentResult,
@@ -171,7 +170,7 @@ export function createPlayerRanking(
   const rankings: PlayerRanking[] = [];
   let position = 1;
 
-  for (const [username, results] of playerResultsMap) {
+  for (const [, results] of playerResultsMap) {
     const playerSummary = createPlayerSummary(results, totalTournaments);
     rankings.push({
       player: playerSummary,

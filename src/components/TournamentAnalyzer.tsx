@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TournamentParticipantsData } from '../types';
 import { 
   processTournamentResults, 
-  createPlayerRanking,
-  getPointsStatistics 
+  createPlayerRanking
 } from '../utils/scoring';
 import PlayerRanking from './PlayerRanking';
 
@@ -28,7 +27,7 @@ const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData 
       const allResults: any[] = [];
       const tournamentIds = new Set<number>();
 
-      Object.entries(tournamentData).forEach(([tournamentName, participants]) => {
+      Object.entries(tournamentData).forEach(([, participants]) => {
         const results = processTournamentResults(participants);
         allResults.push(...results);
         
