@@ -65,6 +65,19 @@ function App() {
 
   return (
     <div className="app">
+      {/* Фоновое видео */}
+      <video 
+        className="background-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
+        <source src="./background.mp4" type="video/mp4" />
+        Ваш браузер не поддерживает видео элемент.
+      </video>
+      
       {/* Заставка поверх основного контента */}
       {showSplash && <SplashScreen onAnimationComplete={handleSplashComplete} />}
       

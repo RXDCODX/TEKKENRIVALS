@@ -11,13 +11,34 @@
   background: $black;
   z-index: 9999;
   @include flex-center;
+  flex-direction: column;
   transition: opacity 0.5s ease-out;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
+  touch-action: manipulation;
+
+  &.waiting {
+    .splash-logo {
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+  }
+
+  &.preparing {
+    .splash-logo {
+      animation: logoFloat 3s ease-in-out forwards;
+    }
+  }
 
   &.animating {
     animation: fadeBackground 3s ease-in-out forwards;
+    cursor: default;
 
     .splash-logo-container {
       animation: moveToHeader 3s ease-in-out forwards;
+    }
+
+    .splash-logo {
+      animation: none; // Останавливаем плавание во время перемещения
     }
   }
 }
@@ -33,7 +54,37 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  animation: logoFloat 3s ease-in-out infinite;
+}
+
+.splash-hint {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+
+  p {
+    color: $primary-color;
+    font-size: $font-size-lg;
+    font-weight: 500;
+    margin: 0;
+    text-shadow: 2px 2px 4px $shadow-light;
+    animation: pulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 
 @keyframes moveToHeader {
@@ -86,12 +137,24 @@
     width: 320px;
     height: 180px;
   }
+
+  .splash-hint {
+    bottom: 8%;
+
+    p {
+      font-size: $font-size-md;
+    }
+  }
 }
 
 @include tablet-and-down {
   .splash-logo-container {
     width: 480px;
     height: 270px;
+  }
+
+  .splash-hint {
+    bottom: 8%;
   }
 }
 
@@ -100,5 +163,13 @@
   .splash-logo-container {
     width: 280px;
     height: 158px;
+  }
+
+  .splash-hint {
+    bottom: 6%;
+
+    p {
+      font-size: $font-size-sm;
+    }
   }
 }
