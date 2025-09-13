@@ -34,6 +34,8 @@
     line-height: 1.2;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0;
 
     >span:first-child {
       font-size: $font-size-sm;
@@ -130,7 +132,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-start;
+  padding-top: 0;
 
   .twitch-link {
     font-size: 0.8rem;
@@ -140,6 +143,20 @@
     display: inline-flex;
     align-items: center;
     position: relative;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      font-size: inherit;
+      text-transform: inherit;
+      font-weight: inherit;
+      position: relative;
+      z-index: 999999;
+
+      &:hover {
+        color: #1ed760;
+      }
+    }
 
     .underline {
       position: absolute;
