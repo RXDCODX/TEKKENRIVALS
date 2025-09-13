@@ -166,76 +166,71 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
         {tournamentSummaries.map((tournament) => (
           <div 
             key={tournament.id} 
-            className="tournament-card clickable"
+            className={`tournament-card clickable tournament-${tournament.id}`}
             onClick={() => window.open(getTournamentUrl(tournament.id), '_blank')}
           >
-            <div className="tournament-header">
-              <h4><span>TEKKEN RIVALS {" "}</span><span>{tournament.name}</span></h4>
-              <div className="participants-count">
-                <span title="Количество участников">🟢{tournament.participantsCount}</span>
-                <div className="twitch-link">
-                  <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
-                    <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
-                    <rect x="1700" y="550" fill="#29ffa7" width="200" height="600"/>
-                    <rect x="1150" y="550" fill="#29ffa7" width="200" height="600"/>
-                  </svg>
-                  <a 
-                    href="https://twitch.tv/AVICII75" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    twitch.tv/AVICII75
-                  </a>
-                  <div className="underline"></div>
+            <div className="card-inner">
+              {/* Лицевая сторона карты */}
+              <div className="card-front">
+                <div className="tournament-header">
+                  <h4><span>TEKKEN RIVALS {" "}</span><span>{tournament.name}</span></h4>
+                  <div className="participants-count">
+                    <span title="Количество участников">🟢{tournament.participantsCount}</span>
+                    <div className="twitch-link">
+                      <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
+                        <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
+                        <rect x="1700" y="550" fill="#29ffa7" width="200" height="600"/>
+                        <rect x="1150" y="550" fill="#29ffa7" width="200" height="600"/>
+                      </svg>
+                      <a 
+                        href="https://twitch.tv/AVICII75" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        twitch.tv/AVICII75
+                      </a>
+                      <div className="underline"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Топ-3 турнира */}
+                <div className="tournament-top3">
+                  <h5>Топ-3 турнира:</h5>
+                  <div className="top3-list">
+                    {tournament.results
+                      .sort((a, b) => a.final_rank - b.final_rank)
+                      .slice(0, 3)
+                      .map((result, index) => (
+                        <div 
+                          key={index} 
+                          className="top3-item clickable"
+                          onClick={() => window.open(`https://challonge.com/users/${result.challonge_username}`, '_blank')}
+                        >
+                          <span className="rank">
+                            {result.final_rank}
+                            {result.final_rank === 1 && '🥇'}
+                            {result.final_rank === 2 && '🥈'}
+                            {result.final_rank === 3 && '🥉'}
+                          </span>
+                          <span className="player-name">
+                            {result.participant_name}
+                          </span>
+                          <span className="points">{result.points_earned} очков</span>
+                        </div>
+                      ))}
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            {/* <div className="tournament-stats-grid">
-              <div className="tournament-stat">
-                <span className="stat-label">Участников:</span>
-                <span className="stat-value">{tournament.statistics.total_players}</span>
-              </div>
-              <div className="tournament-stat">
-                <span className="stat-label">С очками:</span>
-                <span className="stat-value">{tournament.statistics.players_with_points}</span>
-              </div>
-              <div className="tournament-stat">
-                <span className="stat-label">Макс. очки:</span>
-                <span className="stat-value">{tournament.statistics.max_points}</span>
-              </div>
-              <div className="tournament-stat">
-                <span className="stat-label">Средние очки:</span>
-                <span className="stat-value">{tournament.statistics.average_points}</span>
-              </div>
-            </div> */}
 
-            {/* Топ-3 турнира */}
-            <div className="tournament-top3">
-              <h5>Топ-3 турнира:</h5>
-              <div className="top3-list">
-                {tournament.results
-                  .sort((a, b) => a.final_rank - b.final_rank)
-                  .slice(0, 3)
-                  .map((result, index) => (
-                    <div 
-                      key={index} 
-                      className="top3-item clickable"
-                      onClick={() => window.open(`https://challonge.com/users/${result.challonge_username}`, '_blank')}
-                    >
-                      <span className="rank">
-                        {result.final_rank}
-                        {result.final_rank === 1 && '🥇'}
-                        {result.final_rank === 2 && '🥈'}
-                        {result.final_rank === 3 && '🥉'}
-                      </span>
-                      <span className="player-name">
-                        {result.participant_name}
-                      </span>
-                      <span className="points">{result.points_earned} очков</span>
-                    </div>
-                  ))}
+              {/* Обратная сторона карты с изображением */}
+              <div className="card-back">
+                <img 
+                  src={`/TEKKENRIVALS/R${tournament.tournamentNumber}.png`} 
+                  alt={`TEKKEN RIVALS ${tournament.name}`}
+                  className="tournament-image"
+                />
               </div>
             </div>
           </div>

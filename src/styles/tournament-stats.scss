@@ -151,14 +151,95 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
   touch-action: manipulation;
+  position: relative;
+  perspective: 1000px;
 
+  // Контейнер для 3D эффекта
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+  }
+
+  // Лицевая сторона карты
+  .card-front {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    z-index: 2;
+  }
+
+  // Обратная сторона карты с изображением
+  .card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: $border-radius-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 10, 10, 0.9);
+      z-index: 1;
+    }
+
+    .tournament-image {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: $border-radius-large;
+    }
+  }
+
+  // Анимация переворачивания при наведении
   &:hover {
+    .card-inner {
+      transform: rotateY(180deg);
+    }
+
     transform: translateY(-5px);
     @include card-shadow-hover;
   }
 
   &:active {
     transform: translateY(-2px) scale(0.98);
+  }
+
+  // Специальные фоны для каждого турнира
+  &.tournament-one .card-back {
+    background-image: url('/TEKKENRIVALS/R1.png');
+  }
+
+  &.tournament-two .card-back {
+    background-image: url('/TEKKENRIVALS/R2.png');
+  }
+
+  &.tournament-three .card-back {
+    background-image: url('/TEKKENRIVALS/R3.png');
+  }
+
+  &.tournament-four .card-back {
+    background-image: url('/TEKKENRIVALS/R4.png');
   }
 }
 
@@ -359,6 +440,21 @@
   font-size: $font-size-sm;
 }
 
+// Отключение 3D эффектов для устройств с ограниченной производительностью
+@media (prefers-reduced-motion: reduce) {
+  .tournament-card {
+    .card-inner {
+      transition: none;
+    }
+
+    &:hover {
+      .card-inner {
+        transform: none;
+      }
+    }
+  }
+}
+
 // Адаптивность - Планшеты и меньше
 @include tablet-and-down {
   .tournament-stats {
@@ -408,6 +504,17 @@
 
   .tournament-card {
     padding: $spacing-md;
+
+    // Отключаем 3D эффект на мобильных устройствах для лучшей производительности
+    .card-inner {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      .card-inner {
+        transform: none; // Отключаем переворачивание на мобильных
+      }
+    }
   }
 
   .tournament-header {
@@ -527,6 +634,17 @@
 
   .tournament-card {
     padding: $spacing-sm;
+
+    // Отключаем 3D эффект на мобильных устройствах
+    .card-inner {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      .card-inner {
+        transform: none; // Отключаем переворачивание на мобильных
+      }
+    }
   }
 
   .tournament-header {
@@ -635,6 +753,17 @@
 
   .tournament-card {
     padding: $spacing-xs;
+
+    // Отключаем 3D эффект на очень маленьких мобильных устройствах
+    .card-inner {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      .card-inner {
+        transform: none; // Отключаем переворачивание на мобильных
+      }
+    }
   }
 
   .tournament-header {
