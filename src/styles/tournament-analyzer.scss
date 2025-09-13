@@ -32,12 +32,86 @@
 
   .no-data-container {
     text-align: center;
-    padding: $spacing-xxl;
+    @include responsive-padding($spacing-lg, $spacing-xl, $spacing-xxl);
     color: $text-light;
 
     h2 {
       color: $primary-color;
       margin-bottom: $spacing-sm;
+      @include responsive-text(1.4rem, 1.8rem, 2.2rem);
+    }
+  }
+}
+
+// Адаптивность - Планшеты и меньше
+@include tablet-and-down {
+  .tournament-analyzer {
+    .loading-container {
+      min-height: 150px;
+    }
+
+    .loading-spinner {
+      width: 35px;
+      height: 35px;
+      border-width: 3px;
+    }
+
+    .no-data-container {
+      padding: $spacing-lg;
+
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+// Адаптивность - Мобильные устройства
+@include mobile-only {
+  .tournament-analyzer {
+    .loading-container {
+      min-height: 120px;
+    }
+
+    .loading-spinner {
+      width: 30px;
+      height: 30px;
+      border-width: 3px;
+    }
+
+    .no-data-container {
+      padding: $spacing-md;
+
+      h2 {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+// Адаптивность - Очень маленькие мобильные устройства
+@media (max-width: $mobile-xs) {
+  .tournament-analyzer {
+    .loading-container {
+      min-height: 100px;
+    }
+
+    .loading-spinner {
+      width: 25px;
+      height: 25px;
+      border-width: 2px;
+    }
+
+    .no-data-container {
+      padding: $spacing-sm;
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: $font-size-sm;
+      }
     }
   }
 }

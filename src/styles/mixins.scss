@@ -89,3 +89,86 @@
   @include card-shadow;
   @include hover-lift;
 }
+
+// Миксины для мобильной адаптации
+@mixin mobile-only {
+  @media (max-width: #{$mobile - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-and-down {
+  @media (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-and-up {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop-and-up {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+// Миксин для скрытия элементов на мобильных устройствах
+@mixin hide-on-mobile {
+  @include mobile-only {
+    display: none !important;
+  }
+}
+
+// Миксин для показа только на мобильных устройствах
+@mixin show-on-mobile-only {
+  display: none;
+
+  @include mobile-only {
+    display: block;
+  }
+}
+
+// Миксин для адаптивного текста
+@mixin responsive-text($mobile-size, $tablet-size, $desktop-size) {
+  font-size: $mobile-size;
+
+  @include tablet-and-up {
+    font-size: $tablet-size;
+  }
+
+  @include desktop-and-up {
+    font-size: $desktop-size;
+  }
+}
+
+// Миксин для адаптивных отступов
+@mixin responsive-padding($mobile, $tablet, $desktop) {
+  padding: $mobile;
+
+  @include tablet-and-up {
+    padding: $tablet;
+  }
+
+  @include desktop-and-up {
+    padding: $desktop;
+  }
+}
+
+// Миксин для адаптивной сетки
+@mixin responsive-grid-mobile($mobile-cols: 1, $tablet-cols: 2, $desktop-cols: 3) {
+  display: grid;
+  grid-template-columns: repeat($mobile-cols, 1fr);
+  gap: $spacing-md;
+
+  @include tablet-and-up {
+    grid-template-columns: repeat($tablet-cols, 1fr);
+    gap: $spacing-lg;
+  }
+
+  @include desktop-and-up {
+    grid-template-columns: repeat($desktop-cols, 1fr);
+  }
+}

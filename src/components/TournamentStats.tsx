@@ -151,13 +151,13 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
         {tournamentSummaries.map((tournament) => (
           <div 
             key={tournament.id} 
-            className="tournament-card"
+            className="tournament-card clickable"
             onClick={() => window.open(getTournamentUrl(tournament.id), '_blank')}
           >
             <div className="tournament-header">
               <h4><span>TEKKEN RIVALS {" "}</span><span>{tournament.name}</span></h4>
               <div className="participants-count">
-                <span>🟢{tournament.participantsCount}</span>
+                <span title="Количество участников">🟢{tournament.participantsCount}</span>
                 <div className="twitch-link">
                   <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
                     <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
@@ -206,7 +206,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
                   .map((result, index) => (
                     <div 
                       key={index} 
-                      className="top3-item"
+                      className="top3-item clickable"
                       onClick={() => window.open(`https://challonge.com/users/${result.challonge_username}`, '_blank')}
                     >
                       <span className="rank">

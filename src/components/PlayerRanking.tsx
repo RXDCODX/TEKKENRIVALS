@@ -64,7 +64,7 @@ const PlayerRanking: React.FC<PlayerRankingProps> = ({ rankings }) => {
             {rankings.map((ranking) => (
               <tr 
                 key={ranking.player.challonge_username}
-                className="ranking-row"
+                className="ranking-row clickable"
                 onClick={() => window.open(`https://challonge.com/users/${ranking.player.challonge_username}`, '_blank')}
               >
                 <td className="position">

@@ -9,6 +9,14 @@
 body {
   background-color: black;
   font-family: $main-font;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #root {
@@ -34,7 +42,7 @@ body {
   text-align: center;
 
   h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: $spacing-xl;
     text-shadow: 2px 2px 4px $shadow-medium;
   }
@@ -81,20 +89,30 @@ body {
 .logo-container {
   @include flex-center;
   margin-bottom: $spacing-sm;
+  transition: all 0.3s ease;
 }
 
 .logo-link {
   display: inline-block;
   text-decoration: none;
   transition: transform 0.3s ease;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
+  touch-action: manipulation;
 
   &:hover {
     transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 }
 
 .logo-animation {
   animation: logoFloat 3s ease-in-out infinite;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 @keyframes logoFloat {
@@ -146,10 +164,18 @@ body {
     @include card-shadow;
     transition: transform 0.2s ease;
     border: 1px solid $border-color;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
+    touch-action: manipulation;
 
     &:hover {
       transform: translateY(-2px);
       @include card-shadow-hover;
+      background: $primary-color;
+      color: $white;
+    }
+
+    &:active {
+      transform: translateY(-1px) scale(0.98);
       background: $primary-color;
       color: $white;
     }
@@ -185,20 +211,21 @@ body {
   color: $white;
 }
 
-// Адаптивность
-@media (max-width: $tablet) {
+// Адаптивность - Планшеты и меньше
+@include tablet-and-down {
   .logo-container {
     flex-direction: column;
     gap: $spacing-md;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
   }
 
   .logo-animation {
-    max-width: 150px;
-    max-height: 150px;
+    height: auto;
   }
 
   .app-header h1 {
-    font-size: 2.5rem;
+    @include responsive-text(2rem, 2.5rem, 3.5rem);
   }
 
   .app-header p {
@@ -207,6 +234,7 @@ body {
 
   .points-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-md;
   }
 
   .app-main {
@@ -214,12 +242,12 @@ body {
   }
 
   .content-section {
-    padding: $spacing-lg;
+    @include responsive-padding($spacing-md, $spacing-lg, $spacing-xl);
     margin-bottom: $spacing-md;
   }
 
   .section-title {
-    font-size: 1.8rem;
+    @include responsive-text(1.5rem, 1.8rem, 2.2rem);
     margin: $spacing-xl 0 $spacing-lg 0;
   }
 
@@ -230,42 +258,240 @@ body {
   #root {
     padding: 0;
   }
+
+  .app-loading {
+    h1 {
+      font-size: 3rem;
+    }
+
+    p {
+      font-size: $font-size-lg;
+    }
+  }
+
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border-width: 5px;
+  }
 }
 
-@media (max-width: $mobile) {
+// Адаптивность - Десктоп и больше
+@include desktop-and-up {
+  .app-loading {
+    h1 {
+      font-size: 4rem;
+    }
+
+    p {
+      font-size: $font-size-xl;
+    }
+  }
+
+  .loading-spinner {
+    width: 60px;
+    height: 60px;
+    border-width: 6px;
+  }
+
+  .logo-container {
+    padding: $spacing-xl;
+    margin-bottom: $spacing-xl;
+  }
+
+  .logo-animation {
+    height: auto;
+  }
+}
+
+// Адаптивность - Мобильные устройства
+@include mobile-only {
   .app-header {
-    padding: $spacing-lg $spacing-md;
+    @include responsive-padding($spacing-md, $spacing-lg, $spacing-xl);
+    margin: $spacing-sm;
+  }
+
+  .logo-container {
+    gap: $spacing-md;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+  }
+
+  .logo-animation {
+    height: auto;
+  }
+
+  .app-header h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .points-info {
+    padding: $spacing-sm;
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: $spacing-sm;
+    }
+  }
+
+  .points-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-sm;
+
+    span {
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-xs;
+      text-align: center;
+    }
+  }
+
+  .content-section {
+    padding: $spacing-sm;
+    margin-bottom: $spacing-sm;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+    margin: $spacing-lg 0 $spacing-md 0;
+  }
+
+  .section-divider {
+    margin: $spacing-lg 0;
+  }
+
+  .logo-delimiter {
+    width: 200px;
+    height: 2px;
+  }
+
+  .app-loading {
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: $font-size-md;
+    }
+  }
+
+  .loading-spinner {
+    width: 45px;
+    height: 45px;
+    border-width: 4px;
+  }
+}
+
+// Адаптивность - Очень маленькие мобильные устройства
+@media (max-width: $mobile-xs) {
+  .app-header {
+    padding: $spacing-sm;
+    margin: $spacing-xs;
   }
 
   .logo-container {
     gap: $spacing-sm;
+    padding: $spacing-sm;
+    margin-bottom: $spacing-sm;
   }
 
   .logo-animation {
-    max-width: 120px;
-    max-height: 120px;
+    height: auto;
   }
 
   .app-header h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
-  .points-info {
-    padding: $spacing-md;
+  .points-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-xs;
+
+    span {
+      padding: $spacing-xs;
+      font-size: 0.7rem;
+    }
+  }
+
+  .points-info h3 {
+    font-size: 1rem;
   }
 
   .content-section {
-    padding: $spacing-md;
+    padding: $spacing-xs;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  .logo-delimiter {
+    width: 150px;
+    height: 2px;
+  }
+
+  .app-loading {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
   }
 }
 
-.logo-delimiter{
+.logo-delimiter {
   height: 3px;
   width: 500px;
   color: red;
   z-index: 99999;
+}
+
+// Улучшения для мобильных устройств
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+// Улучшения для сенсорных экранов
+button,
+a,
+[role="button"],
+.clickable {
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
+  touch-action: manipulation;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Улучшения для таблиц на мобильных устройствах
+table {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+// Улучшения для скролла
+.overflow-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+// Скрытие скроллбара на мобильных устройствах
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

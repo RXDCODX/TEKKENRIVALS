@@ -104,10 +104,16 @@
   color: $white;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
+  touch-action: manipulation;
 
   &:hover {
     transform: translateY(-5px);
     @include card-shadow-hover;
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(0.98);
   }
 }
 
@@ -135,6 +141,42 @@
   justify-content: flex-start;
   padding-top: 0;
 
+  span {
+    cursor: help;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      color: #ffeb3b;
+    }
+
+    &::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $border-radius-small;
+      font-size: $font-size-xs;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    &:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-5px);
+    }
+  }
+
   .twitch-link {
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -152,9 +194,17 @@
       font-weight: inherit;
       position: relative;
       z-index: 999999;
+      -webkit-tap-highlight-color: rgba(41, 255, 167, 0.1);
+      touch-action: manipulation;
+      transition: color 0.3s ease;
 
       &:hover {
         color: #1ed760;
+      }
+
+      &:active {
+        color: #1ed760;
+        transform: scale(0.98);
       }
     }
 
@@ -219,10 +269,17 @@
   color: $white;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
+  touch-action: manipulation;
 
   &:hover {
     background: $background-dark;
     transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.98);
+    background: $background-dark;
   }
 }
 
@@ -257,22 +314,27 @@
   font-size: $font-size-sm;
 }
 
-// Адаптивность
-@media (max-width: $tablet) {
+// Адаптивность - Планшеты и меньше
+@include tablet-and-down {
   .tournament-stats {
-    padding: $spacing-sm;
+    @include responsive-padding($spacing-sm, $spacing-md, $spacing-lg);
   }
 
   h2 {
-    font-size: 2rem;
+    @include responsive-text(1.8rem, 2rem, 2.5rem);
+    margin-bottom: $spacing-lg;
+  }
+
+  h3 {
+    @include responsive-text(1.4rem, 1.6rem, 1.8rem);
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
+    @include responsive-grid-mobile(1, 2, 4);
   }
 
   .tournaments-grid {
-    grid-template-columns: 1fr;
+    @include responsive-grid-mobile(1, 1, 2);
   }
 
   .tournament-stats-grid {
@@ -282,5 +344,283 @@
   .stat-card {
     flex-direction: column;
     text-align: center;
+    padding: $spacing-md;
+
+    .stat-icon {
+      font-size: 2rem;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+    }
+  }
+
+  .tournament-card {
+    padding: $spacing-md;
+  }
+
+  .tournament-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-sm;
+
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: $spacing-sm;
+
+      >span:first-child {
+        font-size: $font-size-xs;
+      }
+
+      >span:last-child {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .participants-count {
+    font-size: 1.4rem;
+    align-self: flex-end;
+
+    span {
+      font-size: 1.4rem;
+
+      &::after {
+        font-size: 0.8rem;
+        padding: $spacing-xs $spacing-sm;
+      }
+    }
+
+    .twitch-link {
+      font-size: 0.7rem;
+    }
+  }
+
+  .top3-item {
+    flex-direction: column;
+    text-align: center;
+    gap: $spacing-xs;
+    padding: $spacing-sm;
+
+    .rank {
+      font-size: $font-size-lg;
+    }
+
+    .player-name {
+      font-size: $font-size-sm;
+    }
+
+    .points {
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+// Адаптивность - Мобильные устройства
+@include mobile-only {
+  .tournament-stats {
+    padding: $spacing-xs;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: $spacing-md;
+  }
+
+  .overall-stats {
+    padding: $spacing-sm;
+    margin-bottom: $spacing-lg;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
+  }
+
+  .stat-card {
+    padding: $spacing-sm;
+    flex-direction: row;
+    text-align: left;
+
+    .stat-icon {
+      font-size: 1.8rem;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+    }
+
+    .stat-label {
+      font-size: $font-size-xs;
+    }
+  }
+
+  .tournaments-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
+  }
+
+  .tournament-card {
+    padding: $spacing-sm;
+  }
+
+  .tournament-header {
+    h4 {
+      font-size: 1rem;
+
+      >span:first-child {
+        font-size: 0.7rem;
+      }
+
+      >span:last-child {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .participants-count {
+    font-size: 1.2rem;
+
+    span {
+      font-size: 1.2rem;
+
+      &::after {
+        font-size: 0.6rem;
+        padding: $spacing-xs;
+      }
+    }
+
+    .twitch-link {
+      font-size: 0.6rem;
+    }
+  }
+
+  .tournament-top3 {
+    padding: $spacing-sm;
+
+    h5 {
+      font-size: $font-size-sm;
+      margin-bottom: $spacing-xs;
+    }
+  }
+
+  .top3-list {
+    gap: $spacing-xs;
+  }
+
+  .top3-item {
+    padding: $spacing-xs;
+
+    .rank {
+      font-size: $font-size-md;
+      min-width: 25px;
+    }
+
+    .player-name {
+      font-size: $font-size-xs;
+    }
+
+    .points {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+// Адаптивность - Очень маленькие мобильные устройства
+@media (max-width: $mobile-xs) {
+  .tournament-stats {
+    padding: $spacing-xs;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .overall-stats {
+    padding: $spacing-xs;
+    margin-bottom: $spacing-md;
+  }
+
+  .stat-card {
+    padding: $spacing-xs;
+    flex-direction: column;
+    text-align: center;
+
+    .stat-icon {
+      font-size: 1.5rem;
+    }
+
+    .stat-value {
+      font-size: 1.1rem;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+    }
+  }
+
+  .tournament-card {
+    padding: $spacing-xs;
+  }
+
+  .tournament-header {
+    h4 {
+      font-size: 0.9rem;
+
+      >span:first-child {
+        font-size: 0.6rem;
+      }
+
+      >span:last-child {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .participants-count {
+    font-size: 1rem;
+
+    span {
+      font-size: 1rem;
+
+      &::after {
+        font-size: 0.5rem;
+        padding: $spacing-xs;
+      }
+    }
+
+    .twitch-link {
+      font-size: 0.5rem;
+    }
+  }
+
+  .tournament-top3 {
+    padding: $spacing-xs;
+
+    h5 {
+      font-size: 0.8rem;
+    }
+  }
+
+  .top3-item {
+    padding: $spacing-xs;
+
+    .rank {
+      font-size: $font-size-sm;
+      min-width: 20px;
+    }
+
+    .player-name {
+      font-size: 0.7rem;
+    }
+
+    .points {
+      font-size: 0.6rem;
+    }
   }
 }

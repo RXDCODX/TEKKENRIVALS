@@ -95,10 +95,17 @@ tr:hover {
 
 .ranking-row {
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0.1);
+  touch-action: manipulation;
 
   &:hover {
     background: $background-dark;
+  }
+
+  &:active {
+    background: $background-dark;
+    transform: scale(0.98);
   }
 }
 
@@ -142,26 +149,235 @@ tr:hover {
   text-align: center;
 }
 
-// Адаптивность
-@media (max-width: $tablet) {
+// Адаптивность - Планшеты и меньше
+@include tablet-and-down {
   .ranking-container {
-    padding: $spacing-sm;
+    @include responsive-padding($spacing-sm, $spacing-md, $spacing-lg);
   }
 
   h2 {
-    font-size: 2rem;
+    @include responsive-text(1.8rem, 2rem, 2.5rem);
+  }
+
+  h3 {
+    @include responsive-text(1.3rem, 1.5rem, 1.8rem);
+  }
+
+  .statistics {
+    padding: $spacing-md;
+    margin-bottom: $spacing-lg;
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
+    @include responsive-grid-mobile(1, 2, 4);
+  }
+
+  .stat-item {
+    padding: $spacing-sm;
+
+    .stat-label {
+      font-size: $font-size-sm;
+    }
+
+    .stat-value {
+      font-size: $font-size-md;
+    }
+  }
+
+  .rankings-table {
+    overflow-x: auto;
   }
 
   table {
-    font-size: $font-size-xs;
+    font-size: $font-size-sm;
+    min-width: 600px;
   }
 
   th,
   td {
-    padding: 8px $spacing-xs;
+    padding: $spacing-sm $spacing-xs;
+  }
+
+  .player-name {
+    font-size: $font-size-sm;
+  }
+
+  .username {
+    font-size: $font-size-xs;
+  }
+
+  .points {
+    font-size: $font-size-sm;
+  }
+}
+
+// Адаптивность - Мобильные устройства
+@include mobile-only {
+  .ranking-container {
+    padding: $spacing-xs;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: $spacing-sm;
+  }
+
+  .statistics {
+    padding: $spacing-sm;
+    margin-bottom: $spacing-md;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
+  }
+
+  .stat-item {
+    padding: $spacing-xs;
+    flex-direction: column;
+    text-align: center;
+    gap: $spacing-xs;
+
+    .stat-label {
+      font-size: $font-size-xs;
+    }
+
+    .stat-value {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .rankings-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  table {
+    font-size: $font-size-xs;
+    min-width: 500px;
+  }
+
+  th {
+    padding: $spacing-xs;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: $spacing-xs;
+    white-space: nowrap;
+  }
+
+  .position {
+    font-size: $font-size-sm;
+
+    .medal {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .player-name {
+    font-size: $font-size-xs;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .username {
+    font-size: 0.6rem;
+    max-width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .points {
+    font-size: $font-size-xs;
+  }
+}
+
+// Адаптивность - Очень маленькие мобильные устройства
+@media (max-width: $mobile-xs) {
+  .ranking-container {
+    padding: $spacing-xs;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .statistics {
+    padding: $spacing-xs;
+    margin-bottom: $spacing-sm;
+  }
+
+  .stat-item {
+    padding: $spacing-xs;
+    flex-direction: column;
+    text-align: center;
+    gap: $spacing-xs;
+
+    .stat-label {
+      font-size: 0.7rem;
+    }
+
+    .stat-value {
+      font-size: $font-size-xs;
+    }
+  }
+
+  .rankings-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    font-size: 0.6rem;
+    min-width: 400px;
+  }
+
+  th {
+    padding: 4px;
+    font-size: 0.6rem;
+  }
+
+  td {
+    padding: 4px;
+  }
+
+  .position {
+    font-size: $font-size-xs;
+
+    .medal {
+      font-size: $font-size-xs;
+    }
+  }
+
+  .player-name {
+    max-width: 60px;
+    font-size: 0.6rem;
+  }
+
+  .username {
+    max-width: 50px;
+    font-size: 0.5rem;
+  }
+
+  .points {
+    font-size: 0.6rem;
   }
 }
