@@ -156,49 +156,31 @@ export function createPlayerSummary(
   const ranks = results.map((r) => r.final_rank).filter((rank) => rank > 0);
   const points = results.map((r) => r.points_earned);
 
-  // Специальная обработка для Shadoeshka
-  const isShadoeshka = results.some(
-    (r) =>
-      r.participant_name.toLowerCase().includes("shadoeshka") ||
-      (r.challonge_username &&
-        r.challonge_username.toLowerCase().includes("shadoe"))
-  );
-
-  let bestName: string;
-  let bestUsername: string;
-
-  if (isShadoeshka) {
-    // Для Shadoeshka используем фиксированные значения
-    bestName = "Shadoeshka";
-    bestUsername = "_shadoe_";
-  } else {
-    // Выбираем лучшее имя и username из всех результатов
-    bestName = results.reduce((best, current) => {
-      // Предпочитаем имя с большей длиной (более полное)
+  // Выбираем лучшее имя и username из всех результатов
+  // Приоритет: challonge_username, затем самое длинное имя
+  const bestResult = results.reduce((best, current) => {
+    // Если у текущего есть challonge_username, а у лучшего нет - выбираем текущий
+    if (current.challonge_username && !best.challonge_username) {
+      return current;
+    }
+    // Если у обоих есть challonge_username, выбираем более длинное имя
+    if (current.challonge_username && best.challonge_username) {
       return current.participant_name.length > best.participant_name.length
         ? current
         : best;
-    }).participant_name;
+    }
+    // Если у текущего нет challonge_username, но есть у лучшего - оставляем лучший
+    if (!current.challonge_username && best.challonge_username) {
+      return best;
+    }
+    // Если у обоих нет challonge_username, выбираем более длинное имя
+    return current.participant_name.length > best.participant_name.length
+      ? current
+      : best;
+  });
 
-    bestUsername =
-      results.reduce((best, current) => {
-        // Предпочитаем непустой username
-        if (!best.challonge_username && current.challonge_username) {
-          return current;
-        }
-        if (best.challonge_username && !current.challonge_username) {
-          return best;
-        }
-        // Если оба есть, выбираем более длинный
-        if (best.challonge_username && current.challonge_username) {
-          return current.challonge_username.length >
-            best.challonge_username.length
-            ? current
-            : best;
-        }
-        return best;
-      }).challonge_username || "";
-  }
+  const bestName = bestResult.participant_name;
+  const bestUsername = bestResult.challonge_username || "";
 
   return {
     name: bestName,
@@ -241,32 +223,16 @@ export function createPlayerSummary(
  */
 function normalizePlayerKey(name: string, username: string | null): string {
   // Приводим к нижнему регистру и убираем лишние символы
-  const normalizedName = name.toLowerCase().trim();
   const normalizedUsername = username ? username.toLowerCase().trim() : "";
+  const normalizedName = name.toLowerCase().trim();
 
-  // Специальное правило для Shadoeshka
-  if (
-    normalizedName.includes("shadoeshka") ||
-    normalizedUsername.includes("shadoe")
-  ) {
-    return "shadoeshka";
-  }
-
-  // Если username пустой, используем только имя
-  if (!normalizedUsername) {
-    return normalizedName;
-  }
-
-  // Если имя и username похожи (содержат одинаковые части), используем username
-  if (
-    normalizedName.includes(normalizedUsername) ||
-    normalizedUsername.includes(normalizedName)
-  ) {
+  // Если есть challonge_username, используем его как основной ключ
+  if (normalizedUsername) {
     return normalizedUsername;
   }
 
-  // Иначе используем комбинацию
-  return `${normalizedName}_${normalizedUsername}`;
+  // Если username пустой, используем только имя
+  return normalizedName;
 }
 
 export function createPlayerRanking(
@@ -300,8 +266,15 @@ export function createPlayerRanking(
     });
   }
 
-  // Сортируем по убыванию очков
-  rankings.sort((a, b) => b.points - a.points);
+  // Сортируем по убыванию очков, затем по алфавиту по имени
+  rankings.sort((a, b) => {
+    // Сначала по очкам (убывание)
+    if (b.points !== a.points) {
+      return b.points - a.points;
+    }
+    // Если очки одинаковые, сортируем по алфавиту по имени
+    return a.player.name.localeCompare(b.player.name, "ru");
+  });
 
   // Обновляем позиции после сортировки
   rankings.forEach((ranking, index) => {

@@ -528,6 +528,12 @@ table {
   margin-top: $spacing-xl;
 }
 
+.contributors-grid {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1200px;
+  margin: $spacing-xl auto 0 auto;
+}
+
 .creator-card {
   background: $background-dark;
   border-radius: $border-radius;
@@ -646,6 +652,11 @@ table {
     gap: $spacing-lg;
   }
 
+  .contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1000px;
+  }
+
   .creator-card {
     padding: $spacing-md;
   }
@@ -688,6 +699,11 @@ table {
   .creators-grid {
     grid-template-columns: 1fr;
     gap: $spacing-md;
+  }
+
+  .contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
   }
 
   .creator-card {
