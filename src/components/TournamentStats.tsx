@@ -59,7 +59,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
     );
 
     return {
-      name: `Турнир ${tournamentName.toUpperCase()}`,
+      name: `TEKKENRIVALS${tournamentName.toUpperCase()}`,
       id: tournamentName,
       participantsCount: participants.length,
       results,
@@ -123,7 +123,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">👥</div>
+            <div className="stat-icon">🫂</div>
             <div className="stat-content">
               <div className="stat-value">{overallStats.total_players}</div>
               <div className="stat-label">Участников всего</div>
@@ -156,7 +156,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
           >
             <div className="tournament-header">
               <h4>{tournament.name}</h4>
-              <span className="participants-count">{tournament.participantsCount} участников</span>
+              {/* <span className="participants-count">{tournament.participantsCount} участников</span> */}
             </div>
             
             <div className="tournament-stats-grid">
