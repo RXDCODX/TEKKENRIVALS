@@ -143,7 +143,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
       
       {(isWaitingForInteraction || shouldStartTransition) && (
         <div className="splash-hint">
-          <p>{isWaitingForInteraction ? 'Нажмите для продолжения' : 'Подготовка...'}</p>
+          <p>{isWaitingForInteraction ? 'Нажмите для продолжения' : 'Загрузка...'}</p>
         </div>
       )}
     </div>

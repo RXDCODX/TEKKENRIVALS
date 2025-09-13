@@ -5,9 +5,11 @@
 // Импорт шрифта Roboto
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
+html {
+  background-color: $black; // Черный фон для html элемента
+}
 
 body {
-  background-color: transparent;
   font-family: $main-font;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -43,6 +45,8 @@ body {
 
   // Анимации включены после завершения сплеш-скрина
   &.animations-enabled {
+    background-color: transparent; // body становится прозрачным для фонового видео
+
     .background-video {
       opacity: 0.8;
       animation-play-state: running;
@@ -120,21 +124,29 @@ body {
   @include flex-center;
   flex-direction: column;
   min-height: 100vh;
-  color: $white;
+  color: $primary-color;
   text-align: center;
+  background-color: $black;
 
   h1 {
     font-size: 3.5rem;
     margin-bottom: $spacing-xl;
     text-shadow: 2px 2px 4px $shadow-medium;
+    color: $primary-color;
+  }
+
+  p {
+    color: $primary-color;
+    font-size: $font-size-lg;
+    font-weight: 500;
   }
 }
 
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-top: 5px solid $white;
+  border: 5px solid rgba(255, 0, 0, 0.3);
+  border-top: 5px solid $primary-color;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: $spacing-lg;
