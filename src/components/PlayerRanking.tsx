@@ -65,6 +65,7 @@ const PlayerRanking: React.FC<PlayerRankingProps> = ({ rankings }) => {
               <tr 
                 key={ranking.player.challonge_username}
                 className="ranking-row clickable"
+                id={ranking.player.challonge_user_id.toString()}
                 onClick={() => window.open(`https://challonge.com/users/${ranking.player.challonge_username}`, '_blank')}
               >
                 <td className="position">

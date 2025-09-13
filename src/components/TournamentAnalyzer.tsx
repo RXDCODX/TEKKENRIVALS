@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { TournamentParticipantsData } from '../types';
+import { TournamentParticipantsData, PlayerRanking } from '../types';
 import { 
   processTournamentResults, 
   createPlayerRanking
 } from '../utils/scoring';
-import PlayerRanking from './PlayerRanking';
+import PlayerRankingComponent from './PlayerRanking';
 
 interface TournamentAnalyzerProps {
   tournamentData: {
@@ -13,7 +13,7 @@ interface TournamentAnalyzerProps {
 }
 
 const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData }) => {
-  const [rankings, setRankings] = useState<any[]>([]);
+  const [rankings, setRankings] = useState<PlayerRanking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData 
 
     try {
       // Обрабатываем данные всех турниров
-      const allResults: any[] = [];
+      const allResults: ReturnType<typeof processTournamentResults> = [];
       const tournamentIds = new Set<number>();
 
       Object.entries(tournamentData).forEach(([, participants]) => {
@@ -66,7 +66,7 @@ const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData 
 
   return (
     <div className="tournament-analyzer">
-      <PlayerRanking rankings={rankings} />
+      <PlayerRankingComponent rankings={rankings} />
       
     </div>
   );

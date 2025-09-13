@@ -132,9 +132,36 @@ const CreatorsSection: React.FC = () => {
               </div>
               <div className="creator-info">
                 <h4>AntonAn69</h4>
-                <p>Designer</p>
+                <p>Desinger</p>
                 <a 
                   href="https://twitch.tv/antonan69" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="creator-link"
+                >
+                  <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
+                    <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
+                    <rect x="1700" y="550" fill="#29ffa7" width="200" height="600"/>
+                    <rect x="1150" y="550" fill="#29ffa7" width="200" height="600"/>
+                  </svg>
+                  Twitch
+                </a>
+              </div>
+            </div>
+            
+            <div className="creator-card">
+              <div className="creator-avatar">
+                <img 
+                  src="./tianoTV.webp" 
+                  alt="tianoTV" 
+                  className="creator-image"
+                />
+              </div>
+              <div className="creator-info">
+                <h4>tianoTV</h4>
+                <p>Саундтрек</p>
+                <a 
+                  href="https://twitch.tv/tianoTV" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="creator-link"

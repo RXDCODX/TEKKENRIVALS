@@ -1,6 +1,11 @@
 import React from 'react';
 
-const AppHeader: React.FC = () => {
+interface AppHeaderProps {
+  onDataRefresh?: () => void;
+  isLoading?: boolean;
+}
+
+const AppHeader: React.FC<AppHeaderProps> = () => {
   return (
     <header className="app-header">
       <div className="logo-container">
@@ -19,7 +24,9 @@ const AppHeader: React.FC = () => {
       </div>
       <div className="logo-delimiter"></div>
       <div className="points-info">
-        <h3>Система подсчета очков</h3>
+        <div className="points-header">
+          <h3>Система подсчета очков</h3>
+        </div>
         <div className="points-grid">
           <span>1 место → 11 баллов</span>
           <span>2 место → 10 баллов</span>

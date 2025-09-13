@@ -122,6 +122,7 @@ export function processTournamentResults(
       points_earned: getPointsForRank(participant.final_rank || 0),
       participant_name: participant.name,
       challonge_username: participant.challonge_username,
+      challonge_user_id: participant.challonge_user_id,
     }))
     .filter((result) => result.final_rank > 0); // Исключаем участников без финального места
 }
@@ -181,12 +182,13 @@ export function createPlayerSummary(
 
   const bestName = bestResult.participant_name;
   const bestUsername = bestResult.challonge_username || "";
+  const bestUserId = bestResult.challonge_user_id || 0;
 
   return {
     name: bestName,
     username: bestUsername,
     challonge_username: bestUsername,
-    challonge_user_id: 0, // Будет заполнено при обработке
+    challonge_user_id: bestUserId,
     tournaments_participated: results.length,
     best_rank: ranks.length > 0 ? Math.min(...ranks) : null,
     worst_rank: ranks.length > 0 ? Math.max(...ranks) : null,
@@ -216,37 +218,24 @@ export function createPlayerSummary(
  * @returns отсортированный рейтинг игроков
  */
 /**
- * Нормализовать имя игрока для группировки
- * @param name - имя игрока
- * @param username - username игрока
- * @returns нормализованный ключ для группировки
+ * Получить уникальный ключ игрока для группировки
+ * @param challonge_user_id - ID пользователя в Challonge
+ * @returns уникальный ключ для группировки
  */
-function normalizePlayerKey(name: string, username: string | null): string {
-  // Приводим к нижнему регистру и убираем лишние символы
-  const normalizedUsername = username ? username.toLowerCase().trim() : "";
-  const normalizedName = name.toLowerCase().trim();
-
-  // Если есть challonge_username, используем его как основной ключ
-  if (normalizedUsername) {
-    return normalizedUsername;
-  }
-
-  // Если username пустой, используем только имя
-  return normalizedName;
+function getPlayerKey(challonge_user_id: number): number {
+  // Используем challonge_user_id как основной ключ
+  return challonge_user_id;
 }
 
 export function createPlayerRanking(
   allResults: TournamentResult[],
   totalTournaments: number
 ): PlayerRanking[] {
-  // Группируем результаты по игрокам с нормализацией
-  const playerResultsMap = new Map<string, TournamentResult[]>();
+  // Группируем результаты по игрокам используя challonge_user_id
+  const playerResultsMap = new Map<number, TournamentResult[]>();
 
   for (const result of allResults) {
-    const key = normalizePlayerKey(
-      result.participant_name,
-      result.challonge_username
-    );
+    const key = getPlayerKey(result.challonge_user_id);
     if (!playerResultsMap.has(key)) {
       playerResultsMap.set(key, []);
     }

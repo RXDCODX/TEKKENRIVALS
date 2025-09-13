@@ -6,39 +6,40 @@ import AppHeader from './components/AppHeader'
 import AppLoading from './components/AppLoading'
 import CreatorsSection from './components/CreatorsSection'
 import { TournamentParticipantsData } from './types'
+import { dataLoader } from './utils/dataLoader'
 
 function App() {
   const [tournamentData, setTournamentData] = useState<{[key: string]: TournamentParticipantsData}>({})
   const [isLoading, setIsLoading] = useState(true)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  // Функция для загрузки данных
+  const loadTournamentData = async (forceRefresh: boolean = false) => {
+    try {
+      const tournaments = ['one', 'two', 'three', 'four']
+      console.log('🔄 Начинаем загрузку данных турниров...')
+      
+      // Загружаем данные с предотвращением кеширования
+      const data = await dataLoader.loadTournamentData(tournaments, forceRefresh)
+      
+      console.log('✅ Данные турниров загружены:', Object.keys(data))
+      setTournamentData(data)
+    } catch (error) {
+      console.error('❌ Ошибка при загрузке данных турниров:', error)
+    } finally {
+      setIsLoading(false)
+      setIsRefreshing(false)
+    }
+  }
+
+  // Функция для принудительного обновления данных
+  const handleDataRefresh = async () => {
+    setIsRefreshing(true)
+    await loadTournamentData(true)
+  }
 
   useEffect(() => {
-    // Загружаем данные турниров
-    const loadTournamentData = async () => {
-      try {
-        const tournaments = ['one', 'two', 'three', 'four']
-        const data: {[key: string]: TournamentParticipantsData} = {}
-
-        for (const tournament of tournaments) {
-          try {
-            const response = await fetch(`./data/${tournament}.json`)
-            if (response.ok) {
-              const jsonData = await response.json()
-              data[tournament] = jsonData
-            }
-          } catch (error) {
-            console.warn(`Не удалось загрузить данные турнира ${tournament}:`, error)
-          }
-        }
-
-        setTournamentData(data)
-      } catch (error) {
-        console.error('Ошибка при загрузке данных турниров:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadTournamentData()
+    loadTournamentData(true) // При первой загрузке принудительно обновляем
   }, [])
 
   if (isLoading) {
@@ -47,7 +48,10 @@ function App() {
 
   return (
     <div className="app">
-      <AppHeader />
+      <AppHeader 
+        onDataRefresh={handleDataRefresh}
+        isLoading={isRefreshing}
+      />
       
       <main className="app-main">
         <div className="content-section">

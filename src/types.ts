@@ -24,7 +24,7 @@ export interface TournamentParticipant {
   ranked_member_id: number | null;
   custom_field_response: string | null;
   clinch: string | null;
-  integration_uids: Record<string, any> | null;
+  integration_uids: Record<string, unknown> | null;
   challonge_username: string;
   challonge_user_id: number;
   challonge_email_address_verified: boolean;
@@ -97,6 +97,7 @@ export interface TournamentResult {
   points_earned: number;
   participant_name: string;
   challonge_username: string;
+  challonge_user_id: number;
 }
 
 /**
