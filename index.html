@@ -16,33 +16,11 @@
     
     <!-- Стили для предотвращения белого фона во время загрузки -->
     <style>
-      * {
+      html, body {
+        background-color: #000000;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
-      }
-      
-      html {
-        background-color: #000000;
-        color: #ff0000;
-        font-family: 'Roboto', sans-serif;
         height: 100%;
-      }
-      
-      body {
-        background-color: #000000;
-        color: #ff0000;
-        font-family: 'Roboto', sans-serif;
-        height: 100%;
-        overflow-x: hidden;
-      }
-
-      body:not(.animations-enabled){
-        background-color: #000000;
-      }
-      
-      body.animations-enabled {
-        background-color: transparent;
       }
       
       #root {
@@ -51,19 +29,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      
-      /* Стили только для загрузки - переопределяются после инициализации React */
-      body:not(.loaded) {
-        background-color: #000000 !important;
-      }
-      
-      body:not(.loaded) #root {
-        background-color: #000000 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
         flex-direction: column;
+      }
+
+      body:not(.animations-enabled){
+        /* Скрываем скроллбар на сплеш-скрине */
+        overflow: hidden;
       }
       
       /* Стили для загрузки до инициализации React */
@@ -113,8 +84,8 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="/TEKKENRIVALS/assets/index-BvxbvghK-1757768985681.js"></script>
-    <link rel="stylesheet" crossorigin href="/TEKKENRIVALS/assets/index-DPs_txMS-1757768985681.css">
+    <script type="module" crossorigin src="/TEKKENRIVALS/assets/index-DQx7ZZlA-1757769423100.js"></script>
+    <link rel="stylesheet" crossorigin href="/TEKKENRIVALS/assets/index-Duoy2VtM-1757769423100.css">
   </head>
   <body>
     <div id="root"></div>
