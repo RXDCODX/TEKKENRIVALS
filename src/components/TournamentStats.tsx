@@ -24,6 +24,15 @@ interface TournamentSummary {
 }
 
 const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => {
+  // Устанавливаем CSS переменные для правильных путей к изображениям
+  React.useEffect(() => {
+    const basePath = import.meta.env.PROD ? '' : '/TEKKENRIVALS';
+    document.documentElement.style.setProperty('--tournament-one-bg', `url('${basePath}/R1.png')`);
+    document.documentElement.style.setProperty('--tournament-two-bg', `url('${basePath}/R2.png')`);
+    document.documentElement.style.setProperty('--tournament-three-bg', `url('${basePath}/R3.png')`);
+    document.documentElement.style.setProperty('--tournament-four-bg', `url('${basePath}/R4.png')`);
+  }, []);
+
   // Функция для получения ссылки на турнир
   const getTournamentUrl = (tournamentId: string): string => {
     const tournamentUrls: { [key: string]: string } = {
@@ -227,7 +236,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
               {/* Обратная сторона карты с изображением */}
               <div className="card-back">
                 <img 
-                  src={`/TEKKENRIVALS/R${tournament.tournamentNumber}.png`} 
+                  src={import.meta.env.PROD ? `/R${tournament.tournamentNumber}.png` : `/TEKKENRIVALS/R${tournament.tournamentNumber}.png`} 
                   alt={`TEKKEN RIVALS ${tournament.name}`}
                   className="tournament-image"
                 />
