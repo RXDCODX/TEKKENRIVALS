@@ -32,6 +32,19 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.app-content {
+  transition: opacity 0.5s ease-in-out;
+
+  &.hidden {
+    opacity: 0;
+  }
+
+  &.visible {
+    opacity: 1;
+  }
 }
 
 .app-loading {
@@ -203,6 +216,17 @@ body {
   padding: 0;
   background: transparent;
   margin: $spacing-lg;
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .section-divider {

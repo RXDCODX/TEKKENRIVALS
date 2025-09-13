@@ -5,6 +5,7 @@ import TournamentStats from './components/TournamentStats'
 import AppHeader from './components/AppHeader'
 import AppLoading from './components/AppLoading'
 import CreatorsSection from './components/CreatorsSection'
+import SplashScreen from './components/SplashScreen'
 import { TournamentParticipantsData } from './types'
 import { dataLoader } from './utils/dataLoader'
 
@@ -12,6 +13,8 @@ function App() {
   const [tournamentData, setTournamentData] = useState<{[key: string]: TournamentParticipantsData}>({})
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const [showSplash, setShowSplash] = useState(true)
+  const [showContent, setShowContent] = useState(false)
 
   // Функция для загрузки данных
   const loadTournamentData = async (forceRefresh: boolean = false) => {
@@ -38,6 +41,20 @@ function App() {
     await loadTournamentData(true)
   }
 
+  // Функция для завершения анимации заставки
+  const handleSplashComplete = () => {
+    setShowSplash(false)
+  }
+
+  // Показываем контент через 3.5 секунды (во время анимации)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true)
+    }, 3500)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   useEffect(() => {
     loadTournamentData(true) // При первой загрузке принудительно обновляем
   }, [])
@@ -48,25 +65,30 @@ function App() {
 
   return (
     <div className="app">
-      <AppHeader 
-        onDataRefresh={handleDataRefresh}
-        isLoading={isRefreshing}
-      />
+      {/* Заставка поверх основного контента */}
+      {showSplash && <SplashScreen onAnimationComplete={handleSplashComplete} />}
       
-      <main className="app-main">
-        <div className="content-section">
-          <TournamentStats tournamentData={tournamentData} />
-        </div>
+      <div className={`app-content ${showSplash ? 'hidden' : 'visible'}`}>
+        <AppHeader 
+          onDataRefresh={handleDataRefresh}
+          isLoading={isRefreshing}
+        />
         
-        <div className="section-divider"></div>
+        <main className={`app-main ${showContent ? 'revealed' : 'hidden'}`}>
+          <div className="content-section">
+            <TournamentStats tournamentData={tournamentData} />
+          </div>
+          
+          <div className="section-divider"></div>
+          
+          <div className="content-section">
+            <h2 className="section-title">Рейтинг игроков</h2>
+            <TournamentAnalyzer tournamentData={tournamentData} />
+          </div>
+        </main>
         
-        <div className="content-section">
-          <h2 className="section-title">Рейтинг игроков</h2>
-          <TournamentAnalyzer tournamentData={tournamentData} />
-        </div>
-      </main>
-      
-      <CreatorsSection />
+        <CreatorsSection />
+      </div>
     </div>
   )
 }

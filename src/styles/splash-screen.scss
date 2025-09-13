@@ -1,0 +1,104 @@
+// Стили для заставки SplashScreen
+@import 'variables';
+@import 'mixins';
+
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $black;
+  z-index: 9999;
+  @include flex-center;
+  transition: opacity 0.5s ease-out;
+
+  &.animating {
+    animation: fadeBackground 3s ease-in-out forwards;
+
+    .splash-logo-container {
+      animation: moveToHeader 3s ease-in-out forwards;
+    }
+  }
+}
+
+.splash-logo-container {
+  @include flex-center;
+  width: 640px;
+  height: 360px;
+  transition: all 0.3s ease;
+}
+
+.splash-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes moveToHeader {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) translate(0, -20vh);
+    opacity: 0.9;
+  }
+
+  // 100% {
+  //   transform: scale(var(--target-scale, 0.3)) translate(calc(var(--target-x, 0px) - 50vw),
+  //       calc(var(--target-y, -45vh) - 50vh));
+  //   opacity: 0;
+  // }
+}
+
+@keyframes fadeBackground {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes logoFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Адаптивность для заставки
+@include mobile-only {
+  .splash-logo-container {
+    width: 320px;
+    height: 180px;
+  }
+}
+
+@include tablet-and-down {
+  .splash-logo-container {
+    width: 480px;
+    height: 270px;
+  }
+}
+
+// Адаптивность для очень маленьких экранов
+@media (max-width: $mobile-xs) {
+  .splash-logo-container {
+    width: 280px;
+    height: 158px;
+  }
+}
