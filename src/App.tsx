@@ -65,7 +65,7 @@ function App() {
     loadTournamentData(true) // При первой загрузке принудительно обновляем
   }, [])
 
-  if (isLoading) {
+  if (isLoading)  {
     return <AppLoading />
   }
 
