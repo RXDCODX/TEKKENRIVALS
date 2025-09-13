@@ -20,6 +20,7 @@ interface TournamentSummary {
     average_points: number;
     total_points_distributed: number;
   };
+  tournamentNumber: number;
 }
 
 const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => {
@@ -34,38 +35,52 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
     return tournamentUrls[tournamentId] || '#';
   };
 
-  // Создаем сводку по каждому турниру
-  const tournamentSummaries: TournamentSummary[] = Object.entries(tournamentData).map(([tournamentName, participants]) => {
-    const results = processTournamentResults(participants);
-    const statistics = getPointsStatistics(
-      results.map((result, index) => ({
-        player: {
-          name: result.participant_name,
-          username: result.challonge_username,
-          challonge_username: result.challonge_username,
-          challonge_user_id: result.challonge_user_id,
-          tournaments_participated: 1,
-          best_rank: result.final_rank,
-          worst_rank: result.final_rank,
-          average_rank: result.final_rank,
-          total_tournaments: 1,
-          participation_rate: 1,
-          total_points: result.points_earned,
-          average_points: result.points_earned,
-        },
-        position: index + 1,
-        points: result.points_earned,
-      }))
-    );
-
-    return {
-      name: `${tournamentName.toUpperCase()}`,
-      id: tournamentName,
-      participantsCount: participants.length,
-      results,
-      statistics,
+  // Функция для получения номера турнира
+  const getTournamentNumber = (tournamentName: string): number => {
+    const tournamentNumbers: { [key: string]: number } = {
+      'one': 1,
+      'two': 2,
+      'three': 3,
+      'four': 4
     };
-  });
+    return tournamentNumbers[tournamentName] || 999; // Если турнир не найден, ставим в конец
+  };
+
+  // Создаем сводку по каждому турниру
+  const tournamentSummaries: TournamentSummary[] = Object.entries(tournamentData)
+    .map(([tournamentName, participants]) => {
+      const results = processTournamentResults(participants);
+      const statistics = getPointsStatistics(
+        results.map((result, index) => ({
+          player: {
+            name: result.participant_name,
+            username: result.challonge_username,
+            challonge_username: result.challonge_username,
+            challonge_user_id: result.challonge_user_id,
+            tournaments_participated: 1,
+            best_rank: result.final_rank,
+            worst_rank: result.final_rank,
+            average_rank: result.final_rank,
+            total_tournaments: 1,
+            participation_rate: 1,
+            total_points: result.points_earned,
+            average_points: result.points_earned,
+          },
+          position: index + 1,
+          points: result.points_earned,
+        }))
+      );
+
+      return {
+        name: `${tournamentName.toUpperCase()}`,
+        id: tournamentName,
+        participantsCount: participants.length,
+        results,
+        statistics,
+        tournamentNumber: getTournamentNumber(tournamentName),
+      };
+    })
+    .sort((a, b) => a.tournamentNumber - b.tournamentNumber); // Сортируем по номеру турнира
 
   // Общая статистика по всем турнирам
   const allResults = Object.values(tournamentData).flatMap(processTournamentResults);
