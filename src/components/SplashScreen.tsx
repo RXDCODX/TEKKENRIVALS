@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useAudio } from '../hooks/useAudio';
 
 interface SplashScreenProps {
   onAnimationComplete: () => void;
@@ -11,7 +12,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
   const [shouldStartTransition, setShouldStartTransition] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0, scale: 1 });
   const logoRef = useRef<HTMLImageElement>(null);
-  const backgroundMusicRef = useRef<HTMLAudioElement | null>(null);
+  const { setBackgroundMusic } = useAudio();
 
   const prepareTransition = () => {
     if (isAnimating) return; // Предотвращаем повторный запуск
@@ -40,7 +41,16 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
 
   const startBackgroundMusic = () => {
     try {
-      // Создаем аудио элемент для фоновой музыки
+      // Останавливаем все существующие аудио элементы с sr.wav
+      const existingAudios = document.querySelectorAll('audio[src="./sr.wav"]');
+      existingAudios.forEach(audio => {
+        const audioElement = audio as HTMLAudioElement;
+        audioElement.pause();
+        audioElement.currentTime = 0;
+        audioElement.remove();
+      });
+
+      // Создаем новый аудио элемент для фоновой музыки
       const audio = new Audio('./sr.wav');
       audio.volume = 0.25;
       audio.loop = true;
@@ -50,7 +60,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
       audio.load();
       audio.play().then(() => {
         console.log('✅ Фоновая музыка sr.wav запущена в цикле');
-        backgroundMusicRef.current = audio;
+        setBackgroundMusic(audio);
       }).catch(error => {
         console.warn('⚠️ Не удалось запустить фоновую музыку:', error);
       });

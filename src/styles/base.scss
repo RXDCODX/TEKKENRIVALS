@@ -795,6 +795,18 @@ table {
     margin-bottom: $spacing-md;
     font-style: italic;
   }
+
+  // Специальный эффект для WooDWE
+  .woodwe-role {
+    transition: all 0.3s ease;
+    display: block;
+  }
+}
+
+// Эффект при наведении на карточку WooDWE
+.creator-card:hover .woodwe-role {
+  color: $primary-color;
+  font-weight: bold;
 }
 
 .creator-link {
@@ -995,6 +1007,21 @@ table {
   .creator-link {
     font-size: 0.6rem;
     padding: 4px;
+  }
+}
+
+// Стили для кликабельной карточки
+.clickable-card {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(41, 255, 167, 0.3);
+    border-color: $primary-color;
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 

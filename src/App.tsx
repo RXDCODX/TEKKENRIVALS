@@ -6,6 +6,7 @@ import AppHeader from './components/AppHeader'
 import AppLoading from './components/AppLoading'
 import CreatorsSection from './components/CreatorsSection'
 import SplashScreen from './components/SplashScreen'
+import { AudioProvider } from './contexts/AudioContext'
 import { TournamentParticipantsData } from './types'
 import { dataLoader } from './utils/dataLoader'
 
@@ -69,7 +70,7 @@ function App() {
   }
 
   return (
-    <>
+    <AudioProvider>
       {/* Заставка - показывается поверх всего */}
       {showSplash && <SplashScreen onAnimationComplete={handleSplashComplete} />}
       
@@ -110,7 +111,7 @@ function App() {
           <CreatorsSection />
         </div>
       </div>
-    </>
+    </AudioProvider>
   )
 }
 

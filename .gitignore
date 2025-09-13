@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+src/components/SecretComponent/index.css
+src/components/SecretComponent/index.html
+src/components/SecretComponent/index.js

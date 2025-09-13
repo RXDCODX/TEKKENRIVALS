@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DoomModal from './DoomModal';
 
 const CreatorsSection: React.FC = () => {
+  const [isWoodweHovered, setIsWoodweHovered] = useState(false);
+  const [isDoomModalOpen, setIsDoomModalOpen] = useState(false);
+
   return (
     <footer className="creators-section">
       <div className="creators-container">
@@ -41,7 +45,11 @@ const CreatorsSection: React.FC = () => {
         <div className="contributors-section">
           <h3>Причастные</h3>
           <div className="creators-grid contributors-grid">
-            <div className="creator-card">
+            <div 
+              className="creator-card clickable-card"
+              onClick={() => setIsDoomModalOpen(true)}
+              style={{ cursor: 'pointer' }}
+            >
               <div className="creator-avatar">
                 <img 
                   src="./rxdcodx.jpg" 
@@ -57,6 +65,7 @@ const CreatorsSection: React.FC = () => {
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="creator-link"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
                     <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
@@ -68,7 +77,11 @@ const CreatorsSection: React.FC = () => {
               </div>
             </div>
             
-            <div className="creator-card">
+            <div 
+              className="creator-card"
+              onMouseEnter={() => setIsWoodweHovered(true)}
+              onMouseLeave={() => setIsWoodweHovered(false)}
+            >
               <div className="creator-avatar">
                 <img 
                   src="./woodwe.png" 
@@ -78,7 +91,9 @@ const CreatorsSection: React.FC = () => {
               </div>
               <div className="creator-info">
                 <h4>WooDWE</h4>
-                <p>Долбоеб</p>
+                <p className="woodwe-role">
+                  {isWoodweHovered ? 'Долбоеб' : 'Degenesigner'}
+                </p>
                 <a 
                   href="https://twitch.tv/woodwe" 
                   target="_blank" 
@@ -105,7 +120,7 @@ const CreatorsSection: React.FC = () => {
               </div>
               <div className="creator-info">
                 <h4>EdenEleven</h4>
-                <p>3D-герой, саундтрек</p>
+                <p>3D-герой, Саундтрек</p>
                 <a 
                   href="https://twitch.tv/edeneleven" 
                   target="_blank" 
@@ -178,6 +193,12 @@ const CreatorsSection: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Модальное окно с думом */}
+      <DoomModal 
+        isOpen={isDoomModalOpen} 
+        onClose={() => setIsDoomModalOpen(false)} 
+      />
     </footer>
   );
 };
