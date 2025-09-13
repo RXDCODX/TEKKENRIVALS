@@ -3,9 +3,10 @@ import React from 'react';
 interface AppHeaderProps {
   onDataRefresh?: () => void;
   isLoading?: boolean;
+  isSplashActive?: boolean;
 }
 
-const AppHeader: React.FC<AppHeaderProps> = () => {
+const AppHeader: React.FC<AppHeaderProps> = ({ isSplashActive = false }) => {
   return (
     <header className="app-header">
       <div className="logo-container">
@@ -18,7 +19,7 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
           <img 
             src="./logo_animation_mini1.gif" 
             alt="TEKKEN RIVALS Logo" 
-            className="logo-animation"
+            className={`logo-animation ${isSplashActive ? 'paused' : 'playing'}`}
           />
         </a>
       </div>

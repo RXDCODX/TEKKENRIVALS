@@ -5,7 +5,7 @@ import { MetrikaCounters } from 'react-metrika'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />,
+    <App />
     <MetrikaCounters ids={[104140647]} options={{ trackHash: true,
       webvisor: true
     }} />

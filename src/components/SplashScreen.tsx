@@ -65,12 +65,12 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
     
     setIsAnimating(true);
     
-    // Через 3 секунды после начала анимации скрываем заставку и запускаем фоновую музыку
+    // Через 2 секунды после начала анимации скрываем заставку и запускаем фоновую музыку
     setTimeout(() => {
       setIsVisible(false);
       startBackgroundMusic(); // Запускаем фоновую музыку
       onAnimationComplete();
-    }, 3000);
+    }, 2000);
   };
 
   const playSound = async () => {

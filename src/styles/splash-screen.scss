@@ -30,11 +30,11 @@
   }
 
   &.animating {
-    animation: fadeBackground 3s ease-in-out forwards;
+    animation: fadeOutSplash 2s ease-in-out forwards;
     cursor: default;
 
     .splash-logo-container {
-      animation: moveToHeader 3s ease-in-out forwards;
+      animation: moveToHeader 2s ease-in-out forwards;
     }
 
     .splash-logo {
@@ -95,23 +95,13 @@
 
   100% {
     transform: scale(1) translate(0, -20vh);
-    opacity: 0.9;
+    opacity: 0;
   }
-
-  // 100% {
-  //   transform: scale(var(--target-scale, 0.3)) translate(calc(var(--target-x, 0px) - 50vw),
-  //       calc(var(--target-y, -45vh) - 50vh));
-  //   opacity: 0;
-  // }
 }
 
-@keyframes fadeBackground {
+@keyframes fadeOutSplash {
   0% {
     opacity: 1;
-  }
-
-  50% {
-    opacity: 0.8;
   }
 
   100% {

@@ -19,6 +19,48 @@ body {
   user-select: none;
   position: relative;
   overflow-x: hidden;
+
+  // Анимации отключены по умолчанию до завершения сплеш-скрина
+  &:not(.animations-enabled) {
+    .background-video {
+      opacity: 0;
+      animation-play-state: paused;
+    }
+
+    .logo-animation {
+      animation: none;
+      opacity: 0.3;
+    }
+
+    .app-content {
+      background-color: black;
+    }
+
+    #root {
+      background: black;
+    }
+  }
+
+  // Анимации включены после завершения сплеш-скрина
+  &.animations-enabled {
+    .background-video {
+      opacity: 0.8;
+      animation-play-state: running;
+    }
+
+    .logo-animation {
+      animation: logoFloat 3s ease-in-out infinite;
+      opacity: 1;
+    }
+
+    .app-content {
+      background-color: transparent;
+    }
+
+    #root {
+      background: $background-dark;
+    }
+  }
 }
 
 // Фоновое видео
@@ -31,7 +73,18 @@ body {
   z-index: -1;
   object-fit: cover;
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+
+  &.paused {
+    opacity: 0;
+    animation-play-state: paused;
+  }
+
+  &.playing {
+    opacity: 0.8;
+    animation-play-state: running;
+  }
 }
 
 #root {
@@ -39,8 +92,9 @@ body {
   margin: 0 auto;
   padding: 0;
   min-height: 100vh;
-  background: $background-dark;
+  background: black;
   color: $white;
+  transition: background 0.5s ease-in-out;
 }
 
 .app {
@@ -51,7 +105,7 @@ body {
 }
 
 .app-content {
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, background-color 0.5s ease-in-out;
 
   &.hidden {
     opacity: 0;
@@ -137,10 +191,20 @@ body {
 }
 
 .logo-animation {
-  animation: logoFloat 3s ease-in-out infinite;
   max-width: 100%;
   height: auto;
   display: block;
+  transition: opacity 0.3s ease-in-out;
+
+  &.paused {
+    animation: none;
+    opacity: 0.3;
+  }
+
+  &.playing {
+    animation: logoFloat 3s ease-in-out infinite;
+    opacity: 1;
+  }
 }
 
 @keyframes logoFloat {

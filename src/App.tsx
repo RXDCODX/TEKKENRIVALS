@@ -44,6 +44,11 @@ function App() {
   // Функция для завершения анимации заставки
   const handleSplashComplete = () => {
     setShowSplash(false)
+    // Запускаем анимации body и app-header после завершения перехода
+    setTimeout(() => {
+      // Добавляем класс для активации анимаций
+      document.body.classList.add('animations-enabled')
+    }, 100)
   }
 
   // Показываем контент через 3.5 секунды (во время анимации)
@@ -64,45 +69,48 @@ function App() {
   }
 
   return (
-    <div className="app">
-      {/* Фоновое видео */}
-      <video 
-        className="background-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      >
-        <source src="./background.mp4" type="video/mp4" />
-        Ваш браузер не поддерживает видео элемент.
-      </video>
-      
-      {/* Заставка поверх основного контента */}
+    <>
+      {/* Заставка - показывается поверх всего */}
       {showSplash && <SplashScreen onAnimationComplete={handleSplashComplete} />}
       
-      <div className={`app-content ${showSplash ? 'hidden' : 'visible'}`}>
-        <AppHeader 
-          onDataRefresh={handleDataRefresh}
-          isLoading={isRefreshing}
-        />
+      <div className="app">
+        {/* Фоновое видео */}
+        <video 
+          className={`background-video ${showSplash ? 'paused' : 'playing'}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src="./background.mp4" type="video/mp4" />
+          Ваш браузер не поддерживает видео элемент.
+        </video>
         
-        <main className={`app-main ${showContent ? 'revealed' : 'hidden'}`}>
-          <div className="content-section">
-            <TournamentStats tournamentData={tournamentData} />
-          </div>
+        <div className={`app-content ${showSplash ? 'hidden' : 'visible'}`}>
+          <AppHeader 
+            onDataRefresh={handleDataRefresh}
+            isLoading={isRefreshing}
+            isSplashActive={showSplash}
+          />
           
-          <div className="section-divider"></div>
+          <main className={`app-main ${showContent ? 'revealed' : 'hidden'}`}>
+            <div className="content-section">
+              <TournamentStats tournamentData={tournamentData} />
+            </div>
+            
+            <div className="section-divider"></div>
+            
+            <div className="content-section">
+              <h2 className="section-title">Рейтинг игроков</h2>
+              <TournamentAnalyzer tournamentData={tournamentData} />
+            </div>
+          </main>
           
-          <div className="content-section">
-            <h2 className="section-title">Рейтинг игроков</h2>
-            <TournamentAnalyzer tournamentData={tournamentData} />
-          </div>
-        </main>
-        
-        <CreatorsSection />
+          <CreatorsSection />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
