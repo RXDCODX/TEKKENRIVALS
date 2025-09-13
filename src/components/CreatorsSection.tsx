@@ -105,7 +105,7 @@ const CreatorsSection: React.FC = () => {
               </div>
               <div className="creator-info">
                 <h4>EdenEleven</h4>
-                <p>3D-герой</p>
+                <p>3D-герой, саундтрек</p>
                 <a 
                   href="https://twitch.tv/edeneleven" 
                   target="_blank" 
