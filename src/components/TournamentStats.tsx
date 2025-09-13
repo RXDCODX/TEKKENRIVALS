@@ -59,7 +59,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
     );
 
     return {
-      name: `TEKKENRIVALS${tournamentName.toUpperCase()}`,
+      name: `${tournamentName.toUpperCase()}`,
       id: tournamentName,
       participantsCount: participants.length,
       results,
@@ -155,11 +155,22 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
             onClick={() => window.open(getTournamentUrl(tournament.id), '_blank')}
           >
             <div className="tournament-header">
-              <h4>{tournament.name}</h4>
-              {/* <span className="participants-count">{tournament.participantsCount} участников</span> */}
+              <h4><span>TEKKEN RIVALS {" "}</span><span>{tournament.name}</span></h4>
+              <div className="participants-count">
+                <span>🟢 {tournament.participantsCount}</span>
+                <div className="twitch-link">
+                  <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
+                    <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
+                    <rect x="1700" y="550" fill="#29ffa7" width="200" height="600"/>
+                    <rect x="1150" y="550" fill="#29ffa7" width="200" height="600"/>
+                  </svg>
+                  <span>twitch.tv/AVICII75</span>
+                  <div className="underline"></div>
+                </div>
+              </div>
             </div>
             
-            <div className="tournament-stats-grid">
+            {/* <div className="tournament-stats-grid">
               <div className="tournament-stat">
                 <span className="stat-label">Участников:</span>
                 <span className="stat-value">{tournament.statistics.total_players}</span>
@@ -176,7 +187,7 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
                 <span className="stat-label">Средние очки:</span>
                 <span className="stat-value">{tournament.statistics.average_points}</span>
               </div>
-            </div>
+            </div> */}
 
             {/* Топ-3 турнира */}
             <div className="tournament-top3">

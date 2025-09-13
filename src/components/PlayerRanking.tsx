@@ -20,7 +20,7 @@ const PlayerRanking: React.FC<PlayerRankingProps> = ({ rankings }) => {
 
   return (
     <div className="ranking-container">
-      <h2>Рейтинг игроков TEKKEN RIVALS</h2>
+      {/* <h2>Рейтинг игроков TEKKEN RIVALS</h2> */}
       
       {/* Статистика */}
       <div className="statistics">

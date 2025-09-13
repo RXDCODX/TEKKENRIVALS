@@ -61,7 +61,7 @@ body {
 }
 
 .app-header {
-  background: rgba(45, 45, 45, 0.95);
+  background: #0f0a0a;
   padding: $spacing-xl $spacing-lg;
   margin: $spacing-lg;
   text-align: center;
@@ -117,7 +117,6 @@ body {
 }
 
 .points-info {
-  background: $background-light;
   border-radius: $border-radius;
   padding: $spacing-lg;
   max-width: 800px;
@@ -172,11 +171,12 @@ body {
 }
 
 .section-title {
+  text-transform: uppercase;
   @include section-title;
 }
 
 .content-section {
-  background: rgba(45, 45, 45, 0.95);
+  background: #0f0a0a;
   border-radius: $border-radius-large;
   padding: $spacing-xl;
   @include card-shadow;
@@ -261,4 +261,11 @@ body {
   .section-title {
     font-size: 1.5rem;
   }
+}
+
+.logo-delimiter{
+  height: 3px;
+  width: 500px;
+  color: red;
+  z-index: 99999;
 }

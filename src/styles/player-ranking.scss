@@ -27,7 +27,7 @@
 }
 
 .statistics {
-  background: $background-light;
+  background: #0f0a0a;
   border-radius: $spacing-sm;
   padding: $spacing-lg;
   margin-bottom: $spacing-xl;
@@ -51,17 +51,17 @@
 
 .stat-label {
   font-weight: 500;
-  color: $text-light;
+  color: #29ffa7;
 }
 
 .stat-value {
   font-weight: bold;
-  color: $primary-color;
+  color: #29ffa7;
   font-size: $font-size-lg;
 }
 
 .rankings-table {
-  background: $background-light;
+  background: #0f0a0a;
   border-radius: $spacing-sm;
   overflow: hidden;
   @include card-shadow;
@@ -84,7 +84,7 @@ th {
 
 td {
   padding: 12px $spacing-sm;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid rgba(255, 57, 57, 0.45);
   font-size: $font-size-sm;
   color: $text-light;
 }

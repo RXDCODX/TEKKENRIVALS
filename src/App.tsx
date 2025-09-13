@@ -65,6 +65,7 @@ function App() {
             />
           </a>
         </div>
+        <div className="logo-delimiter"></div>
         <div className="points-info">
           <h3>Система подсчета очков</h3>
           <div className="points-grid">
