@@ -78,7 +78,7 @@ const CreatorsSection: React.FC = () => {
               </div>
               <div className="creator-info">
                 <h4>WooDWE</h4>
-                <p>Дизайнер</p>
+                <p>Долбоеб</p>
                 <a 
                   href="https://twitch.tv/woodwe" 
                   target="_blank" 

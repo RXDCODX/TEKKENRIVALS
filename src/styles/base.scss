@@ -7,7 +7,7 @@
 
 
 body {
-  background-color: black;
+  background-color: transparent;
   font-family: $main-font;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
@@ -58,7 +58,7 @@ body {
     }
 
     #root {
-      background: $background-dark;
+      background: transparent;
     }
   }
 }
@@ -236,7 +236,7 @@ body {
 
   .points-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: $spacing-md;
     flex-wrap: wrap;
@@ -247,6 +247,7 @@ body {
       margin: 0;
       font-size: 1.3rem;
       font-weight: bold;
+      align-self: center;
     }
   }
 
@@ -317,6 +318,9 @@ body {
 
 .section-title {
   text-transform: uppercase;
+  color: transparent !important;
+  -webkit-text-stroke-width: 0.1rem;
+  -webkit-text-stroke-color: $primary-color;
   @include section-title;
 }
 
@@ -699,7 +703,9 @@ table {
   text-align: center;
 
   h3 {
-    color: $primary-color;
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     font-size: 2rem;
     margin-bottom: $spacing-xl;
     font-weight: bold;
@@ -763,7 +769,9 @@ table {
   text-align: center;
 
   h4 {
-    color: $primary-color;
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     font-size: $font-size-lg;
     margin-bottom: $spacing-sm;
     font-weight: bold;
@@ -828,6 +836,9 @@ table {
 
   .creators-container {
     h3 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       @include responsive-text(1.6rem, 1.8rem, 2rem);
       margin-bottom: $spacing-lg;
     }
@@ -854,6 +865,9 @@ table {
 
   .creator-info {
     h4 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: $font-size-lg;
     }
 
@@ -877,6 +891,9 @@ table {
 
   .creators-container {
     h3 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: 1.4rem;
       margin-bottom: $spacing-md;
     }
@@ -903,6 +920,9 @@ table {
 
   .creator-info {
     h4 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: $font-size-md;
     }
 
@@ -926,6 +946,9 @@ table {
 
   .creators-container {
     h3 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: 1.2rem;
       margin-bottom: $spacing-sm;
     }
@@ -946,6 +969,9 @@ table {
 
   .creator-info {
     h4 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: $font-size-sm;
     }
 

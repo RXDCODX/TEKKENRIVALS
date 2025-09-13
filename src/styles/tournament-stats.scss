@@ -10,7 +10,9 @@
   color: $white;
 
   h2 {
-    color: $primary-color;
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     text-align: center;
     margin-bottom: $spacing-xxl;
     font-size: $font-size-title;
@@ -19,7 +21,9 @@
   }
 
   h3 {
-    color: $secondary-color;
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     margin-bottom: 25px;
     font-size: 1.8rem;
     text-align: center;
@@ -27,7 +31,9 @@
   }
 
   h4 {
-    color: $primary-color;
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     margin: 0 0 0 0;
     font-size: $font-size-xxl;
     font-weight: bold;
@@ -59,7 +65,7 @@
   border-radius: $border-radius-large;
   padding: $spacing-xl;
   margin-bottom: $spacing-xxl;
-  color: $white;
+  color: $primary-color;
   @include card-shadow-hover;
 }
 
@@ -69,6 +75,45 @@
 
 .stat-card {
   @include stat-card;
+  animation: wiggle 3s ease-in-out infinite;
+
+  // Разные задержки для каждой карточки
+  &:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 1s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 1.5s;
+  }
+}
+
+// Keyframes для анимации wiggle
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-8px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  75% {
+    transform: translateY(-4px);
+  }
 }
 
 .stat-icon {
@@ -321,11 +366,17 @@
   }
 
   h2 {
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     @include responsive-text(1.8rem, 2rem, 2.5rem);
     margin-bottom: $spacing-lg;
   }
 
   h3 {
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     @include responsive-text(1.4rem, 1.6rem, 1.8rem);
   }
 
@@ -365,6 +416,9 @@
     gap: $spacing-sm;
 
     h4 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: 1.2rem;
       margin-bottom: $spacing-sm;
 
@@ -423,11 +477,17 @@
   }
 
   h2 {
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     font-size: 1.6rem;
     margin-bottom: $spacing-md;
   }
 
   h3 {
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     font-size: 1.2rem;
     margin-bottom: $spacing-md;
   }
@@ -471,6 +531,9 @@
 
   .tournament-header {
     h4 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: 1rem;
 
       >span:first-child {
@@ -504,6 +567,9 @@
     padding: $spacing-sm;
 
     h5 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $secondary-color;
       font-size: $font-size-sm;
       margin-bottom: $spacing-xs;
     }
@@ -538,6 +604,9 @@
   }
 
   h2 {
+    color: transparent !important;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: $primary-color;
     font-size: 1.4rem;
   }
 
@@ -570,6 +639,9 @@
 
   .tournament-header {
     h4 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $primary-color;
       font-size: 0.9rem;
 
       >span:first-child {
@@ -603,6 +675,9 @@
     padding: $spacing-xs;
 
     h5 {
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: $secondary-color;
       font-size: 0.8rem;
     }
   }
