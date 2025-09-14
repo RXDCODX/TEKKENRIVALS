@@ -56,10 +56,10 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
               onClick={() => window.open(getTournamentUrl(tournament.id), '_blank')}
             >
               <div className="tournament-overlay">
-                <Container>
+                <Container className="h-100">
                   <Row className="h-100 align-items-center">
+                    {/* Левая половина с информацией о турнире */}
                     <Col lg={6} className="tournament-content">
-                      {/* Заголовок турнира */}
                       <div className="tournament-header">
                         <h2 className="tournament-title">
                           <span className="tournament-brand">TEKKEN RIVALS</span>
@@ -67,7 +67,7 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                         </h2>
                         <div className="tournament-meta">
                           <Badge className="participants-badge">
-                            🟢 {tournament.participantsCount} участников
+                            {tournament.participantsCount} участников
                           </Badge>
                           <div className="twitch-link">
                             <svg width="20" height="20" viewBox="0 0 2400 2800" className="me-2">
@@ -87,62 +87,30 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                           </div>
                         </div>
                       </div>
-
-                      {/* Статистика турнира */}
-                      <div className="tournament-stats">
-                        <Row className="g-3">
-                          <Col xs={6} sm={3}>
-                            <div className="stat-card">
-                              <div className="stat-icon">🏆</div>
-                              <div className="stat-content">
-                                <div className="stat-value">{tournament.statistics.max_points}</div>
-                                <div className="stat-label">Макс. очки</div>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col xs={6} sm={3}>
-                            <div className="stat-card">
-                              <div className="stat-icon">📊</div>
-                              <div className="stat-content">
-                                <div className="stat-value">{tournament.statistics.average_points.toFixed(1)}</div>
-                                <div className="stat-label">Сред. очки</div>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col xs={6} sm={3}>
-                            <div className="stat-card">
-                              <div className="stat-icon">👥</div>
-                              <div className="stat-content">
-                                <div className="stat-value">{tournament.statistics.players_with_points}</div>
-                                <div className="stat-label">С очками</div>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col xs={6} sm={3}>
-                            <div className="stat-card">
-                              <div className="stat-icon">💎</div>
-                              <div className="stat-content">
-                                <div className="stat-value">{tournament.statistics.total_points_distributed}</div>
-                                <div className="stat-label">Всего очков</div>
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
+                      
+                      <div className="tournament-content-bottom">
+                        {/* Дополнительный контент можно добавить сюда */}
                       </div>
                     </Col>
 
-                    <Col lg={6} className="tournament-podium">
-                      {/* Топ-3 турнира */}
+                    {/* Правая половина - пустая для фонового изображения */}
+                    <Col lg={6} className="tournament-right-side">
+                      {/* Пустая область для фонового изображения */}
+                    </Col>
+                  </Row>
+
+                  {/* Нижняя часть с пьедесталом */}
+                  <Row className="justify-content-center position-absolute bottom-0 start-50 translate-middle-x w-100" style={{bottom: '20px'}}>
+                    <Col xs={12} md={8} lg={6} className="tournament-podium">
                       <div className="podium-container">
-                        <h4 className="podium-title">Пьедестал почета</h4>
-                        <div className="podium">
+                        <div className="podium-grid">
                           {tournament.results
                             .sort((a, b) => a.final_rank - b.final_rank)
                             .slice(0, 3)
                             .map((result, index) => (
                               <div 
                                 key={index} 
-                                className={`podium-place place-${result.final_rank}`}
+                                className={`podium-cell place-${result.final_rank}`}
                                 onClick={() => window.open(`https://challonge.com/users/${result.challonge_username}`, '_blank')}
                               >
                                 <div className="podium-rank">
@@ -154,7 +122,7 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                                   <div className="player-name">{result.participant_name}</div>
                                   <div className="player-points">{result.points_earned} очков</div>
                                 </div>
-                                <div className="podium-base"></div>
+                                {index < 2 && <div className="podium-divider"></div>}
                               </div>
                             ))}
                         </div>

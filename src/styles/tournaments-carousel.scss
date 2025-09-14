@@ -94,18 +94,37 @@
 
 .tournament-content {
   z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  padding: 20px;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.tournament-right-side {
+  z-index: 1;
   position: relative;
 }
 
+.tournament-content-bottom {
+  margin-top: auto;
+  border-top: 1px solid $border-color;
+}
+
 .tournament-header {
-  margin-bottom: $spacing-xl;
+  margin-bottom: $spacing-lg;
 
   .tournament-title {
     color: transparent !important;
-    -webkit-text-stroke-width: 0.15rem;
-    -webkit-text-stroke-color: $primary-color;
-    margin: 0 0 $spacing-lg 0;
-    font-size: 2.5rem;
+    -webkit-text-stroke-width: 0.1rem;
+    -webkit-text-stroke-color: #ff0000;
+    margin: 0 0 $spacing-md 0;
+    font-size: 2.2rem;
     font-weight: bold;
     line-height: 1.1;
     display: flex;
@@ -114,14 +133,16 @@
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
 
     .tournament-brand {
-      font-size: 1rem;
+      font-size: 1.9rem;
       color: $secondary-color;
       margin-bottom: $spacing-xs;
     }
 
     .tournament-name {
-      font-size: 2rem;
-      color: $primary-color;
+      font-size: 5.8rem;
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: #ff0000;
     }
   }
 
@@ -129,7 +150,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: $spacing-md;
+    gap: $spacing-sm;
 
     .participants-badge {
       font-size: 1.2rem;
@@ -140,11 +161,15 @@
       border: none;
       border-radius: 25px;
       box-shadow: 0 5px 15px rgba(41, 255, 167, 0.3);
+      width: 100%;
+      text-align: center;
+      display: block;
     }
 
     .twitch-link {
       display: flex;
       align-items: center;
+      justify-content: center;
       font-size: 1rem;
       color: #29ffa7;
       text-decoration: none;
@@ -155,6 +180,8 @@
       border-radius: 20px;
       border: 2px solid rgba(41, 255, 167, 0.3);
       transition: all 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
 
       &:hover {
         background: rgba(41, 255, 167, 0.2);
@@ -175,45 +202,6 @@
   }
 }
 
-.tournament-stats {
-  .stat-card {
-    @include stat-card;
-    background: rgba(15, 10, 10, 0.8);
-    border: 2px solid rgba(225, 70, 70, 0.3);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-      border-color: rgba(225, 70, 70, 0.6);
-      box-shadow: 0 10px 25px rgba(225, 70, 70, 0.2);
-    }
-
-    .stat-icon {
-      font-size: 2rem;
-      margin-bottom: $spacing-sm;
-    }
-
-    .stat-content {
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #29ffa7;
-      display: block;
-      margin-bottom: $spacing-xs;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: $text-light;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-  }
-}
 
 .tournament-podium {
   z-index: 2;
@@ -221,97 +209,66 @@
 }
 
 .podium-container {
-  .podium-title {
-    color: transparent !important;
-    -webkit-text-stroke-width: 0.1rem;
-    -webkit-text-stroke-color: $secondary-color;
-    text-align: center;
-    margin-bottom: $spacing-xl;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  }
-
-  .podium {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: $spacing-lg;
-    height: 200px;
+  .podium-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    background: rgba(15, 10, 10, 0.3);
+    border-radius: $border-radius-large;
+    border: 2px solid rgba(225, 70, 70, 0.5);
+    backdrop-filter: blur(15px);
+    overflow: hidden;
     position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 
-    .podium-place {
+    .podium-cell {
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: $spacing-md;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
 
       &:hover {
-        transform: translateY(-10px);
+        background: rgba(225, 70, 70, 0.1);
+        transform: translateY(-2px);
       }
 
       &.place-1 {
-        order: 2;
-        z-index: 3;
-
-        .podium-base {
-          height: 120px;
-          background: linear-gradient(45deg, #ffd700, #ffed4e);
-          box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-        }
-
         .podium-rank {
-          font-size: 3rem;
-          margin-bottom: $spacing-sm;
+          font-size: 2.5rem;
+          color: #ffd700;
+          text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
         }
       }
 
       &.place-2 {
-        order: 1;
-        z-index: 2;
-
-        .podium-base {
-          height: 80px;
-          background: linear-gradient(45deg, #c0c0c0, #e8e8e8);
-          box-shadow: 0 0 25px rgba(192, 192, 192, 0.4);
-        }
-
         .podium-rank {
-          font-size: 2.5rem;
-          margin-bottom: $spacing-sm;
+          font-size: 2rem;
+          color: #c0c0c0;
+          text-shadow: 0 0 15px rgba(192, 192, 192, 0.5);
         }
       }
 
       &.place-3 {
-        order: 3;
-        z-index: 1;
-
-        .podium-base {
-          height: 60px;
-          background: linear-gradient(45deg, #cd7f32, #daa520);
-          box-shadow: 0 0 20px rgba(205, 127, 50, 0.4);
-        }
-
         .podium-rank {
-          font-size: 2rem;
-          margin-bottom: $spacing-sm;
+          font-size: 1.8rem;
+          color: #cd7f32;
+          text-shadow: 0 0 15px rgba(205, 127, 50, 0.5);
         }
       }
 
       .podium-rank {
-        font-size: 2rem;
         margin-bottom: $spacing-sm;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
       }
 
       .podium-player {
         text-align: center;
-        margin-bottom: $spacing-sm;
 
         .player-name {
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: bold;
           color: $primary-color;
           margin-bottom: $spacing-xs;
@@ -319,29 +276,21 @@
         }
 
         .player-points {
-          font-size: 0.9rem;
+          font-size: 0.8rem;
           color: #29ffa7;
           font-weight: 500;
         }
       }
 
-      .podium-base {
-        width: 80px;
-        border-radius: 10px 10px 0 0;
-        position: relative;
-        transition: all 0.3s ease;
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: -5px;
-          left: -5px;
-          right: -5px;
-          height: 5px;
-          background: inherit;
-          border-radius: 10px 10px 0 0;
-          opacity: 0.7;
-        }
+      .podium-divider {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2px;
+        height: 50%;
+        background: linear-gradient(to bottom, transparent, #29ffa7, transparent);
+        z-index: 1;
       }
     }
   }
@@ -418,16 +367,32 @@
     }
   }
 
+  .tournament-content {
+    width: 50%;
+    height: 50%;
+    padding: 15px;
+  }
+
+  .tournament-content-bottom {
+    padding-top: 10px;
+  }
+
   .tournament-header {
     .tournament-title {
       font-size: 2rem;
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: #ff0000;
 
       .tournament-brand {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
       }
 
       .tournament-name {
-        font-size: 1.6rem;
+        font-size: 4.5rem;
+        color: transparent !important;
+        -webkit-text-stroke-width: 0.1rem;
+        -webkit-text-stroke-color: #ff0000;
       }
     }
 
@@ -444,61 +409,25 @@
     }
   }
 
-  .tournament-stats {
-    .stat-card {
-      .stat-icon {
-        font-size: 1.5rem;
-      }
-
-      .stat-value {
-        font-size: 1.2rem;
-      }
-
-      .stat-label {
-        font-size: 0.7rem;
-      }
-    }
-  }
 
   .podium-container {
-    .podium-title {
-      font-size: 1.2rem;
-    }
-
-    .podium {
-      height: 150px;
-      gap: $spacing-md;
-
-      .podium-place {
-        .podium-base {
-          width: 60px;
-        }
+    .podium-grid {
+      .podium-cell {
+        padding: $spacing-sm;
 
         &.place-1 {
-          .podium-base {
-            height: 100px;
-          }
-
-          .podium-rank {
-            font-size: 2.5rem;
-          }
-        }
-
-        &.place-2 {
-          .podium-base {
-            height: 70px;
-          }
-
           .podium-rank {
             font-size: 2rem;
           }
         }
 
-        &.place-3 {
-          .podium-base {
-            height: 50px;
+        &.place-2 {
+          .podium-rank {
+            font-size: 1.8rem;
           }
+        }
 
+        &.place-3 {
           .podium-rank {
             font-size: 1.5rem;
           }
@@ -506,11 +435,11 @@
 
         .podium-player {
           .player-name {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
           }
 
           .player-points {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
           }
         }
       }
@@ -547,18 +476,34 @@
     }
   }
 
+  .tournament-content {
+    width: 60%;
+    height: 50%;
+    padding: 10px;
+  }
+
+  .tournament-content-bottom {
+    padding-top: 8px;
+  }
+
   .tournament-header {
     margin-bottom: $spacing-lg;
 
     .tournament-title {
       font-size: 1.5rem;
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: #ff0000;
 
       .tournament-brand {
-        font-size: 0.8rem;
+        font-size: 1.2rem;
       }
 
       .tournament-name {
-        font-size: 1.2rem;
+        font-size: 3.5rem;
+        color: transparent !important;
+        -webkit-text-stroke-width: 0.1rem;
+        -webkit-text-stroke-color: #ff0000;
       }
     }
 
@@ -575,61 +520,25 @@
     }
   }
 
-  .tournament-stats {
-    .stat-card {
-      .stat-icon {
-        font-size: 1.2rem;
-      }
-
-      .stat-value {
-        font-size: 1rem;
-      }
-
-      .stat-label {
-        font-size: 0.6rem;
-      }
-    }
-  }
 
   .podium-container {
-    .podium-title {
-      font-size: 1rem;
-    }
-
-    .podium {
-      height: 120px;
-      gap: $spacing-sm;
-
-      .podium-place {
-        .podium-base {
-          width: 50px;
-        }
+    .podium-grid {
+      .podium-cell {
+        padding: $spacing-xs;
 
         &.place-1 {
-          .podium-base {
-            height: 80px;
-          }
-
           .podium-rank {
-            font-size: 2rem;
+            font-size: 1.8rem;
           }
         }
 
         &.place-2 {
-          .podium-base {
-            height: 60px;
-          }
-
           .podium-rank {
             font-size: 1.5rem;
           }
         }
 
         &.place-3 {
-          .podium-base {
-            height: 40px;
-          }
-
           .podium-rank {
             font-size: 1.2rem;
           }
@@ -637,11 +546,11 @@
 
         .podium-player {
           .player-name {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
           }
 
           .player-points {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
           }
         }
       }
@@ -669,16 +578,32 @@
     }
   }
 
+  .tournament-content {
+    width: 70%;
+    height: 50%;
+    padding: 8px;
+  }
+
+  .tournament-content-bottom {
+    padding-top: 6px;
+  }
+
   .tournament-header {
     .tournament-title {
       font-size: 1.2rem;
+      color: transparent !important;
+      -webkit-text-stroke-width: 0.1rem;
+      -webkit-text-stroke-color: #ff0000;
 
       .tournament-brand {
-        font-size: 0.7rem;
+        font-size: 1rem;
       }
 
       .tournament-name {
-        font-size: 1rem;
+        font-size: 2.8rem;
+        color: transparent !important;
+        -webkit-text-stroke-width: 0.1rem;
+        -webkit-text-stroke-color: #ff0000;
       }
     }
 
@@ -695,61 +620,25 @@
     }
   }
 
-  .tournament-stats {
-    .stat-card {
-      .stat-icon {
-        font-size: 1rem;
-      }
-
-      .stat-value {
-        font-size: 0.9rem;
-      }
-
-      .stat-label {
-        font-size: 0.5rem;
-      }
-    }
-  }
 
   .podium-container {
-    .podium-title {
-      font-size: 0.9rem;
-    }
-
-    .podium {
-      height: 100px;
-      gap: $spacing-xs;
-
-      .podium-place {
-        .podium-base {
-          width: 40px;
-        }
+    .podium-grid {
+      .podium-cell {
+        padding: $spacing-xs;
 
         &.place-1 {
-          .podium-base {
-            height: 70px;
-          }
-
           .podium-rank {
             font-size: 1.5rem;
           }
         }
 
         &.place-2 {
-          .podium-base {
-            height: 50px;
-          }
-
           .podium-rank {
             font-size: 1.2rem;
           }
         }
 
         &.place-3 {
-          .podium-base {
-            height: 35px;
-          }
-
           .podium-rank {
             font-size: 1rem;
           }
@@ -757,11 +646,11 @@
 
         .podium-player {
           .player-name {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
           }
 
           .player-points {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
           }
         }
       }
