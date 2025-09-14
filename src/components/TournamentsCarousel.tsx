@@ -90,6 +90,10 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
               } as React.CSSProperties}
               onClick={() => window.open(getTournamentUrl(tournament.id), '_blank')}
             >
+              {/* Верхняя тень */}
+              <div className="tournament-shadow-top"></div>
+              {/* Нижняя тень */}
+              <div className="tournament-shadow-bottom"></div>
                 <Container className="h-100 tournament-overlay">
                   <Row className="h-100 align-items-center">
                     <Col lg={6} className="tournament-content">
