@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/main.scss'
 import TournamentAnalyzer from './components/TournamentAnalyzer'
 import TournamentStats from './components/TournamentStats'
