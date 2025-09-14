@@ -8,10 +8,14 @@ import AppLoading from './components/AppLoading'
 import CreatorsSection from './components/CreatorsSection'
 import SplashScreen from './components/SplashScreen'
 import { AudioProvider } from './contexts/AudioContext'
+import { useAudio } from './hooks/useAudio'
 import { TournamentParticipantsData } from './types'
 import { dataLoader } from './utils/dataLoader'
+import AudioToggleButton from './components/AudioToggleButton'
 
-function App() {
+// Внутренний компонент для работы с аудио
+const AppContent: React.FC = () => {
+  const { setBackgroundMusic, setSplashActive } = useAudio();
   const [tournamentData, setTournamentData] = useState<{[key: string]: TournamentParticipantsData}>({})
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -46,6 +50,7 @@ function App() {
   // Функция для завершения анимации заставки
   const handleSplashComplete = () => {
     setShowSplash(false)
+    setSplashActive(false) // Уведомляем AudioContext о завершении splash screen
     // Запускаем анимации body и app-header после завершения перехода
     setTimeout(() => {
       // Добавляем класс для активации анимаций
@@ -71,9 +76,12 @@ function App() {
   }
 
   return (
-    <AudioProvider>
+    <>
       {/* Заставка - показывается поверх всего */}
       {showSplash && <SplashScreen onAnimationComplete={handleSplashComplete} />}
+      
+      {/* Кнопка управления звуком */}
+      <AudioToggleButton />
       
       <div className="app">
         {/* Фоновое видео */}
@@ -88,6 +96,18 @@ function App() {
           <source src="./background.mp4" type="video/mp4" />
           Ваш браузер не поддерживает видео элемент.
         </video>
+        
+        {/* Фоновая музыка */}
+        <audio 
+          ref={(audio) => {
+            if (audio) {
+              setBackgroundMusic(audio);
+            }
+          }}
+          src="./sr.wav"
+          loop
+          preload="auto"
+        />
         
         <div className={`app-content ${showSplash ? 'hidden' : 'visible'}`}>
           <AppHeader 
@@ -112,6 +132,14 @@ function App() {
           <CreatorsSection />
         </div>
       </div>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <AudioProvider>
+      <AppContent />
     </AudioProvider>
   )
 }

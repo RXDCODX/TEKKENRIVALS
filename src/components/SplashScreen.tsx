@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { useAudio } from '../hooks/useAudio';
 
 interface SplashScreenProps {
   onAnimationComplete: () => void;
@@ -12,7 +11,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
   const [shouldStartTransition, setShouldStartTransition] = useState(false);
   const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0, scale: 1 });
   const logoRef = useRef<HTMLImageElement>(null);
-  const { setBackgroundMusic } = useAudio();
 
   const prepareTransition = () => {
     if (isAnimating) return; // Предотвращаем повторный запуск
@@ -39,36 +37,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
     setShouldStartTransition(true);
   };
 
-  const startBackgroundMusic = () => {
-    try {
-      // Останавливаем все существующие аудио элементы с sr.wav
-      const existingAudios = document.querySelectorAll('audio[src="./sr.wav"]');
-      existingAudios.forEach(audio => {
-        const audioElement = audio as HTMLAudioElement;
-        audioElement.pause();
-        audioElement.currentTime = 0;
-        audioElement.remove();
-      });
-
-      // Создаем новый аудио элемент для фоновой музыки
-      const audio = new Audio('./sr.wav');
-      audio.volume = 0.25;
-      audio.loop = true;
-      audio.preload = 'auto';
-      
-      // Загружаем и воспроизводим
-      audio.load();
-      audio.play().then(() => {
-        console.log('✅ Фоновая музыка sr.wav запущена в цикле');
-        setBackgroundMusic(audio);
-      }).catch(error => {
-        console.warn('⚠️ Не удалось запустить фоновую музыку:', error);
-      });
-    } catch (error) {
-      console.warn('⚠️ Ошибка создания фоновой музыки:', error);
-    }
-  };
-
   const startTransition = async () => {
     // Воспроизводим звук при начале анимации перехода
     await playSound();
@@ -78,7 +46,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
     // Через 2 секунды после начала анимации скрываем заставку и запускаем фоновую музыку
     setTimeout(() => {
       setIsVisible(false);
-      startBackgroundMusic(); // Запускаем фоновую музыку
       onAnimationComplete();
     }, 2000);
   };

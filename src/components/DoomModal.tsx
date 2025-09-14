@@ -8,16 +8,19 @@ interface DoomModalProps {
 }
 
 const DoomModal: React.FC<DoomModalProps> = ({ isOpen, onClose }) => {
-  const { muteBackgroundMusic, unmuteBackgroundMusic } = useAudio();
+  const { muteBackgroundMusic } = useAudio();
 
   // Управляем звуком при открытии/закрытии модального окна
   useEffect(() => {
+    console.log('🔊 DoomModal useEffect, isOpen:', isOpen);
     if (isOpen) {
       muteBackgroundMusic();
     } else {
-      unmuteBackgroundMusic();
+      // Не включаем звук автоматически при закрытии модального окна
+      // Пользователь должен сам включить звук через кнопку
+      console.log('🔊 DoomModal закрыт, звук не включаем автоматически');
     }
-  }, [isOpen, muteBackgroundMusic, unmuteBackgroundMusic]);
+  }, [isOpen, muteBackgroundMusic]);
 
   const handleFullscreen = () => {
     const iframe = document.getElementById('doom-iframe') as HTMLIFrameElement;

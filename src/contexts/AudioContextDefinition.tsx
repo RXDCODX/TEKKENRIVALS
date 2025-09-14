@@ -6,6 +6,7 @@ export interface AudioContextType {
   unmuteBackgroundMusic: () => void;
   isMuted: boolean;
   setBackgroundMusic: (audio: HTMLAudioElement) => void;
+  setSplashActive: (active: boolean) => void;
 }
 
 export const AudioContext = createContext<AudioContextType | undefined>(undefined);
