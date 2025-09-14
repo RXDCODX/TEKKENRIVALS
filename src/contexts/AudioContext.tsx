@@ -30,9 +30,8 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     if (backgroundMusicRef.current) {
       backgroundMusicRef.current.muted = isMuted;
       backgroundMusicRef.current.volume = 0.3;
-      // Не пытаемся воспроизводить автоматически - только после взаимодействия пользователя
     }
-  }, [isMuted]); // Только при инициализации
+  }, [isMuted]);
 
   // Отдельный useEffect для обработки изменений состояния
   useEffect(() => {
