@@ -23,7 +23,7 @@ interface TournamentSummary {
   tournamentNumber: number;
 }
 
-const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => {
+const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => { 
   // Функция для получения ссылки на турнир
   const getTournamentUrl = (tournamentId: string): string => {
     const tournamentUrls: { [key: string]: string } = {
