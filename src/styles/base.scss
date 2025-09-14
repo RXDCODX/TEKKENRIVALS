@@ -5,8 +5,27 @@
 // Импорт шрифта Roboto
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
+// Критические стили для предотвращения белого фона
+* {
+  box-sizing: border-box;
+}
+
+// Дополнительная защита от белого фона
+html,
+body {
+  background-color: $black !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
 html {
-  background-color: $black; // Черный фон для html элемента
+  background-color: $black !important; // Черный фон для html элемента
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 body {
@@ -21,6 +40,10 @@ body {
   user-select: none;
   position: relative;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 
   // Анимации отключены по умолчанию до завершения сплеш-скрина
   &:not(.animations-enabled) {
@@ -99,6 +122,8 @@ body {
   min-height: 100vh;
   color: $white;
   transition: background 0.5s ease-in-out;
+  width: 100%;
+  background-color: $black;
 }
 
 .app {
@@ -126,7 +151,10 @@ body {
   min-height: 100vh;
   color: $primary-color;
   text-align: center;
-  background-color: $black;
+  background-color: $black !important;
+  width: 100%;
+  position: relative;
+  z-index: 1000;
 
   h1 {
     font-size: 3.5rem;
