@@ -8,6 +8,7 @@ interface TournamentsCarouselProps {
 
 const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
 
   // Функция для получения ссылки на турнир
   const getTournamentUrl = (tournamentId: string): string => {
@@ -25,6 +26,19 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
     return `/TEKKENRIVALS/R${tournamentNumber}.png`;
   };
 
+  // Функция для обработки смены слайда
+  const handleSlideChange = (selectedIndex: number) => {
+    if (selectedIndex !== activeIndex) {
+      setPreviousIndex(activeIndex);
+      setActiveIndex(selectedIndex);
+      
+      // Убираем класс fade-out через 1 секунду (время анимации)
+      setTimeout(() => {
+        setPreviousIndex(null);
+      }, 1000);
+    }
+  };
+
   if (!tournaments.length) {
     return (
       <div className="tournaments-carousel">
@@ -39,29 +53,30 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
       <h3>Турниры TEKKEN RIVALS</h3>
       <Carousel
         activeIndex={activeIndex}
-        onSelect={setActiveIndex}
-        interval={7500} // Отключаем автоматическое переключение
+        onSelect={handleSlideChange}
+        interval={6000}
         indicators={true}
-        keyboard
+        autoCorrect={'true'}
         pause={"hover"}
-        controls={false}
+        slide={false}
         fade
-        wrap
+        controls={false}
         className="tournament-carousel"
       >
-        {tournaments.map((tournament) => (
-          <Carousel.Item key={tournament.id}>
+        {tournaments.map((tournament, index) => (
+          <Carousel.Item 
+            key={tournament.id}
+            className={previousIndex === index ? 'fade-out' : ''}
+          >
             <div 
               className="tournament-slide"
               style={{
-                backgroundImage: `url(${getTournamentBackground(tournament.tournamentNumber)})`
-              }}
+                '--tournament-bg': `url(${getTournamentBackground(tournament.tournamentNumber)})`
+              } as React.CSSProperties}
               onClick={() => window.open(getTournamentUrl(tournament.id), '_blank')}
             >
-              <div className="tournament-overlay">
-                <Container className="h-100">
+                <Container className="h-100 tournament-overlay">
                   <Row className="h-100 align-items-center">
-                    {/* Левая половина с информацией о турнире */}
                     <Col lg={6} className="tournament-content">
                       <div className="tournament-header">
                         <h2 className="tournament-title">
@@ -92,17 +107,13 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                       </div>
                       
                       <div className="tournament-content-bottom">
-                        {/* Дополнительный контент можно добавить сюда */}
                       </div>
                     </Col>
 
-                    {/* Правая половина - пустая для фонового изображения */}
                     <Col lg={6} className="tournament-right-side">
-                      {/* Пустая область для фонового изображения */}
                     </Col>
                   </Row>
 
-                  {/* Нижняя часть с пьедесталом */}
                   <Row className="justify-content-center position-absolute bottom-0 start-50 translate-middle-x w-100" style={{bottom: '20px'}}>
                     <Col xs={12} md={8} lg={6} className="tournament-podium">
                       <div className="podium-container">
@@ -142,7 +153,6 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                     </Col>
                   </Row>
                 </Container>
-              </div>
             </div>
           </Carousel.Item>
         ))}
