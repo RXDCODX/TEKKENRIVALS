@@ -188,24 +188,27 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
       {/* Модальное окно для отображения постера турнира */}
       <Modal 
         show={showModal} 
+        onBackdropClick={handleCloseModal}
         onHide={handleCloseModal}
         size="lg"
         centered
         className="tournament-poster-modal"
+        backdrop={true}
+        keyboard={true}
       >
-        <Modal.Header closeButton className="tournament-modal-header">
-          <Modal.Title>
-            {selectedTournament && (
-              <>
-                <span className="modal-tournament-brand">TEKKEN RIVALS</span>
-                <span className="modal-tournament-name">{selectedTournament.name}</span>
-              </>
-            )}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="tournament-modal-body">
+        <Modal.Body 
+          className="tournament-modal-body"
+          onClick={() => {
+            handleCloseModal();
+            console.log("sosal");
+          } 
+        }
+        >
           {selectedTournament && (
-            <div className="tournament-poster-container">
+            <div 
+              className="tournament-poster-container"
+              onClick={(e) => e.stopPropagation()}
+            >
               <img 
                 src={getTournamentBackground(selectedTournament.tournamentNumber)}
                 alt={`${selectedTournament.name} - Постер турнира`}
