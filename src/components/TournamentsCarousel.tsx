@@ -107,24 +107,33 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                           {tournament.results
                             .sort((a, b) => a.final_rank - b.final_rank)
                             .slice(0, 3)
-                            .map((result, index) => (
-                              <div 
-                                key={index} 
-                                className={`podium-cell place-${result.final_rank}`}
-                                onClick={() => window.open(`https://challonge.com/users/${result.challonge_username}`, '_blank')}
-                              >
-                                <div className="podium-rank">
-                                  {result.final_rank === 1 && '🥇'}
-                                  {result.final_rank === 2 && '🥈'}
-                                  {result.final_rank === 3 && '🥉'}
+                            .map((result, index) => {
+                              // Определяем позицию для отображения: 2-е место в первой позиции, 1-е место в центре, 3-е место в третьей
+                              let displayIndex = index;
+                              if (result.final_rank === 1) displayIndex = 1; // 1-е место в центре
+                              else if (result.final_rank === 2) displayIndex = 0; // 2-е место слева
+                              else if (result.final_rank === 3) displayIndex = 2; // 3-е место справа
+                              
+                              return (
+                                <div 
+                                  key={result.final_rank} 
+                                  className={`podium-cell place-${result.final_rank}`}
+                                  style={{ order: displayIndex }}
+                                  onClick={() => window.open(`https://challonge.com/users/${result.challonge_username}`, '_blank')}
+                                >
+                                  <div className="podium-rank">
+                                    {result.final_rank === 1 && '🥇'}
+                                    {result.final_rank === 2 && '🥈'}
+                                    {result.final_rank === 3 && '🥉'}
+                                  </div>
+                                  <div className="podium-player">
+                                    <div className="player-name">{result.participant_name}</div>
+                                    <div className="player-points">{result.points_earned} очков</div>
+                                  </div>
+                                  {displayIndex < 2 && <div className="podium-divider"></div>}
                                 </div>
-                                <div className="podium-player">
-                                  <div className="player-name">{result.participant_name}</div>
-                                  <div className="player-points">{result.points_earned} очков</div>
-                                </div>
-                                {index < 2 && <div className="podium-divider"></div>}
-                              </div>
-                            ))}
+                              );
+                            })}
                         </div>
                       </div>
                     </Col>
