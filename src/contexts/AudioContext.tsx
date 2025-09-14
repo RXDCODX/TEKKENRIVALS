@@ -9,11 +9,14 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   const backgroundMusicRef = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(true); // По умолчанию выключен
   const [isSplashActive, setIsSplashActive] = useState(true); // По умолчанию splash активен
+  const [volume, setVolumeState] = useState(0.3); // Громкость по умолчанию
 
   // Инициализация состояния из localStorage
   useEffect(() => {
     const savedState = localStorage.getItem('audioEnabled');
-    console.log('🔊 Инициализация из localStorage:', savedState);
+    const savedVolume = localStorage.getItem('audioVolume');
+    console.log('🔊 Инициализация из localStorage:', savedState, 'volume:', savedVolume);
+    
     if (savedState !== null) {
       const audioEnabled = JSON.parse(savedState);
       console.log('🔊 audioEnabled из localStorage:', audioEnabled, 'устанавливаем isMuted:', !audioEnabled);
@@ -23,15 +26,22 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
       console.log('🔊 Состояние по умолчанию: выключен');
       setIsMuted(true);
     }
+
+    if (savedVolume !== null) {
+      const volumeValue = parseFloat(savedVolume);
+      if (!isNaN(volumeValue) && volumeValue >= 0 && volumeValue <= 1) {
+        setVolumeState(volumeValue);
+      }
+    }
   }, []);
 
   // Инициализация аудио элемента без автовоспроизведения
   useEffect(() => {
     if (backgroundMusicRef.current) {
       backgroundMusicRef.current.muted = isMuted;
-      backgroundMusicRef.current.volume = 0.3;
+      backgroundMusicRef.current.volume = volume;
     }
-  }, [isMuted]);
+  }, [isMuted, volume]);
 
   // Отдельный useEffect для обработки изменений состояния
   useEffect(() => {
@@ -72,14 +82,24 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     // Применяем текущее состояние к новому аудио элементу
     if (audio) {
       audio.muted = isMuted;
-      audio.volume = 0.3;
+      audio.volume = volume;
       // Не пытаемся воспроизводить автоматически - только после взаимодействия пользователя
     }
-  }, [isMuted]);
+  }, [isMuted, volume]);
 
   const setSplashActive = useCallback((active: boolean) => {
     setIsSplashActive(active);
     // Логика воспроизведения теперь в отдельном useEffect
+  }, []);
+
+  const setVolume = useCallback((newVolume: number) => {
+    const clampedVolume = Math.max(0, Math.min(1, newVolume));
+    setVolumeState(clampedVolume);
+    localStorage.setItem('audioVolume', clampedVolume.toString());
+    
+    if (backgroundMusicRef.current) {
+      backgroundMusicRef.current.volume = clampedVolume;
+    }
   }, []);
 
   const value: AudioContextType = {
@@ -87,6 +107,8 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
     muteBackgroundMusic,
     unmuteBackgroundMusic,
     isMuted,
+    volume,
+    setVolume,
     setBackgroundMusic,
     setSplashActive,
   };

@@ -5,6 +5,8 @@ export interface AudioContextType {
   muteBackgroundMusic: () => void;
   unmuteBackgroundMusic: () => void;
   isMuted: boolean;
+  volume: number;
+  setVolume: (volume: number) => void;
   setBackgroundMusic: (audio: HTMLAudioElement) => void;
   setSplashActive: (active: boolean) => void;
 }

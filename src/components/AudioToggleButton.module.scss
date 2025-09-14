@@ -1,8 +1,15 @@
-.audioToggleButton {
+.audioControlContainer {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.audioToggleButton {
   width: 50px;
   height: 50px;
   border: 2px solid #dc2626;
@@ -13,10 +20,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, opacity 0.5s ease-in-out;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  animation: slideIn 0.5s ease-out;
+  opacity: 0;
+  transform: translateX(100px);
 
   &:hover {
     background: #1a1a1a;
@@ -31,7 +39,7 @@
   &.playing {
     background: #000000;
     border-color: #16a34a;
-    animation: slideIn 0.5s ease-out, audioPulse 2s infinite;
+    animation: audioPulse 2s infinite, buttonPulseGreen 3s ease-in-out infinite;
 
     &:hover {
       background: #1a1a1a;
@@ -39,9 +47,16 @@
     }
   }
 
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideIn 0.5s ease-out, buttonPulse 3s ease-in-out infinite;
+  }
+
   &.muted {
     background: #000000;
     border-color: #dc2626;
+    animation: buttonPulse 3s ease-in-out infinite;
 
     &:hover {
       background: #1a1a1a;
@@ -66,11 +81,14 @@
 
 // Адаптивность для мобильных устройств
 @media (max-width: 768px) {
+  .audioControlContainer {
+    top: 15px;
+    right: 15px;
+  }
+
   .audioToggleButton {
     width: 45px;
     height: 45px;
-    top: 15px;
-    right: 15px;
 
     .audioIcon {
       width: 20px;
@@ -104,5 +122,170 @@
 
   100% {
     box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
+}
+
+// Общая pulse анимация для кнопки
+@keyframes buttonPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(220, 38, 38, 0.3);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Pulse анимация для состояния воспроизведения (зеленая)
+@keyframes buttonPulseGreen {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(22, 163, 74, 0.3);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Стили для ползунка громкости
+.volumeSliderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid #dc2626;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: slideInVolume 0.3s ease-out;
+  margin-top: 5px;
+  width: 30px;
+  height: 120px;
+}
+
+.volumeSlider {
+  -webkit-appearance: slider-vertical;
+  appearance: slider-vertical;
+  width: 4px;
+  height: 100px;
+  background: #333;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  writing-mode: bt-lr;
+  /* IE */
+  -webkit-writing-mode: bt-lr;
+  /* WebKit */
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #dc2626;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #ef4444;
+      transform: scale(1.1);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: #dc2626;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #ef4444;
+      transform: scale(1.1);
+    }
+  }
+
+  &::-webkit-slider-track {
+    background: #333;
+    border-radius: 2px;
+    width: 4px;
+    height: 100px;
+  }
+
+  &::-moz-range-track {
+    background: #333;
+    border-radius: 2px;
+    width: 4px;
+    height: 100px;
+  }
+}
+
+
+// Анимация появления ползунка
+@keyframes slideInVolume {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Адаптивность для ползунка громкости
+@media (max-width: 768px) {
+  .volumeSliderContainer {
+    padding: 10px 6px;
+    width: 25px;
+    height: 100px;
+  }
+
+  .volumeSlider {
+    width: 3px;
+    height: 80px;
+
+    &::-webkit-slider-track {
+      width: 3px;
+      height: 80px;
+    }
+
+    &::-moz-range-track {
+      width: 3px;
+      height: 80px;
+    }
+
+    &::-webkit-slider-thumb {
+      width: 10px;
+      height: 10px;
+    }
+
+    &::-moz-range-thumb {
+      width: 10px;
+      height: 10px;
+    }
   }
 }

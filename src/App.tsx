@@ -80,9 +80,6 @@ const AppContent: React.FC = () => {
       {/* Заставка - показывается поверх всего */}
       {showSplash && <SplashScreen onAnimationComplete={handleSplashComplete} />}
       
-      {/* Кнопка управления звуком */}
-      <AudioToggleButton />
-      
       <div className="app">
         {/* Фоновое видео */}
         <video 
@@ -110,6 +107,9 @@ const AppContent: React.FC = () => {
         />
         
         <div className={`app-content ${showSplash ? 'hidden' : 'visible'}`}>
+          {/* Кнопка управления звуком */}
+          <AudioToggleButton isVisible={!showSplash} />
+          
           <AppHeader 
             onDataRefresh={handleDataRefresh}
             isLoading={isRefreshing}
