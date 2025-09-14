@@ -37,13 +37,16 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
   return (
     <div className="tournaments-carousel">
       <h3>Турниры TEKKEN RIVALS</h3>
-      
       <Carousel
         activeIndex={activeIndex}
         onSelect={setActiveIndex}
-        interval={null} // Отключаем автоматическое переключение
-        indicators={false}
-        controls={true}
+        interval={7500} // Отключаем автоматическое переключение
+        indicators={true}
+        keyboard
+        pause={"hover"}
+        controls={false}
+        fade
+        wrap
         className="tournament-carousel"
       >
         {tournaments.map((tournament) => (
@@ -144,18 +147,6 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
           </Carousel.Item>
         ))}
       </Carousel>
-
-      {/* Индикаторы слайдов */}
-      <div className="carousel-indicators-custom mt-4">
-        {tournaments.map((_, index) => (
-          <button
-            key={index}
-            className={`indicator ${index === activeIndex ? 'active' : ''}`}
-            onClick={() => setActiveIndex(index)}
-            aria-label={`Перейти к турниру ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   );
 };
