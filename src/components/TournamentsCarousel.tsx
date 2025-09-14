@@ -69,7 +69,7 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
       <Carousel
         activeIndex={activeIndex}
         onSelect={handleSlideChange}
-        interval={showModal ? null : 6000}
+        interval={showModal ? null : 5000}
         indicators={true}
         autoCorrect={'true'}
         pause={"hover"}
