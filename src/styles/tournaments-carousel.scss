@@ -199,6 +199,48 @@
   position: relative;
 }
 
+.tournament-image-container {
+  position: absolute;
+  top: 25%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 3;
+  padding: 0;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tournament-image {
+  border-radius: $border-radius-large;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+  object-fit: cover;
+  border: 3px solid rgba(225, 70, 70, 0.3);
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8);
+    border-color: rgba(225, 70, 70, 0.6);
+  }
+
+  // Альбомная ориентация для первых двух турниров
+  &.landscape {
+    width: 80%;
+    max-width: 300px;
+    aspect-ratio: 16/9;
+  }
+
+  // Портретная ориентация для последних двух турниров
+  &.portrait {
+    width: 40%;
+    max-width: 120px;
+    aspect-ratio: 9/16;
+  }
+}
+
 .tournament-content-bottom {
   margin-top: auto;
   border-top: 1px solid $border-color;
@@ -459,6 +501,23 @@
     padding: 15px;
   }
 
+  .tournament-image-container {
+    width: 50%;
+    height: 50%;
+  }
+
+  .tournament-image {
+    &.landscape {
+      width: 75%;
+      max-width: 250px;
+    }
+
+    &.portrait {
+      width: 35%;
+      max-width: 100px;
+    }
+  }
+
   .tournament-content-bottom {
     padding-top: 10px;
   }
@@ -562,6 +621,23 @@
     padding: 10px;
   }
 
+  .tournament-image-container {
+    width: 50%;
+    height: 50%;
+  }
+
+  .tournament-image {
+    &.landscape {
+      width: 70%;
+      max-width: 200px;
+    }
+
+    &.portrait {
+      width: 30%;
+      max-width: 80px;
+    }
+  }
+
   .tournament-content-bottom {
     padding-top: 8px;
   }
@@ -656,6 +732,23 @@
     width: 70%;
     height: 50%;
     padding: 8px;
+  }
+
+  .tournament-image-container {
+    width: 50%;
+    height: 50%;
+  }
+
+  .tournament-image {
+    &.landscape {
+      width: 65%;
+      max-width: 150px;
+    }
+
+    &.portrait {
+      width: 25%;
+      max-width: 60px;
+    }
   }
 
   .tournament-content-bottom {

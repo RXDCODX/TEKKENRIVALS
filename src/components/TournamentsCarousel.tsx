@@ -114,6 +114,17 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                     </Col>
                   </Row>
 
+                  {/* Изображение турнира в верхнем правом углу */}
+                  <div className="tournament-image-container">
+                    <img 
+                      src={getTournamentBackground(tournament.tournamentNumber)}
+                      alt={`${tournament.name} - Турнир ${tournament.tournamentNumber}`}
+                      className={`tournament-image ${
+                        tournament.tournamentNumber <= 2 ? 'landscape' : 'portrait'
+                      }`}
+                    />
+                  </div>
+
                   <Row className="justify-content-center position-absolute bottom-0 start-50 translate-middle-x w-100" style={{bottom: '20px'}}>
                     <Col xs={12} md={8} lg={6} className="tournament-podium">
                       <div className="podium-container">
