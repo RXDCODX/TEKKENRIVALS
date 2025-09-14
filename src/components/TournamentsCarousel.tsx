@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Carousel, Container, Row, Col, Badge } from 'react-bootstrap';
+import { Carousel, Container, Row, Col, Badge, Modal } from 'react-bootstrap';
 import { TournamentSummary } from './TournamentStats';
 
 interface TournamentsCarouselProps {
@@ -9,6 +9,8 @@ interface TournamentsCarouselProps {
 const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTournament, setSelectedTournament] = useState<TournamentSummary | null>(null);
 
   // Функция для получения ссылки на турнир
   const getTournamentUrl = (tournamentId: string): string => {
@@ -39,6 +41,19 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
     }
   };
 
+  // Функция для открытия модального окна
+  const handleImageClick = (tournament: TournamentSummary, event: React.MouseEvent) => {
+    event.stopPropagation(); // Предотвращаем клик по слайду
+    setSelectedTournament(tournament);
+    setShowModal(true);
+  };
+
+  // Функция для закрытия модального окна
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedTournament(null);
+  };
+
   if (!tournaments.length) {
     return (
       <div className="tournaments-carousel">
@@ -54,7 +69,7 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
       <Carousel
         activeIndex={activeIndex}
         onSelect={handleSlideChange}
-        interval={6000}
+        interval={showModal ? null : 6000}
         indicators={true}
         autoCorrect={'true'}
         pause={"hover"}
@@ -122,6 +137,7 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
                       className={`tournament-image ${
                         tournament.tournamentNumber <= 2 ? 'landscape' : 'portrait'
                       }`}
+                      onClick={(e) => handleImageClick(tournament, e)}
                     />
                   </div>
 
@@ -168,6 +184,39 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
           </Carousel.Item>
         ))}
       </Carousel>
+
+      {/* Модальное окно для отображения постера турнира */}
+      <Modal 
+        show={showModal} 
+        onHide={handleCloseModal}
+        size="lg"
+        centered
+        className="tournament-poster-modal"
+      >
+        <Modal.Header closeButton className="tournament-modal-header">
+          <Modal.Title>
+            {selectedTournament && (
+              <>
+                <span className="modal-tournament-brand">TEKKEN RIVALS</span>
+                <span className="modal-tournament-name">{selectedTournament.name}</span>
+              </>
+            )}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="tournament-modal-body">
+          {selectedTournament && (
+            <div className="tournament-poster-container">
+              <img 
+                src={getTournamentBackground(selectedTournament.tournamentNumber)}
+                alt={`${selectedTournament.name} - Постер турнира`}
+                className={`tournament-poster-image ${
+                  selectedTournament.tournamentNumber <= 2 ? 'landscape' : 'portrait'
+                }`}
+              />
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

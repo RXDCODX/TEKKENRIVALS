@@ -457,6 +457,126 @@
   }
 }
 
+// Стили для модального окна с постером турнира
+.tournament-poster-modal {
+  .modal-dialog {
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .modal-content {
+    background: #111;
+    border: 2px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .tournament-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #333;
+    background: #1a1a1a;
+
+    .modal-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-sm;
+
+      .modal-tournament-brand {
+        font-size: 1.5rem;
+        color: #ff0000;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .modal-tournament-name {
+        font-size: 2.5rem;
+        color: transparent !important;
+        -webkit-text-stroke-width: 0.1rem;
+        -webkit-text-stroke-color: #ff0000;
+        font-weight: bold;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+        margin: 0;
+      }
+    }
+
+    .btn-close {
+      background: #a00;
+      border: 0;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+      opacity: 1;
+
+      &::before {
+        content: "×";
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      &:hover {
+        background: #c00;
+      }
+    }
+  }
+
+  .tournament-modal-body {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    min-height: 0;
+    flex: 1;
+  }
+
+  .tournament-poster-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tournament-poster-image {
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid #333;
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+    display: block;
+
+    &.landscape {
+      width: auto;
+      height: auto;
+      max-width: 80vw;
+      aspect-ratio: 16/9;
+    }
+
+    &.portrait {
+      width: auto;
+      height: auto;
+      max-width: 50vw;
+      aspect-ratio: 9/16;
+    }
+  }
+}
+
 // Адаптивность - Планшеты и меньше
 @include tablet-and-down {
   .tournaments-carousel {
@@ -520,6 +640,42 @@
 
   .tournament-content-bottom {
     padding-top: 10px;
+  }
+
+  // Адаптивность модального окна для планшетов
+  .tournament-poster-modal {
+    .modal-dialog {
+      max-width: 95vw;
+      max-height: 95vh;
+    }
+
+    .tournament-modal-header {
+      padding: 10px 15px;
+
+      .modal-title {
+        .modal-tournament-brand {
+          font-size: 1.3rem;
+        }
+
+        .modal-tournament-name {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .tournament-modal-body {
+      padding: 15px;
+    }
+
+    .tournament-poster-image {
+      &.landscape {
+        max-width: 85vw;
+      }
+
+      &.portrait {
+        max-width: 55vw;
+      }
+    }
   }
 
   .tournament-header {
@@ -642,6 +798,44 @@
     padding-top: 8px;
   }
 
+  // Адаптивность модального окна для мобильных
+  .tournament-poster-modal {
+    .modal-dialog {
+      max-width: 95vw;
+      margin: 10px;
+    }
+
+    .tournament-modal-header {
+      padding: 10px 15px;
+
+      .modal-title {
+        .modal-tournament-brand {
+          font-size: 1.1rem;
+        }
+
+        .modal-tournament-name {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .tournament-modal-body {
+      padding: 15px;
+    }
+
+    .tournament-poster-image {
+      max-height: 60vh;
+
+      &.landscape {
+        max-width: 90vw;
+      }
+
+      &.portrait {
+        max-width: 60vw;
+      }
+    }
+  }
+
   .tournament-header {
     margin-bottom: $spacing-lg;
 
@@ -753,6 +947,44 @@
 
   .tournament-content-bottom {
     padding-top: 6px;
+  }
+
+  // Адаптивность модального окна для маленьких мобильных
+  .tournament-poster-modal {
+    .modal-dialog {
+      max-width: 98vw;
+      margin: 5px;
+    }
+
+    .tournament-modal-header {
+      padding: 8px 12px;
+
+      .modal-title {
+        .modal-tournament-brand {
+          font-size: 1rem;
+        }
+
+        .modal-tournament-name {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .tournament-modal-body {
+      padding: 12px;
+    }
+
+    .tournament-poster-image {
+      max-height: 50vh;
+
+      &.landscape {
+        max-width: 95vw;
+      }
+
+      &.portrait {
+        max-width: 65vw;
+      }
+    }
   }
 
   .tournament-header {
