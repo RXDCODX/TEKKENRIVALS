@@ -493,6 +493,7 @@
 // Стили для модального окна с постером турнира
 .tournament-poster-modal {
   z-index: 999999999;
+  padding-left: 0 !important; // Убираем padding-left от Bootstrap
 
   .modal-dialog {
     max-width: none;
