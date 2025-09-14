@@ -230,14 +230,12 @@
   &.landscape {
     width: 80%;
     max-width: 300px;
-    aspect-ratio: 16/9;
   }
 
   // Портретная ориентация для последних двух турниров
   &.portrait {
     width: 40%;
     max-width: 120px;
-    aspect-ratio: 9/16;
   }
 }
 
