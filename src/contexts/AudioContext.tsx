@@ -32,7 +32,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
       backgroundMusicRef.current.volume = 0.3;
       // Не пытаемся воспроизводить автоматически - только после взаимодействия пользователя
     }
-  }, []); // Только при инициализации
+  }, [isMuted]); // Только при инициализации
 
   // Отдельный useEffect для обработки изменений состояния
   useEffect(() => {
