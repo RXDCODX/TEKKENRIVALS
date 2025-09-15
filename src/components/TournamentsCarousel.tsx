@@ -76,6 +76,7 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({ tournaments }
         slide={false}
         fade
         controls={false}
+        touch
         className="tournament-carousel"
       >
         {tournaments.map((tournament, index) => (
