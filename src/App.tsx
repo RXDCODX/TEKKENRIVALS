@@ -117,6 +117,9 @@ const AppContent: React.FC = () => {
           />
           
           <main className={`app-main ${showContent ? 'revealed' : 'hidden'}`}>
+
+            <div className="section-divider"></div>
+
             <div className="content-section">
               <TournamentStats tournamentData={tournamentData} />
             </div>
@@ -127,8 +130,11 @@ const AppContent: React.FC = () => {
               <h2 className="section-title">Рейтинг игроков</h2>
               <TournamentAnalyzer tournamentData={tournamentData} />
             </div>
+
+            <div className="section-divider"></div>
+
           </main>
-          
+
           <CreatorsSection />
         </div>
       </div>
