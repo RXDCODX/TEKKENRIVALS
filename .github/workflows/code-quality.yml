@@ -1,0 +1,81 @@
+name: Code Quality Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  quality-check:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript type check
+        run: npm run type-check
+
+      - name: ESLint check
+        run: npm run lint
+
+      - name: Prettier format check
+        run: npm run format:check
+
+      - name: Build check
+        run: npm run build
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // Проверяем размер сборки
+            const distPath = path.join(process.cwd(), 'dist');
+            let buildSize = 'N/A';
+
+            if (fs.existsSync(distPath)) {
+              const { execSync } = require('child_process');
+              try {
+                const sizeOutput = execSync('du -sh dist', { encoding: 'utf8' });
+                buildSize = sizeOutput.split('\t')[0];
+              } catch (e) {
+                buildSize = 'Unknown';
+              }
+            }
+
+            const comment = `## 📊 Результаты проверки качества кода
+
+            ### ✅ Проверки пройдены:
+            - **TypeScript**: Проверка типов
+            - **ESLint**: Проверка стиля кода
+            - **Prettier**: Проверка форматирования
+            - **Build**: Успешная сборка
+
+            ### 📦 Информация о сборке:
+            - **Размер**: ${buildSize}
+            - **Node.js**: 18.x
+            - **Платформа**: Ubuntu Latest
+
+            ### 🎯 Статус: ✅ Все проверки пройдены успешно!`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

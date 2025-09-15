@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TournamentParticipantsData, PlayerRanking } from '../types';
-import { 
-  processTournamentResults, 
-  createPlayerRanking
+import {
+  processTournamentResults,
+  createPlayerRanking,
 } from '../utils/scoring';
 import PlayerRankingComponent from './PlayerRanking';
 
@@ -12,7 +12,9 @@ interface TournamentAnalyzerProps {
   };
 }
 
-const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData }) => {
+const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({
+  tournamentData,
+}) => {
   const [rankings, setRankings] = useState<PlayerRanking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,15 +32,17 @@ const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData 
       Object.entries(tournamentData).forEach(([, participants]) => {
         const results = processTournamentResults(participants);
         allResults.push(...results);
-        
+
         // Собираем уникальные ID турниров
         results.forEach(result => tournamentIds.add(result.tournament_id));
       });
 
       // Создаем рейтинг игроков
-      const playerRankings = createPlayerRanking(allResults, tournamentIds.size);
+      const playerRankings = createPlayerRanking(
+        allResults,
+        tournamentIds.size
+      );
       setRankings(playerRankings);
-      
     } catch (error) {
       console.error('Ошибка при обработке данных турниров:', error);
     } finally {
@@ -48,8 +52,8 @@ const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData 
 
   if (isLoading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
+      <div className='loading-container'>
+        <div className='loading-spinner'></div>
         <p>Обработка данных турниров...</p>
       </div>
     );
@@ -57,7 +61,7 @@ const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData 
 
   if (!rankings.length) {
     return (
-      <div className="no-data-container">
+      <div className='no-data-container'>
         <h2>Нет данных для анализа</h2>
         <p>Загрузите данные турниров для создания рейтинга</p>
       </div>
@@ -65,9 +69,8 @@ const TournamentAnalyzer: React.FC<TournamentAnalyzerProps> = ({ tournamentData 
   }
 
   return (
-    <div className="tournament-analyzer">
+    <div className='tournament-analyzer'>
       <PlayerRankingComponent rankings={rankings} />
-      
     </div>
   );
 };

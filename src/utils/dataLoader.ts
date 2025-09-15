@@ -40,11 +40,11 @@ export class DataLoader {
       const url = `${path}?v=${timestamp}&t=${Math.random()}`;
 
       const response = await fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
         },
       });
 
@@ -82,7 +82,7 @@ export class DataLoader {
     const data: { [key: string]: any } = {};
 
     // Загружаем данные параллельно для ускорения
-    const promises = tournaments.map(async (tournament) => {
+    const promises = tournaments.map(async tournament => {
       try {
         const tournamentData = await this.loadJson(
           `./data/${tournament}.json`,
@@ -107,7 +107,7 @@ export class DataLoader {
   public clearCache(): void {
     this.cache.clear();
     this.versions.clear();
-    console.log("🗑️ Кеш данных очищен");
+    console.log('🗑️ Кеш данных очищен');
   }
 
   /**

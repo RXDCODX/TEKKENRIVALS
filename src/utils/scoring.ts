@@ -7,7 +7,7 @@ import {
   PlayerSummary,
   TournamentResult,
   PlayerRanking,
-} from "../types";
+} from '../types';
 
 /**
  * Система очков за места в турнире - TEKKEN RIVALS FINALS
@@ -124,7 +124,7 @@ export function processTournamentResults(
       challonge_username: participant.challonge_username,
       challonge_user_id: participant.challonge_user_id,
     }))
-    .filter((result) => result.final_rank > 0); // Исключаем участников без финального места
+    .filter(result => result.final_rank > 0); // Исключаем участников без финального места
 }
 
 /**
@@ -139,9 +139,9 @@ export function createPlayerSummary(
 ): PlayerSummary {
   if (!results.length) {
     return {
-      name: "",
-      username: "",
-      challonge_username: "",
+      name: '',
+      username: '',
+      challonge_username: '',
       challonge_user_id: 0,
       tournaments_participated: 0,
       best_rank: null,
@@ -154,8 +154,8 @@ export function createPlayerSummary(
     };
   }
 
-  const ranks = results.map((r) => r.final_rank).filter((rank) => rank > 0);
-  const points = results.map((r) => r.points_earned);
+  const ranks = results.map(r => r.final_rank).filter(rank => rank > 0);
+  const points = results.map(r => r.points_earned);
 
   // Выбираем лучшее имя и username из всех результатов
   // Приоритет: challonge_username, затем самое длинное имя
@@ -181,7 +181,7 @@ export function createPlayerSummary(
   });
 
   const bestName = bestResult.participant_name;
-  const bestUsername = bestResult.challonge_username || "";
+  const bestUsername = bestResult.challonge_username || '';
   const bestUserId = bestResult.challonge_user_id || 0;
 
   return {
@@ -262,7 +262,7 @@ export function createPlayerRanking(
       return b.points - a.points;
     }
     // Если очки одинаковые, сортируем по алфавиту по имени
-    return a.player.name.localeCompare(b.player.name, "ru");
+    return a.player.name.localeCompare(b.player.name, 'ru');
   });
 
   // Обновляем позиции после сортировки
@@ -290,8 +290,8 @@ export function getPointsStatistics(rankings: PlayerRanking[]) {
     };
   }
 
-  const points = rankings.map((r) => r.points);
-  const playersWithPoints = rankings.filter((r) => r.points > 0);
+  const points = rankings.map(r => r.points);
+  const playersWithPoints = rankings.filter(r => r.points > 0);
 
   return {
     total_players: rankings.length,

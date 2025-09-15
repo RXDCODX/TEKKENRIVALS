@@ -1,0 +1,74 @@
+name: Auto Format on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  auto-format:
+    name: Auto Format Code
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint and fix issues
+        run: npm run lint:fix
+
+      - name: Format code with Prettier
+        run: npm run format
+
+      - name: Check for changes after formatting
+        id: check-changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Files changed:" >> $GITHUB_STEP_SUMMARY
+            git diff --name-only >> $GITHUB_STEP_SUMMARY
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No formatting changes needed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Commit and push formatting changes
+        if: steps.check-changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "🤖 Auto-format code
+
+          - Fixed ESLint issues
+          - Applied Prettier formatting
+          - Organized imports
+
+          [skip ci]"
+          git push
+
+      - name: Add PR comment
+        if: steps.check-changes.outputs.changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🤖 **Автоматическое форматирование завершено!**\n\nКод был автоматически отформатирован с помощью:\n- ✅ ESLint (исправлены ошибки)\n- ✅ Prettier (применено форматирование)\n- ✅ Сортировка импортов\n\nИзменения автоматически добавлены в PR.'
+            })

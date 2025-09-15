@@ -8,27 +8,27 @@ interface AppHeaderProps {
 
 const AppHeader: React.FC<AppHeaderProps> = ({ isSplashActive = false }) => {
   return (
-    <header className="app-header">
-      <div className="logo-container">
-        <a 
-          href="https://discord.gg/HhNVKBuM8A" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="logo-link"
+    <header className='app-header'>
+      <div className='logo-container'>
+        <a
+          href='https://discord.gg/HhNVKBuM8A'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='logo-link'
         >
-          <img 
-            src="./logo_animation_mini1.gif" 
-            alt="TEKKEN RIVALS Logo" 
+          <img
+            src='./logo_animation_mini1.gif'
+            alt='TEKKEN RIVALS Logo'
             className={`logo-animation ${isSplashActive ? 'paused' : 'playing'}`}
           />
         </a>
       </div>
-      <div className="logo-delimiter"></div>
-      <div className="points-info">
-        <div className="points-header">
+      <div className='logo-delimiter'></div>
+      <div className='points-info'>
+        <div className='points-header'>
           <h3>Система подсчета очков</h3>
         </div>
-        <div className="points-grid">
+        <div className='points-grid'>
           <span>1 место → 11 баллов</span>
           <span>2 место → 10 баллов</span>
           <span>3 место → 8 баллов</span>

@@ -32,36 +32,39 @@ const DoomModal: React.FC<DoomModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="doom-modal-overlay" onClick={onClose}>
-      <div className="doom-modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="doom-modal-header">
+    <div className='doom-modal-overlay' onClick={onClose}>
+      <div className='doom-modal-content' onClick={e => e.stopPropagation()}>
+        <div className='doom-modal-header'>
           <h2>DOOM - Веб версия</h2>
-          <button className="doom-modal-close" onClick={onClose}>
+          <button className='doom-modal-close' onClick={onClose}>
             ×
           </button>
         </div>
-        
-        <div className="doom-modal-body">
+
+        <div className='doom-modal-body'>
           <iframe
-            id="doom-iframe"
-            src="https://doom-emulator.yeet.su/dos.html"
-            className="doom-iframe"
-            title="DOOM Emulator"
+            id='doom-iframe'
+            src='https://doom-emulator.yeet.su/dos.html'
+            className='doom-iframe'
+            title='DOOM Emulator'
             allowFullScreen
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
+            sandbox='allow-scripts allow-same-origin allow-forms allow-popups allow-presentation'
           />
-          <div className="doom-controls">
-            <button onClick={handleFullscreen} className="doom-fullscreen-btn">
+          <div className='doom-controls'>
+            <button onClick={handleFullscreen} className='doom-fullscreen-btn'>
               Сделать полноэкранным
             </button>
-            <div className="doom-instructions">
+            <div className='doom-instructions'>
               <p>DOOM веб-эмулятор загружается...</p>
-              <p>Стрелки для движения, Пробел для использования, Ctrl для стрельбы</p>
-              <a 
-                href="http://doom.wikia.com/wiki/Controls" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="doom-controls-link"
+              <p>
+                Стрелки для движения, Пробел для использования, Ctrl для
+                стрельбы
+              </p>
+              <a
+                href='http://doom.wikia.com/wiki/Controls'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='doom-controls-link'
               >
                 Больше управлений
               </a>

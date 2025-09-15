@@ -20,7 +20,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease, opacity 0.5s ease-in-out;
+  transition:
+    all 0.3s ease,
+    opacity 0.5s ease-in-out;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   opacity: 0;
@@ -39,7 +41,9 @@
   &.playing {
     background: #000000;
     border-color: #16a34a;
-    animation: audioPulse 2s infinite, buttonPulseGreen 3s ease-in-out infinite;
+    animation:
+      audioPulse 2s infinite,
+      buttonPulseGreen 3s ease-in-out infinite;
 
     &:hover {
       background: #1a1a1a;
@@ -50,7 +54,9 @@
   &.visible {
     opacity: 1;
     transform: translateX(0);
-    animation: slideIn 0.5s ease-out, buttonPulse 3s ease-in-out infinite;
+    animation:
+      slideIn 0.5s ease-out,
+      buttonPulse 3s ease-in-out infinite;
   }
 
   &.muted {
@@ -241,7 +247,6 @@
     height: 100px;
   }
 }
-
 
 // Анимация появления ползунка
 @keyframes slideInVolume {

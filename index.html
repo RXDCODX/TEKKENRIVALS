@@ -5,18 +5,30 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TEKKEN RIVALS - Анализ турниров по Tekken</title>
-    
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="TEKKEN RIVALS - платформа для анализа турниров по Tekken. Отслеживайте статистику игроков, результаты матчей и рейтинги в режиме реального времени." />
-    <meta name="keywords" content="Tekken, турниры, игроки, рейтинг, статистика, боевые игры, fighting games, esports, киберспорт" />
+    <meta
+      name="description"
+      content="TEKKEN RIVALS - платформа для анализа турниров по Tekken. Отслеживайте статистику игроков, результаты матчей и рейтинги в режиме реального времени."
+    />
+    <meta
+      name="keywords"
+      content="Tekken, турниры, игроки, рейтинг, статистика, боевые игры, fighting games, esports, киберспорт"
+    />
     <meta name="author" content="TEKKEN RIVALS" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="Russian" />
     <meta name="revisit-after" content="7 days" />
-    
+
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="TEKKEN RIVALS - Анализ турниров по Tekken" />
-    <meta property="og:description" content="Платформа для анализа турниров по Tekken. Отслеживайте статистику игроков, результаты матчей и рейтинги в режиме реального времени." />
+    <meta
+      property="og:title"
+      content="TEKKEN RIVALS - Анализ турниров по Tekken"
+    />
+    <meta
+      property="og:description"
+      content="Платформа для анализа турниров по Tekken. Отслеживайте статистику игроков, результаты матчей и рейтинги в режиме реального времени."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tekkenrivals.com" />
     <meta property="og:site_name" content="TEKKEN RIVALS" />
@@ -24,44 +36,59 @@
     <meta property="og:image" content="/logo_animation_mini1.gif" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="TEKKEN RIVALS - Логотип платформы анализа турниров" />
-    
+    <meta
+      property="og:image:alt"
+      content="TEKKEN RIVALS - Логотип платформы анализа турниров"
+    />
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TEKKEN RIVALS - Анализ турниров по Tekken" />
-    <meta name="twitter:description" content="Платформа для анализа турниров по Tekken. Отслеживайте статистику игроков, результаты матчей и рейтинги в режиме реального времени." />
+    <meta
+      name="twitter:title"
+      content="TEKKEN RIVALS - Анализ турниров по Tekken"
+    />
+    <meta
+      name="twitter:description"
+      content="Платформа для анализа турниров по Tekken. Отслеживайте статистику игроков, результаты матчей и рейтинги в режиме реального времени."
+    />
     <meta name="twitter:image" content="/logo_animation_mini1.gif" />
-    <meta name="twitter:image:alt" content="TEKKEN RIVALS - Логотип платформы анализа турниров" />
-    
+    <meta
+      name="twitter:image:alt"
+      content="TEKKEN RIVALS - Логотип платформы анализа турниров"
+    />
+
     <!-- Additional SEO Meta Tags -->
     <meta name="theme-color" content="#000000" />
     <meta name="msapplication-TileColor" content="#000000" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="TEKKEN RIVALS" />
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://tekkenrivals.com" />
-    
+
     <!-- Preconnect to external domains for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
+
     <!-- Предотвращение кеширования -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <meta name="cache-control" content="max-age=0" />
     <meta name="expires" content="0" />
     <meta name="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-    
+
     <!-- Стили для предотвращения белого фона во время загрузки -->
     <style>
       /* Критический путь рендеринга - предотвращение белого фона */
       * {
         box-sizing: border-box;
       }
-      
+
       html {
         background-color: #000000 !important;
         margin: 0;
@@ -69,7 +96,7 @@
         height: 100%;
         width: 100%;
       }
-      
+
       body {
         background-color: #000000 !important;
         margin: 0;
@@ -88,7 +115,7 @@
         position: relative;
         overflow-x: hidden;
       }
-      
+
       #root {
         background-color: #000000 !important;
         min-height: 100vh;
@@ -100,14 +127,14 @@
         color: #ffffff;
       }
 
-      body:not(.animations-enabled){
+      body:not(.animations-enabled) {
         /* Скрываем скроллбар на сплеш-скрине */
         overflow: hidden;
       }
-      
+
       /* Стили для загрузки до инициализации React */
       body:not(.loaded) #root::before {
-        content: "TEKKEN RIVALS";
+        content: 'TEKKEN RIVALS';
         color: #ff0000;
         font-size: 3.5rem;
         font-weight: 700;
@@ -116,9 +143,9 @@
         display: block;
         margin-bottom: 1rem;
       }
-      
+
       body:not(.loaded) #root::after {
-        content: "Загрузка...";
+        content: 'Загрузка...';
         color: #ff0000;
         font-size: 1.2rem;
         font-weight: 500;
@@ -127,7 +154,7 @@
         animation: pulse 2s ease-in-out infinite;
         margin-top: 0.5rem;
       }
-      
+
       /* Сброс стилей после загрузки React */
       body.loaded #root {
         display: block !important;
@@ -135,23 +162,24 @@
         justify-content: unset !important;
         background-color: transparent !important;
       }
-      
+
       body.loaded #root::before,
       body.loaded #root::after {
         display: none !important;
       }
-      
+
       /* Дополнительная защита от белого фона */
       body.loaded {
         background-color: transparent !important;
       }
-      
+
       body.loaded html {
         background-color: #000000 !important;
       }
-      
+
       @keyframes pulse {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 0.7;
           transform: scale(1);
         }
@@ -160,7 +188,7 @@
           transform: scale(1.05);
         }
       }
-      
+
       /* Предотвращение FOUC (Flash of Unstyled Content) */
       .app-loading {
         background-color: #000000 !important;

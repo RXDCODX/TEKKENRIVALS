@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 export interface AudioContextType {
   backgroundMusic: HTMLAudioElement | null;
@@ -11,4 +11,6 @@ export interface AudioContextType {
   setSplashActive: (active: boolean) => void;
 }
 
-export const AudioContext = createContext<AudioContextType | undefined>(undefined);
+export const AudioContext = createContext<AudioContextType | undefined>(
+  undefined
+);

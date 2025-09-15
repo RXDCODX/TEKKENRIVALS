@@ -1,6 +1,10 @@
 import React from 'react';
 import { TournamentParticipantsData, TournamentResult } from '../types';
-import { processTournamentResults, getPointsStatistics, createPlayerRanking } from '../utils/scoring';
+import {
+  processTournamentResults,
+  getPointsStatistics,
+  createPlayerRanking,
+} from '../utils/scoring';
 import TournamentsCarousel from './TournamentsCarousel';
 
 interface TournamentStatsProps {
@@ -24,21 +28,24 @@ export interface TournamentSummary {
   tournamentNumber: number;
 }
 
-const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => {
-
+const TournamentStats: React.FC<TournamentStatsProps> = ({
+  tournamentData,
+}) => {
   // Функция для получения номера турнира
   const getTournamentNumber = (tournamentName: string): number => {
     const tournamentNumbers: { [key: string]: number } = {
-      'one': 1,
-      'two': 2,
-      'three': 3,
-      'four': 4
+      one: 1,
+      two: 2,
+      three: 3,
+      four: 4,
     };
     return tournamentNumbers[tournamentName] || 999; // Если турнир не найден, ставим в конец
   };
 
   // Создаем сводку по каждому турниру
-  const tournamentSummaries: TournamentSummary[] = Object.entries(tournamentData)
+  const tournamentSummaries: TournamentSummary[] = Object.entries(
+    tournamentData
+  )
     .map(([tournamentName, participants]) => {
       const results = processTournamentResults(participants);
       const statistics = getPointsStatistics(
@@ -74,11 +81,16 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
     .sort((a, b) => a.tournamentNumber - b.tournamentNumber); // Сортируем по номеру турнира
 
   // Общая статистика по всем турнирам
-  const allResults = Object.values(tournamentData).flatMap(processTournamentResults);
-  
+  const allResults = Object.values(tournamentData).flatMap(
+    processTournamentResults
+  );
+
   // Создаем рейтинг для подсчета уникальных игроков
-  const playerRankings = createPlayerRanking(allResults, tournamentSummaries.length);
-  
+  const playerRankings = createPlayerRanking(
+    allResults,
+    tournamentSummaries.length
+  );
+
   const overallStats = getPointsStatistics(
     allResults.map((result, index) => ({
       player: {
@@ -99,14 +111,16 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
       points: result.points_earned,
     }))
   );
-  
+
   // Обновляем количество игроков на основе уникальных игроков
   overallStats.total_players = playerRankings.length;
-  overallStats.players_with_points = playerRankings.filter(player => player.points > 0).length;
+  overallStats.players_with_points = playerRankings.filter(
+    player => player.points > 0
+  ).length;
 
   if (!tournamentSummaries.length) {
     return (
-      <div className="tournament-stats">
+      <div className='tournament-stats'>
         <h2>Статистика турниров</h2>
         <p>Нет данных для отображения статистики</p>
       </div>
@@ -114,39 +128,41 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
   }
 
   return (
-    <div className="tournament-stats">
+    <div className='tournament-stats'>
       <h2>Статистика турниров TEKKEN RIVALS</h2>
-      
+
       {/* Общая статистика */}
-      <div className="overall-stats">
+      <div className='overall-stats'>
         <h3>Общая статистика</h3>
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-icon">🏆</div>
-            <div className="stat-content">
-              <div className="stat-value">{tournamentSummaries.length}</div>
-              <div className="stat-label">Турниров проведено</div>
+        <div className='stats-grid'>
+          <div className='stat-card'>
+            <div className='stat-icon'>🏆</div>
+            <div className='stat-content'>
+              <div className='stat-value'>{tournamentSummaries.length}</div>
+              <div className='stat-label'>Турниров проведено</div>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon">🫂</div>
-            <div className="stat-content">
-              <div className="stat-value">{overallStats.total_players}</div>
-              <div className="stat-label">Участников всего</div>
+          <div className='stat-card'>
+            <div className='stat-icon'>🫂</div>
+            <div className='stat-content'>
+              <div className='stat-value'>{overallStats.total_players}</div>
+              <div className='stat-label'>Участников всего</div>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon">⭐</div>
-            <div className="stat-content">
-              <div className="stat-value">{overallStats.players_with_points}</div>
-              <div className="stat-label">Игроков с очками</div>
+          <div className='stat-card'>
+            <div className='stat-icon'>⭐</div>
+            <div className='stat-content'>
+              <div className='stat-value'>
+                {overallStats.players_with_points}
+              </div>
+              <div className='stat-label'>Игроков с очками</div>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon">💎</div>
-            <div className="stat-content">
-              <div className="stat-value">{overallStats.max_points}</div>
-              <div className="stat-label">Максимум очков</div>
+          <div className='stat-card'>
+            <div className='stat-icon'>💎</div>
+            <div className='stat-content'>
+              <div className='stat-value'>{overallStats.max_points}</div>
+              <div className='stat-label'>Максимум очков</div>
             </div>
           </div>
         </div>
@@ -154,7 +170,6 @@ const TournamentStats: React.FC<TournamentStatsProps> = ({ tournamentData }) => 
 
       {/* Карусель турниров */}
       <TournamentsCarousel tournaments={tournamentSummaries} />
-
     </div>
   );
 };
