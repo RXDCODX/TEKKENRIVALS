@@ -100,11 +100,13 @@ const CreatorsSection: React.FC = () => {
                   rel="noopener noreferrer"
                   className="creator-link"
                 >
-                  <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
-                    <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
-                    <rect x="1700" y="550" fill="#29ffa7" width="200" height="600"/>
-                    <rect x="1150" y="550" fill="#29ffa7" width="200" height="600"/>
-                  </svg>
+                  <picture>
+                    <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
+                      <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
+                      <rect x="1700" y="550" fill="#29ffa7" width="200" height="600"/>
+                      <rect x="1150" y="550" fill="#29ffa7" width="200" height="600"/>
+                    </svg>
+                  </picture>
                   Twitch
                 </a>
               </div>
@@ -122,17 +124,19 @@ const CreatorsSection: React.FC = () => {
                 <h4>EdenEleven</h4>
                 <p>3D-герой, Саундтрек</p>
                 <a 
-                  href="https://twitch.tv/edeneleven" 
+                  href="https://t.me/matthew_eden" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="creator-link"
                 >
-                  <svg width="16" height="16" viewBox="0 0 2400 2800" style={{marginRight: '4px', verticalAlign: 'middle'}}>
-                    <path fill="#29ffa7" d="M500,0L0,500v1800h600v500l500-500h400l900-900V0H500z M2200,1300l-400,400h-400l-350,350v-350H600V200h1600V1300z"/>
-                    <rect x="1700" y="550" fill="#29ffa7" width="200" height="600"/>
-                    <rect x="1150" y="550" fill="#29ffa7" width="200" height="600"/>
-                  </svg>
-                  Twitch
+                  <img 
+                    src="./telegram.svg" 
+                    alt="Telegram" 
+                    width="16" 
+                    height="16" 
+                    style={{marginRight: '4px', verticalAlign: 'middle', filter: 'brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(1000%) hue-rotate(90deg) brightness(1.2) contrast(1.2)'}}
+                  />
+                  Telegram
                 </a>
               </div>
             </div>

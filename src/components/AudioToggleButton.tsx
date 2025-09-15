@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useAudio } from '../hooks/useAudio';
 import styles from './AudioToggleButton.module.scss';
 
@@ -18,18 +18,18 @@ const AudioToggleButton: React.FC<AudioToggleButtonProps> = ({ isVisible = false
     }
   };
 
-  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVolumeChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(event.target.value);
     setVolume(newVolume);
-  };
+  }, [setVolume]);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
-  };
+  }, []);
 
   return (
     <div 
