@@ -142,13 +142,54 @@ tr:hover {
 .username {
   color: $text-light;
   font-style: italic;
+
+  .points {
+    font-weight: bold;
+    color: $success-color;
+    font-size: $font-size-lg;
+    text-align: center;
+  }
 }
 
-.points {
-  font-weight: bold;
-  color: $success-color;
-  font-size: $font-size-lg;
-  text-align: center;
+// Стили для кнопки "Увидеть больше"
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  padding: $spacing-lg;
+  background: #0f0a0a;
+  border-top: 1px solid rgba(255, 57, 57, 0.45);
+}
+
+.show-more-button {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: $white;
+  border: none;
+  padding: $spacing-md $spacing-xl;
+  border-radius: $border-radius-medium;
+  font-size: $font-size-md;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  @include card-shadow;
+  border: 2px solid transparent;
+
+  &:hover {
+    background: linear-gradient(135deg, $secondary-color, $primary-color);
+    transform: translateY(-2px);
+    @include card-shadow-hover;
+    border-color: $primary-color;
+  }
+
+  &:active {
+    transform: translateY(0);
+    @include card-shadow;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
+  }
 }
 
 // Адаптивность - Планшеты и меньше
@@ -209,6 +250,15 @@ tr:hover {
   }
 
   .points {
+    font-size: $font-size-sm;
+  }
+
+  .show-more-container {
+    padding: $spacing-md;
+  }
+
+  .show-more-button {
+    padding: $spacing-sm $spacing-lg;
     font-size: $font-size-sm;
   }
 }
@@ -306,6 +356,17 @@ tr:hover {
   .points {
     font-size: $font-size-xs;
   }
+
+  .show-more-container {
+    padding: $spacing-sm;
+  }
+
+  .show-more-button {
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-sm;
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 // Адаптивность - Очень маленькие мобильные устройства
@@ -381,5 +442,16 @@ tr:hover {
 
   .points {
     font-size: 0.6rem;
+  }
+
+  .show-more-container {
+    padding: $spacing-xs;
+  }
+
+  .show-more-button {
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-xs;
+    width: 100%;
+    max-width: 250px;
   }
 }
