@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PlayerRanking as PlayerRankingType } from '../types';
 
 import { getPointsStatistics } from '../utils/scoring';
@@ -9,6 +9,8 @@ interface PlayerRankingProps {
 
 const PlayerRanking: React.FC<PlayerRankingProps> = ({ rankings }) => {
   const statistics = getPointsStatistics(rankings);
+  const [showAll, setShowAll] = useState(false);
+  const initialDisplayCount = 10; // Показываем первые 10 игроков по умолчанию
 
   if (!rankings.length) {
     return (
@@ -62,46 +64,64 @@ const PlayerRanking: React.FC<PlayerRankingProps> = ({ rankings }) => {
             </tr>
           </thead>
           <tbody>
-            {rankings.map(ranking => (
-              <tr
-                key={ranking.player.challonge_username}
-                className='ranking-row clickable'
-                id={ranking.player.challonge_user_id.toString()}
-                onClick={() =>
-                  window.open(
-                    `https://challonge.com/users/${ranking.player.challonge_username}`,
-                    '_blank'
-                  )
-                }
-              >
-                <td className='position'>
-                  {ranking.position}
-                  {ranking.position <= 3 && (
-                    <span className='medal'>
-                      {ranking.position === 1
-                        ? '🥇'
-                        : ranking.position === 2
-                          ? '🥈'
-                          : '🥉'}
-                    </span>
-                  )}
-                </td>
-                <td className='player-name'>{ranking.player.name}</td>
-                <td className='username'>
-                  {ranking.player.challonge_username}
-                </td>
-                <td className='points'>{ranking.points}</td>
-                <td>{ranking.player.tournaments_participated}</td>
-                <td>
-                  {ranking.player.best_rank
-                    ? `${ranking.player.best_rank}${getOrdinalSuffix(ranking.player.best_rank)}`
-                    : '-'}
-                </td>
-                <td>{Math.round(ranking.player.participation_rate * 100)}%</td>
-              </tr>
-            ))}
+            {(showAll ? rankings : rankings.slice(0, initialDisplayCount)).map(
+              ranking => (
+                <tr
+                  key={ranking.player.challonge_username}
+                  className='ranking-row clickable'
+                  id={ranking.player.challonge_user_id.toString()}
+                  onClick={() =>
+                    window.open(
+                      `https://challonge.com/users/${ranking.player.challonge_username}`,
+                      '_blank'
+                    )
+                  }
+                >
+                  <td className='position'>
+                    {ranking.position}
+                    {ranking.position <= 3 && (
+                      <span className='medal'>
+                        {ranking.position === 1
+                          ? '🥇'
+                          : ranking.position === 2
+                            ? '🥈'
+                            : '🥉'}
+                      </span>
+                    )}
+                  </td>
+                  <td className='player-name'>{ranking.player.name}</td>
+                  <td className='username'>
+                    {ranking.player.challonge_username}
+                  </td>
+                  <td className='points'>{ranking.points}</td>
+                  <td>{ranking.player.tournaments_participated}</td>
+                  <td>
+                    {ranking.player.best_rank
+                      ? `${ranking.player.best_rank}${getOrdinalSuffix(ranking.player.best_rank)}`
+                      : '-'}
+                  </td>
+                  <td>
+                    {Math.round(ranking.player.participation_rate * 100)}%
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
+
+        {/* Кнопка "Увидеть больше" */}
+        {rankings.length > initialDisplayCount && (
+          <div className='show-more-container'>
+            <button
+              className='show-more-button'
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll
+                ? 'Скрыть'
+                : `Увидеть больше (${rankings.length - initialDisplayCount} игроков)`}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

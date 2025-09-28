@@ -66,6 +66,10 @@
   overflow: hidden;
   @include card-shadow;
   border: 2px solid $border-color;
+
+  > h3 {
+    margin-top: 20px;
+  }
 }
 
 table {
@@ -161,34 +165,33 @@ tr:hover {
 }
 
 .show-more-button {
-  background: linear-gradient(135deg, $primary-color, $secondary-color);
-  color: $white;
-  border: none;
-  padding: $spacing-md $spacing-xl;
-  border-radius: $border-radius-medium;
-  font-size: $font-size-md;
-  font-weight: 600;
+  background: rgba(41, 255, 167, 0.1);
+  border: 1px solid rgba(41, 255, 167, 0.3);
+  color: #29ffa7;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-small;
+  font-size: $font-size-sm;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  @include card-shadow;
-  border: 2px solid transparent;
+  -webkit-tap-highlight-color: rgba(41, 255, 167, 0.1);
+  touch-action: manipulation;
 
-  &:hover {
-    background: linear-gradient(135deg, $secondary-color, $primary-color);
+  &:hover:not(:disabled) {
+    background: rgba(41, 255, 167, 0.2);
+    border-color: #29ffa7;
+    color: #1ed760;
     transform: translateY(-2px);
-    @include card-shadow-hover;
-    border-color: $primary-color;
   }
 
-  &:active {
-    transform: translateY(0);
-    @include card-shadow;
+  &:active:not(:disabled) {
+    transform: translateY(-1px) scale(0.98);
   }
 
   &:focus {
     outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
+    border-color: #29ffa7;
+    box-shadow: 0 0 0 3px rgba(41, 255, 167, 0.2);
   }
 }
 

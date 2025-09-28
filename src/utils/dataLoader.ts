@@ -1,4 +1,5 @@
 // Утилита для загрузки данных с предотвращением кеширования
+import { TournamentParticipantsData } from '../types';
 
 export interface DataVersion {
   version: string;
@@ -7,7 +8,7 @@ export interface DataVersion {
 
 export class DataLoader {
   private static instance: DataLoader;
-  private cache: Map<string, any> = new Map();
+  private cache: Map<string, TournamentParticipantsData> = new Map();
   private versions: Map<string, DataVersion> = new Map();
 
   public static getInstance(): DataLoader {
@@ -23,7 +24,7 @@ export class DataLoader {
    * @param forceRefresh Принудительно обновить данные
    * @returns Promise с данными
    */
-  public async loadJson<T = any>(
+  public async loadJson<T = unknown>(
     path: string,
     forceRefresh: boolean = false
   ): Promise<T> {
@@ -31,7 +32,7 @@ export class DataLoader {
 
     // Если данные в кеше и не требуется принудительное обновление
     if (!forceRefresh && this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey);
+      return this.cache.get(cacheKey) as T;
     }
 
     try {
@@ -52,10 +53,10 @@ export class DataLoader {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as T;
 
       // Сохраняем в кеш
-      this.cache.set(cacheKey, data);
+      this.cache.set(cacheKey, data as TournamentParticipantsData);
       this.versions.set(cacheKey, {
         version: timestamp.toString(),
         timestamp: Date.now(),
@@ -78,13 +79,13 @@ export class DataLoader {
   public async loadTournamentData(
     tournaments: string[],
     forceRefresh: boolean = false
-  ): Promise<{ [key: string]: any }> {
-    const data: { [key: string]: any } = {};
+  ): Promise<{ [key: string]: TournamentParticipantsData }> {
+    const data: { [key: string]: TournamentParticipantsData } = {};
 
     // Загружаем данные параллельно для ускорения
     const promises = tournaments.map(async tournament => {
       try {
-        const tournamentData = await this.loadJson(
+        const tournamentData = await this.loadJson<TournamentParticipantsData>(
           `./data/${tournament}.json`,
           forceRefresh
         );
