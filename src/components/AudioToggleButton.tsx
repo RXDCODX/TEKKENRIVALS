@@ -67,21 +67,21 @@ const AudioToggleButton: React.FC<AudioToggleButtonProps> = ({
         </div>
       </button>
 
-      {isHovered && (
-        <div className={styles.volumeSliderContainer}>
-          <input
-            type='range'
-            min='0'
-            max='1'
-            step='0.01'
-            value={volume}
-            onChange={handleVolumeChange}
-            className={styles.volumeSlider}
-            title={`Громкость: ${Math.round(volume * 100)}%`}
-            aria-label='Регулировка громкости'
-          />
-        </div>
-      )}
+      <div
+        className={`${styles.volumeSliderContainer} ${isHovered ? styles.sliderVisible : ''}`}
+      >
+        <input
+          type='range'
+          min='0'
+          max='1'
+          step='0.01'
+          value={volume}
+          onChange={handleVolumeChange}
+          className={styles.volumeSlider}
+          title={`Громкость: ${Math.round(volume * 100)}%`}
+          aria-label='Регулировка громкости'
+        />
+      </div>
     </div>
   );
 };
