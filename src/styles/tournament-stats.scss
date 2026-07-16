@@ -228,19 +228,19 @@
 
   // Специальные фоны для каждого турнира
   &.tournament-one .card-back {
-    background-image: url('/TEKKENRIVALS/R1.png');
+    background-image: url('/R1.png');
   }
 
   &.tournament-two .card-back {
-    background-image: url('/TEKKENRIVALS/R2.png');
+    background-image: url('/R2.png');
   }
 
   &.tournament-three .card-back {
-    background-image: url('/TEKKENRIVALS/R3.png');
+    background-image: url('R3.png');
   }
 
   &.tournament-four .card-back {
-    background-image: url('/TEKKENRIVALS/R4.png');
+    background-image: url('/R4.png');
   }
 }
 

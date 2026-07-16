@@ -28,7 +28,7 @@ const TournamentsCarousel: React.FC<TournamentsCarouselProps> = ({
 
   // Функция для получения фонового изображения турнира
   const getTournamentBackground = (tournamentNumber: number): string => {
-    return `/TEKKENRIVALS/R${tournamentNumber}.png`;
+    return `/R${tournamentNumber}.png`;
   };
 
   // Функция для обработки смены слайда
