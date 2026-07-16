@@ -44,7 +44,7 @@ const DoomModal: React.FC<DoomModalProps> = ({ isOpen, onClose }) => {
         <div className='doom-modal-body'>
           <iframe
             id='doom-iframe'
-            src='https://doom-emulator.yeet.su/dos.html'
+            src='https://archive.org/embed/msdos_DOOM_1993'
             className='doom-iframe'
             title='DOOM Emulator'
             allowFullScreen
