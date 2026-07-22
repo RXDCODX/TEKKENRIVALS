@@ -197,10 +197,13 @@ body {
   padding: $spacing-xl $spacing-lg;
   margin: $spacing-lg;
   text-align: center;
+  @include flex-center;
+  flex-direction: column;
   @include card-shadow;
   backdrop-filter: blur(10px);
   border: 2px solid $border-color;
   border-radius: $border-radius-large;
+  min-height: 600px;
 
   p {
     font-size: $font-size-xl;
@@ -208,7 +211,6 @@ body {
     margin-bottom: $spacing-xl;
     font-weight: bold;
   }
-  min-height: 600px;
 }
 
 .logo-container {
